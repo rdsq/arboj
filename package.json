@@ -16,6 +16,7 @@
   "author": "rdsq",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^20.12.12",
     "typescript": "^5.4.5"
   }
 }
