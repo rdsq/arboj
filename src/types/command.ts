@@ -36,8 +36,7 @@ export type Command = {
      */
     handler: Handler | null,
     /**
-     * Don't call the handler if this command was called with subcommands.
-     * `true` by default
+     * Expected args of this command
      */
-    ignoreIfSubcommands?: boolean,
+    args?: string[],
 };

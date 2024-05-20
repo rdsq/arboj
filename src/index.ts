@@ -14,25 +14,8 @@ export type YaclilOptions = {
     helpOptions?: boolean,
 };
 
-export function yaclil(options: YaclilOptions) {
-    options.helpOptions ||= true;
-    /** The selected command, will be changed in the cycle */
-    let selectedCommand: Command = options.rootCommand;
-    let selectionStopped: boolean = false;
-    for (let i = 2; i < process.argv.length; i++) {
-        const arg = process.argv[i];
-        // detect option (full name)
-        if (arg.startsWith('-')) {
-            selectionStopped = true;
-            let optionName: string = arg.slice('--'.length);
-            let searchBy: 'name' | 'shortName' = 'name';
-            if (!arg.startsWith('--')) {
-                optionName = arg.slice('-'.length);
-                searchBy = 'shortName';
-            }
-            const selectedOption = (selectedCommand.options || []).find(
-                (value) => value[searchBy] === optionName
-            );
-        }
-    }
-}
+/**
+ * The YACLIL API
+ * @param options Options for the app
+ */
+export function yaclil(options: YaclilOptions) {}
