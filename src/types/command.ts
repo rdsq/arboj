@@ -45,4 +45,14 @@ export type Command = {
      * Expected args of this command
      */
     args?: string[],
+    /**
+     * Allow args, that were not expected by this command.
+     * `false` by default
+     */
+    allowUnexpectedArgs?: boolean,
+    /**
+     * Allow options that were not expected by the command.
+     * `false` by default
+     */
+    allowUnexpectedOptions?: boolean,
 };

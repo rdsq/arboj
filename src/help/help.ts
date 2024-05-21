@@ -102,3 +102,15 @@ export function renderHelp(parsedCommand: ParsedCommand): string {
         return result.join(separator);
     }
 }
+
+/**
+ * Get the help command for some command
+ * @param parsed The parser result
+ * @returns Something like `my-cli my-command --help`
+ */
+export function getHelpCommand(parsed: ParsedCommand): string {
+    const result: string[] = [];
+    result.push(...parsed.treePath);
+    result.push('--help');
+    return result.join(' ');
+}

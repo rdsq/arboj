@@ -1,9 +1,10 @@
 {
   "name": "yaclil",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Yet Another CLI Library",
   "main": "out/index.js",
   "private": true,
+  "types": "out/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "tsc",
