@@ -1,6 +1,6 @@
 import type { Command } from "../types/command";
 import type { Option } from "../types/option";
-import { ParsedOption } from "../types/parsed";
+import { ParsedCommand } from "../types/parsed";
 import { renderCommandOptions } from "./options";
 import { renderCommandSubcommands } from "./subcommands";
 
@@ -79,12 +79,11 @@ export function renderOptionHelp(treePath: string[], option: Option): string {
  * If this command was called without options, then it renders only command.
  * If with one option, renders only this option help.
  * If multiple options renders help for the command and all these options.
- * @param treePath The path to the command like `['my-cli', 'my-command']`
- * @param command The command
- * @param options Options called (parsed)
+ * @param parsedCommand The result of the parser
  * @returns The result string
  */
-export function renderHelp(treePath: string[], command: Command, options: ParsedOption[]): string {
+export function renderHelp(parsedCommand: ParsedCommand): string {
+    const { options, treePath, command } = parsedCommand;
     if (options.length === 0) {
         // for command only
         return renderCommandHelp(treePath, command);

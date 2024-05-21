@@ -1,3 +1,4 @@
+import { renderHelp } from "./help/help";
 import { parseCommand } from "./parser";
 import type { Command } from "./types/command";
 
@@ -39,4 +40,17 @@ export function yaclil(options: YaclilOptions) {
         argv: argv.slice(2),
         rootCommand: options.rootCommand,
     });
+    const helpOptionIndex = parsed.options.findIndex(
+        value => value.option.name === "help"
+    );
+    // get the configured value of include help feature, or `true` by default
+    const helpConfigValue = parsed.command.helpOption ?? options.advanced.helpOptions ?? true;
+    if (helpOptionIndex !== -1 && helpConfigValue) {
+        // remove the help option
+        parsed.options.splice(helpOptionIndex, 1);
+        // return the help string
+        console.log(renderHelp(parsed));
+    } else {
+        
+    }
 }
