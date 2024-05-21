@@ -91,6 +91,7 @@ export function parseCommand({
         options: [] as ParsedOption[],
         unexpectedOptions: [] as string[],
         unexpectedOptionsShort: [] as string[],
+        treePath: [ rootCommand.name ] as string[],
     };
     /** If the parser found an option or arg,
      * then it is not searching for a command */
@@ -114,6 +115,8 @@ export function parseCommand({
                 if (commandFound) {
                     // then switch to it
                     returning.command = commandFound;
+                    // add the new command to the tree path
+                    returning.treePath.push(commandFound.name);
                 } else {
                     // or it is an arg to this command
                     searchingForCommand = false;

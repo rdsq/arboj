@@ -17,10 +17,11 @@ export type Command = {
     /**
      * Hint for help how to use this command.
      * Does not affect app behavior.
-     * Put here everything that will appear after the command.
-     * For example, `<name> <options...>`.
+     * Put here everything that will appear after the command and its args.
+     * For example, `<examples...>` to say user that this command expects
+     * additional arguments.
      */
-    usage?: string,
+    additionalUsage?: string,
     /** 
      * Options of the command
      */
