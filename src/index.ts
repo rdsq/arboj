@@ -1,3 +1,4 @@
+import { parseCommand } from "./parser";
 import type { Command } from "./types/command";
 
 export type YaclilOptions = {
@@ -16,6 +17,12 @@ export type YaclilOptions = {
          * `true` by default
          */
         helpOptions?: boolean,
+        /**
+         * Custom argv, mostly for testing.
+         * Don't forget to set first two args to something useless,
+         * because it will slice them
+         */
+        argv?: string[],
     }
 };
 
@@ -25,4 +32,11 @@ export type YaclilOptions = {
  */
 export function yaclil(options: YaclilOptions) {
     options.advanced ??= {};
+    const argv = options.advanced.argv ?? process.argv;
+    // call the parser
+    const parsed = parseCommand({
+        // remove the first two arguments
+        argv: argv.slice(2),
+        rootCommand: options.rootCommand,
+    });
 }

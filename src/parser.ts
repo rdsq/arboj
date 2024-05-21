@@ -92,7 +92,10 @@ export function parseCommand({
         unexpectedOptions: [] as string[],
         unexpectedOptionsShort: [] as string[],
     };
+    /** If the parser found an option or arg,
+     * then it is not searching for a command */
     let searchingForCommand = true;
+    // process that argv
     for (let i = 0; i < argv.length; i++) {
         if (argv[i].startsWith('-')) {
             // for options
@@ -101,7 +104,7 @@ export function parseCommand({
         } else {
             const latestOption: ParsedOption | undefined = returning.options[returning.options.length - 1];
             if (latestOption && getOptionArgsLeft(latestOption) > 0) {
-                // if an option requires args
+                // if the option requires args
                 fillNextOptionArg(latestOption, argv[i]);
             } else {
                 // is this arg a command

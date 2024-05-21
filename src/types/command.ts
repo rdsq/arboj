@@ -5,7 +5,12 @@ import type { Handler } from "./handler";
  * Object type of commands
  */
 export type Command = {
-    /** Name of the command that will be used to call it */
+    /** Name of the command that will be used to call it.
+     * 
+     * For root command it will be used only in help
+     * and we recommend to set it to the command your CLI is called.
+     * For example `my-cli` or `node main` if it doesn't have its bin
+     */
     name: string,
     /** Description of the command for help */
     description?: string,
