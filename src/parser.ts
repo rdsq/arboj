@@ -2,6 +2,11 @@ import type { Command } from "./types/command";
 import type { Option } from "./types/option";
 import type { ParsedCommand, ParsedOption } from "./types/parsed";
 
+/**
+ * Turn option to parsed option
+ * @param option The option
+ * @returns The parsed option
+ */
 function optionToParsedOption(option: Option): ParsedOption {
     return {
         option: option,
@@ -9,6 +14,11 @@ function optionToParsedOption(option: Option): ParsedOption {
     };
 }
 
+/**
+ * Calculate count of the expected arguments left for some option
+ * @param parsedOption The parsed option
+ * @returns The number of the expected arguments left
+ */
 function getOptionArgsLeft(parsedOption: ParsedOption): number {
     const option = parsedOption.option;
     const expected = option.args?.length ?? 0;
@@ -16,6 +26,11 @@ function getOptionArgsLeft(parsedOption: ParsedOption): number {
     return expected - has;
 }
 
+/**
+ * Automatically fill the next expected argument for parsed option
+ * @param option The parsed option to fill
+ * @param arg The argument value
+ */
 function fillNextOptionArg(option: ParsedOption, arg: string): void {
     const argNames = option.option.args ?? [];
     const count = Object.keys(option.args).length;
@@ -35,12 +50,14 @@ export function parseCommand({
     rootCommand: Command,
     argv: string[]
 }): ParsedCommand {
-    let currentCommand = rootCommand;
-    const foundArgs: { [key: string]: string } = {};
-    const foundOptions: ParsedOption[] = [];
-    const unexpectedArgs: string[] = [];
-    const unexpectedOptions: string[] = [];
-    const unexpectedOptionsShort: string[] = [];
+    const returning: ParsedCommand = {
+        command: rootCommand,
+        args: {} as { [key: string]: string },
+        unexpectedArgs: [] as string[],
+        options: [] as ParsedOption[],
+        unexpectedOptions: [] as string[],
+        unexpectedOptionsShort: [] as string[],
+    };
     let searchingForCommand = true;
     for (let i = 0; i < argv.length; i++) {
         if (argv[i].startsWith('-')) {
@@ -58,54 +75,48 @@ export function parseCommand({
                 optionName = fullOptionName.slice(1);
             }
             // find the option
-            const option = currentCommand.options ? currentCommand.options.find(
+            const option = returning.command.options ? returning.command.options.find(
                 value => (isShort ? value.shortName : value.name) === fullOptionName
             ) : null;
             if (option) {
                 // put it into the list of options
-                foundOptions.push(optionToParsedOption(option));
+                returning.options.push(optionToParsedOption(option));
             } else {
                 // put it into the list of unexpected options
                 // depending on its kind
-                (isShort ? unexpectedOptionsShort : unexpectedOptions).push(optionName);
+                (isShort ? returning.unexpectedOptionsShort :
+                    returning.unexpectedOptions).push(optionName);
             }
             searchingForCommand = false;
         } else {
-            const latestOption: ParsedOption | undefined = foundOptions[foundOptions.length - 1];
+            const latestOption: ParsedOption | undefined = returning.options[returning.options.length - 1];
             if (latestOption && getOptionArgsLeft(latestOption) > 0) {
                 // if an option requires args
                 fillNextOptionArg(latestOption, argv[i]);
             } else {
                 // is this arg a command
-                const commandFound = (currentCommand.subcommands ?? []).find(
+                const commandFound = (returning.command.subcommands ?? []).find(
                     value => value.name === argv[i]
                 );
                 if (commandFound) {
                     // then switch to it
-                    currentCommand = commandFound;
+                    returning.command = commandFound;
                 } else {
                     // or it is an arg to this command
                     searchingForCommand = false;
-                    const commandArgs = currentCommand.args ?? [];
-                    const foundArgsCount = Object.keys(foundArgs).length;
+                    const commandArgs = returning.command.args ?? [];
+                    const foundArgsCount = Object.keys(returning.args).length;
                     if (foundArgsCount >= commandArgs.length) {
                         // if the command has all of its args
-                        unexpectedArgs.push(argv[i]);
+                        returning.unexpectedArgs.push(argv[i]);
                     } else {
                         // if it is expecting arguments
                         const argName = commandArgs[foundArgsCount];
-                        foundArgs[argName] = argv[i];
+                        returning.args[argName] = argv[i];
                     }
                 }
             }
         }
     }
-    return {
-        command: currentCommand,
-        args: foundArgs,
-        unexpectedArgs: unexpectedArgs,
-        options: foundOptions,
-        unexpectedOptions,
-        unexpectedOptionsShort,
-    }
+    return returning;
 }

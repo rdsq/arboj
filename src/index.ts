@@ -8,14 +8,21 @@ export type YaclilOptions = {
      */
     rootCommand: Command,
     /**
-     * Enable or disable `--help` and `-h` options in the app.
-     * `true` by default
+     * Advanced options. You don't need them in most cases.
      */
-    helpOptions?: boolean,
+    advanced?: {
+        /**
+         * Enable or disable `--help` and `-h` options in the app.
+         * `true` by default
+         */
+        helpOptions?: boolean,
+    }
 };
 
 /**
  * The YACLIL API
  * @param options Options for the app
  */
-export function yaclil(options: YaclilOptions) {}
+export function yaclil(options: YaclilOptions) {
+    options.advanced ??= {};
+}
