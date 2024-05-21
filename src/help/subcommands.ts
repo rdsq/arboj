@@ -66,7 +66,7 @@ export function renderCommandString(command: Command, maxLength: number): string
  * @returns The rendered table
  */
 export function renderCommandSubcommands(command: Command): string {
-    let result: string[] = [];
+    const result: string[] = [];
     if (!hasSubcommands(command)) return '';
     const maxLength = getMaxSubcommandsLength(command);
     for (let subcommand of command.subcommands!) {

@@ -13,6 +13,10 @@ export type Option = {
      */
     shortName?: string,
     /**
+     * The option's description (optional)
+     */
+    description?: string,
+    /**
      * Args for the option (optional)
      * Names of the args
      */
