@@ -8,7 +8,9 @@ This is a minimal library for building command line apps
 
 To use this library, you need to install it (obviously)
 
-`npm install yaclil`
+```shell
+npm install yaclil
+```
 
 Then use the `yaclil` method from this package
 
