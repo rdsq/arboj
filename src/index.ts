@@ -22,16 +22,16 @@ export type YaclilOptions = {
         /**
          * Custom argv, mostly for testing.
          * Don't forget to set first two args to something useless,
-         * because it will slice them
+         * because the app will delete them automatically
          */
         argv?: string[],
         /**
-         * Allow args, that were not expected by this command.
+         * Allow args, that were not expected by this app's commands.
          * `false` by default
          */
         allowUnexpectedArgs?: boolean,
         /**
-         * Allow options that were not expected by the command.
+         * Allow options that were not expected by this app's commands.
          * `false` by default
          */
         allowUnexpectedOptions?: boolean,
