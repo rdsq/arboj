@@ -12,6 +12,8 @@ To use this library, you need to install it (obviously)
 npm install yaclil
 ```
 
+It doesn't support yarn yet
+
 Then use the `yaclil` method from this package
 
 ```js
@@ -19,7 +21,7 @@ import { yaclil } from 'yaclil';
 
 yaclil({
     // options
-})
+});
 ```
 
 ## Example
@@ -48,7 +50,7 @@ yaclil({
         ],
         handler: null // this command itself will do nothing
     }
-})
+});
 ```
 
 Now call it
