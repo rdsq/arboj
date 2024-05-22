@@ -206,3 +206,53 @@ It would say:
 Hello
 Saluton
 ```
+
+## Arguments
+
+You can add arguments to your commands
+
+```js
+{
+    name: 'say-hello',
+    handler: event => {
+        let message = 'Hello';
+        if (event.options.esperanto) {
+            message = 'Saluton';
+        }
+        if (event.args.to) {
+            message += ` ${to}`;
+        }
+        console.log(message);
+    },
+    description: 'Just say hello',
+    options: [
+        {
+            name: 'esperanto',
+            shortName: 'e',
+            description: 'Say hello in Esperanto'
+        }
+    ],
+    args: [
+        'to'
+    ]
+}
+```
+
+And now:
+
+```shell
+node example.mjs say-hello
+node example.mjs say-hello World
+node example.mjs say-hello Mondo -e
+```
+
+Output:
+
+```
+Hello
+Hello World
+Saluton Mondo
+```
+
+> [!IMPORTANT]
+ Args can possibly be `undefined`, so if your command requires some, make the error by yourself
