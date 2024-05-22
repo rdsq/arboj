@@ -22,15 +22,3 @@ export type Option = {
      */
     args?: string[]
 };
-
-/**
- * The options that will be returned to handler
- */
-export interface OptionResult extends Option {
-    /**
-     * Values of the args of the options
-     */
-    argValues: {
-        [key: string]: string
-    }
-}
