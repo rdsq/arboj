@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0 2024-05-24
+
+- Description is now showing in the help
+
 ## 1.1.2 2024-05-24
 
 - Added the args example link to the header in the [guide](./docs/guide.md)

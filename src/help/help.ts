@@ -54,6 +54,9 @@ export function renderCommandHelp(treePath: string[], command: Command): string 
     // usage
     const usage = renderCommandUsage(treePath, command);
     result.push(usage);
+    // description
+    const description = command.description;
+    if (description) result.push(description);
     // subcommands
     const subcommands = renderCommandSubcommands(command);
     if (subcommands.length > 0) result.push(subcommands);
@@ -74,6 +77,9 @@ export function renderOptionHelp(treePath: string[], option: Option): string {
     // usage
     const usage = renderOptionUsage(treePath, option);
     result.push(usage);
+    // description
+    const description = option.description;
+    if (description) result.push(description);
     return result.join(separator);
 }
 
