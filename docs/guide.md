@@ -207,7 +207,7 @@ Hello
 Saluton
 ```
 
-## Arguments
+## [Arguments](./examples/args.mjs)
 
 You can add arguments to your commands
 
