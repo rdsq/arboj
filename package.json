@@ -1,6 +1,6 @@
 {
   "name": "yaclil",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "description": "Yet Another CLI Library",
   "main": "out/index.js",
   "types": "out/index.d.ts",
