@@ -87,20 +87,21 @@ export function renderOptionHelp(treePath: string[], option: Option): string {
  */
 export function renderHelp(parsedCommand: ParsedCommand): string {
     const { options, treePath, command } = parsedCommand;
-    if (options.length === 0) {
+    const optionsCount = Object.keys(options).length;
+    if (optionsCount === 0) {
         // for command only
         return renderCommandHelp(treePath, command);
-    } else if (options.length === 1) {
+    } else if (optionsCount === 1) {
         // for option only
-        return renderOptionHelp(treePath, options[0].option);
+        return renderOptionHelp(treePath, Object.values(options)[0]!.option);
     } else {
         // for command and multiple options
         const result: string[] = [];
         // command help
         result.push(renderCommandHelp(treePath, command));
-        for (const option of options) {
+        for (const option of Object.values(options)) {
             // options help
-            result.push(renderOptionHelp(treePath, option.option))
+            result.push(renderOptionHelp(treePath, option!.option))
         }
         return result.join(separator);
     }

@@ -65,11 +65,12 @@ function processOption(returning: ParsedCommand, arg: string,
     }
     // find the option
     const option = returning.command.options ? returning.command.options.find(
-        value => (isShort ? value.shortName : value.name) === arg
+        value => (isShort ? value.shortName : value.name) === optionName
     ) : null;
     if (option) {
         // put it into the list of options
-        returning.options.push(optionToParsedOption(option));
+        const parsedOption = optionToParsedOption(option);
+        returning.options[parsedOption.option.name] = parsedOption;
     } else {
         // put it into the list of unexpected options
         // depending on its kind
@@ -97,7 +98,7 @@ export function parseCommand({
         command: rootCommand,
         args: {} as { [key: string]: string },
         unexpectedArgs: [] as string[],
-        options: [] as ParsedOption[],
+        options: {} as { [key: string]: ParsedOption },
         unexpectedOptions: [] as string[],
         unexpectedOptionsShort: [] as string[],
         treePath: [ rootCommand.name ] as string[],
@@ -113,7 +114,8 @@ export function parseCommand({
             processOption(returning, argv[i], helpEnabledGlobally);
             searchingForCommand = false;
         } else {
-            const latestOption: ParsedOption | undefined = returning.options[returning.options.length - 1];
+            const optionsValues = Object.values(returning.options);
+            const latestOption: ParsedOption | undefined = optionsValues[optionsValues.length - 1];
             if (latestOption && getOptionArgsLeft(latestOption) > 0) {
                 // if the option requires args
                 fillNextOptionArg(latestOption, argv[i]);

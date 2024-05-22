@@ -8,7 +8,7 @@ export type ParsedOption = {
 
 export type ParsedCommand = {
     command: Command,
-    options: ParsedOption[],
+    options: { [key: string]: ParsedOption | undefined },
     unexpectedOptions: string[],
     unexpectedOptionsShort: string[],
     args: { [key: string]: string },
