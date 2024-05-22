@@ -44,6 +44,11 @@ function fillNextOptionArg(option: ParsedOption, arg: string): void {
  * @param arg The current argv arg
  */
 function processOption(returning: ParsedCommand, arg: string): void {
+    // check if this option is help
+    if (arg === '--help' || arg === '-h') {
+        returning.helpOption = true;
+        return;
+    }
     // arg is the full option name with -- or -
     let optionName: string;
     let isShort: boolean;
@@ -92,6 +97,7 @@ export function parseCommand({
         unexpectedOptions: [] as string[],
         unexpectedOptionsShort: [] as string[],
         treePath: [ rootCommand.name ] as string[],
+        helpOption: false,
     };
     /** If the parser found an option or arg,
      * then it is not searching for a command */
