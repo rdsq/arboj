@@ -1,8 +1,8 @@
 import type { Command } from "../types/command";
 import type { Option } from "../types/option";
-import { ParsedCommand } from "../types/parsed";
-import { renderCommandOptions } from "./options";
-import { renderCommandSubcommands } from "./subcommands";
+import { ParsedCommand } from "../types/parsed.js";
+import { renderCommandOptions } from "./options.js";
+import { renderCommandSubcommands } from "./subcommands.js";
 
 /** Separator for the help */
 const separator = '\n\n';

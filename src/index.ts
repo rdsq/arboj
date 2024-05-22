@@ -1,7 +1,7 @@
-import { getHelpCommand, renderHelp } from "./help/help";
+import { getHelpCommand, renderHelp } from "./help/help.js";
 import { parseCommand } from "./parser";
-import type { ParsedCommand } from "./types/parsed";
-import type { YaclilOptions } from "./types/init";
+import type { ParsedCommand } from "./types/parsed.js";
+import type { YaclilOptions } from "./types/init.js";
 
 /**
  * The YACLIL API
