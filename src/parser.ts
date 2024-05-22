@@ -45,7 +45,7 @@ function fillNextOptionArg(option: ParsedOption, arg: string): void {
  */
 function processOption(returning: ParsedCommand, arg: string): void {
     // check if this option is help
-    if (arg === '--help' || arg === '-h') {
+    if (arg == '--help' || arg == '-h') {
         returning.helpOption = true;
         return;
     }
