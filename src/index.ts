@@ -65,7 +65,7 @@ function checkForUnexpected(parsed: ParsedCommand, options: YaclilOptions): void
         ));
         const options = optionsRaw.join(", ");
         errorMessage = `Error: unexpected options: ${options}`
-    } else if (parsed.command.handler === null) {
+    } else if (parsed.command.handler === null && !parsed.helpOption) {
         // if this command is only for subcommands
         errorMessage = "Error: this command is not callable";
     }

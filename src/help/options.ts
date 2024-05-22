@@ -60,7 +60,7 @@ export function renderOptionString(option: Option, maxLength: number): string {
  */
 export function renderCommandOptions(command: Command): string {
     const result: string[] = [];
-    if (!hasOptions(command)) return '';
+    if (!hasOptions(command)) return '(no options)';
     const maxLength = getMaxOptionsLength(command);
     for (const option of command.options!) {
         result.push(renderOptionString(option, maxLength));

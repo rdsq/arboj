@@ -15,6 +15,9 @@ const separator = '\n\n';
  * @returns The result string like `my-cli my-command <arg> <additional...>`
  */
 export function renderCommandUsage(treePath: string[], command: Command): string {
+    if (command.handler === null) {
+        return '(not callable)';
+    }
     const result: string[] = [];
     result.push(...treePath); // add the tree path
     for (const arg of command.args ?? []) {
