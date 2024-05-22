@@ -5,7 +5,7 @@ import type { ParsedCommand } from "./types/parsed";
 
 export type YaclilOptions = {
     /**
-     * Yaclil treats the whole CLI as a recursive command
+     * Yaclil treats the whole CLI as a command tree
      * that has its subcommands, options, args.
      * This is that command
      */
