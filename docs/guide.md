@@ -136,3 +136,73 @@ Use "node example.mjs --help" to get help on this command
 ```
 
 But if you want you can set a handler here and it will work fine
+
+## Help
+
+You can get help on any command by adding `--help` or `-h`. For example:
+
+```shell
+node example.mjs -h
+```
+
+Will return:
+
+```
+(not callable)
+
+Subcommands:
+say-hello
+
+(no options)
+```
+
+## Options
+
+You can add options to your commands (like `--example` or `-e`)
+
+```js
+import { yaclil } from 'yaclil';
+
+yaclil({
+    rootCommand: {
+        name: 'node example.mjs',
+        handler: null,
+        subcommands: [
+            {
+                name: 'say-hello',
+                handler: event => {
+                    let message = 'Hello';
+                    if (event.options.esperanto) {
+                        message = 'Saluton';
+                    }
+                    console.log(message);
+                },
+                description: 'Just say hello',
+                options: [
+                    {
+                        name: 'esperanto',
+                        shortName: 'e',
+                        description: 'Say hello in Esperanto'
+                    }
+                ]
+            }
+        ]
+    }
+});
+```
+
+Here we added an option to say hello, but in Esperanto
+
+If we call it:
+
+```shell
+node example.mjs say-hello
+node example.mjs say-hello --esperanto
+```
+
+It would say:
+
+```
+Hello
+Saluton
+```
