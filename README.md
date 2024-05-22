@@ -53,7 +53,7 @@ yaclil({
 });
 ```
 
-Now call it
+Now call it:
 
 ```shell
 node example.js say-hello
@@ -76,6 +76,15 @@ my-cli say-hello
 # output: hello
 my-cli say-hi
 # output: hi
+```
+
+Then don't forget to change the `rootCommand` name
+
+```js
+// ...
+    rootCommand: { // the command that can be called by `my-cli`
+        name: 'my-cli', // the command that will call this app
+// ...
 ```
 
 ## TypeScript
