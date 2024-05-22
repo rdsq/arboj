@@ -26,7 +26,7 @@ yaclil({
 
 ## Example
 
-This example app will have two commands: `hello` and `hi`, they will simply print text in the console.
+This example app will have two commands: `say-hello` and `say-hi`, they will simply print text in the console.
 
 ```js
 import { yaclil } from 'yaclil';
@@ -35,16 +35,16 @@ yaclil({
     rootCommand: { // the command that can be called by `node example.js`
         name: 'node example.js', // the command that will call this app
         subcommands: [ // the command's subcommands. Every command can have them
-            { // call with `node example.js hello`
-                name: 'hello',
+            { // call with `node example.js say-hello`
+                name: 'say-hello',
                 handler: event => {
                     console.log('hello');
                 }
             },
-            { // call with `node example.js hi`
-                name: 'hi',
+            { // call with `node example.js say-hi`
+                name: 'say-hi',
                 handler: event => {
-                    console.log('hi')
+                    console.log('hi');
                 }
             }
         ],
@@ -56,8 +56,8 @@ yaclil({
 Now call it
 
 ```shell
-node example.js hello
-node example.js hi
+node example.js say-hello
+node example.js say-hi
 ```
 
 The output:
@@ -72,9 +72,9 @@ hi
 You can also assign a package.json bin name to this app
 
 ```shell
-my-cli hello
+my-cli say-hello
 # output: hello
-my-cli hi
+my-cli say-hi
 # output: hi
 ```
 
