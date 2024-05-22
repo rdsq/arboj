@@ -65,5 +65,5 @@ export function renderCommandOptions(command: Command): string {
     for (const option of command.options!) {
         result.push(renderOptionString(option, maxLength));
     }
-    return result.join('\n');
+    return 'Options:\n' + result.join('\n');
 }

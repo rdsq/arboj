@@ -72,5 +72,5 @@ export function renderCommandSubcommands(command: Command): string {
     for (let subcommand of command.subcommands!) {
         result.push(renderCommandString(subcommand, maxLength));
     }
-    return result.join('\n');
+    return 'Subcommands:\n' + result.join('\n');
 }
