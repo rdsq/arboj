@@ -4,6 +4,7 @@
 
 - Added the args example link to the header in the [guide](./docs/guide.md)
 - Added the [Changelog](./CHANGELOG.md)
+- Added the bin string to the docs
 
 ## 1.1.1 2024-05-22
 

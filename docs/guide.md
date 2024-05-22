@@ -37,6 +37,12 @@ yaclil({
 });
 ```
 
+Don't forget to add this line on top of the main file
+
+```
+#!/usr/bin/env node
+```
+
 ## Explanation
 
 ```js
