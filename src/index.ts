@@ -18,15 +18,9 @@ export function yaclil(options: YaclilOptions) {
     });
     // check for unexpected
     checkForUnexpected(parsed, options);
-    // help
-    const helpOptionIndex = parsed.options.findIndex(
-        value => value.option.name === "help"
-    );
     // get the configured value of include help feature, or `true` by default
     const helpConfigValue = parsed.command.helpOption ?? options.advanced.helpOptions ?? true;
-    if (helpOptionIndex !== -1 && helpConfigValue) {
-        // remove the help option
-        parsed.options.splice(helpOptionIndex, 1);
+    if (parsed.helpOption && helpConfigValue) {
         // return the help string
         console.log(renderHelp(parsed));
     } else {

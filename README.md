@@ -67,6 +67,8 @@ hello
 hi
 ```
 
+For more information visit the [guide](./docs/guide.md)
+
 ## Bin
 
 You can also assign a package.json bin name to this app
