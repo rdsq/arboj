@@ -20,9 +20,9 @@ Then import it
 import { yaclil } from 'yaclil';
 ```
 
-## First Command
+## [First Command](./examples/first.js)
 
-Let's make our [first](./examples/first.js) command
+Let's make our first command
 
 ```js
 import { yaclil } from 'yaclil';
@@ -91,7 +91,7 @@ It is not required, but recommended to add description to your commands
 
 This is that simple
 
-## Subcommands
+## [Subcommands](./examples/subcommands.mjs)
 
 Any command can have subcommands, they have tree-like structure. Let's make one
 
@@ -156,7 +156,7 @@ say-hello
 (no options)
 ```
 
-## Options
+## [Options](./examples/options.mjs)
 
 You can add options to your commands (like `--example` or `-e`)
 
