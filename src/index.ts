@@ -15,6 +15,7 @@ export function yaclil(options: YaclilOptions) {
         // remove the first two arguments
         argv: argv.slice(2),
         rootCommand: options.rootCommand,
+        helpEnabledGlobally: options.advanced.helpOptions
     });
     // check for unexpected
     checkForUnexpected(parsed, options);

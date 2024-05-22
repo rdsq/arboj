@@ -43,9 +43,11 @@ function fillNextOptionArg(option: ParsedOption, arg: string): void {
  * @param returning The parsed command object
  * @param arg The current argv arg
  */
-function processOption(returning: ParsedCommand, arg: string): void {
-    // check if this option is help
-    if (arg == '--help' || arg == '-h') {
+function processOption(returning: ParsedCommand, arg: string,
+    helpEnabledGlobally: boolean | undefined): void {
+    // check if this option is help and help is enabled
+    if ((arg == '--help' || arg == '-h') &&
+    (returning.command.helpOption ?? helpEnabledGlobally ?? true)) {
         returning.helpOption = true;
         return;
     }
@@ -83,10 +85,12 @@ function processOption(returning: ParsedCommand, arg: string): void {
  */
 export function parseCommand({
     rootCommand,
-    argv
+    argv,
+    helpEnabledGlobally,
 }: {
     rootCommand: Command,
-    argv: string[]
+    argv: string[],
+    helpEnabledGlobally: boolean | undefined,
 }): ParsedCommand {
     /** The parsed command object */
     const returning: ParsedCommand = {
@@ -106,7 +110,7 @@ export function parseCommand({
     for (let i = 0; i < argv.length; i++) {
         if (argv[i].startsWith('-')) {
             // for options
-            processOption(returning, argv[i]);
+            processOption(returning, argv[i], helpEnabledGlobally);
             searchingForCommand = false;
         } else {
             const latestOption: ParsedOption | undefined = returning.options[returning.options.length - 1];
