@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.3 2024-05-31
+
+Fixed the `treeGraph`
+
 ## 1.3.2 2024-05-31
 
 `treeGraph` can now represent commands without handlers as dimmed

@@ -22,8 +22,8 @@ function recursiveTree(command: Command, margin: number, colored: boolean): stri
             char = branchChar;
         }
         // get command name
-        let commandName = command.name;
-        if (colored && command.handler === null) {
+        let commandName = subcommand.name;
+        if (colored && subcommand.handler === null) {
             // dim it if it does not have a handler and coloring is enabled
             commandName = `\x1b[2m${commandName}\x1b[0m`;
         }
