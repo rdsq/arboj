@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.0 2024-05-31
+
+Added the `treeGraph` function
+
 ## 1.2.1 2024-05-31
 
 Added `never` type to `returnError` function
