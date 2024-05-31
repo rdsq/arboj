@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - Increased space between element and its description in help
+- Updated package description
 
 ## 1.3.3 2024-05-31
 
