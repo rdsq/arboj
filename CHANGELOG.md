@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.1 2024-05-31
+
+There is now `rootCommand` in parsed commands
+
 ## 1.3.0 2024-05-31
 
 Added the `treeGraph` function

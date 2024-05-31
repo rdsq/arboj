@@ -15,4 +15,5 @@ export type ParsedCommand = {
     unexpectedArgs: string[],
     treePath: string[],
     helpOption: boolean,
+    rootCommand: Command,
 };

@@ -103,6 +103,7 @@ export function parseCommand({
         unexpectedOptionsShort: [] as string[],
         treePath: [ rootCommand.name ] as string[],
         helpOption: false,
+        rootCommand,
     };
     /** If the parser found an option or arg,
      * then it is not searching for a command */
