@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Increased space between element and its description in help
+
 ## 1.3.3 2024-05-31
 
 Fixed the `treeGraph`

@@ -53,7 +53,7 @@ export function getMaxSubcommandsLength(command: Command): number {
 export function renderCommandString(command: Command, maxLength: number): string {
     let result = renderCommandName(command);
     if (command.description) {
-        const freeSpaceCount = maxLength - result.length + 1;
+        const freeSpaceCount = maxLength - result.length + 3;
         const freeSpace = ' '.repeat(freeSpaceCount);
         result += freeSpace + command.description;
     }

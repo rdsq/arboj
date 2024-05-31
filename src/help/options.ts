@@ -46,7 +46,7 @@ export function getMaxOptionsLength(command: Command): number {
 export function renderOptionString(option: Option, maxLength: number): string {
     let result = renderOptionName(option);
     if (option.description) {
-        const freeSpaceCount = maxLength - result.length + 1;
+        const freeSpaceCount = maxLength - result.length + 3;
         const freeSpace = ' '.repeat(freeSpaceCount);
         result += freeSpace + option.description;
     }
