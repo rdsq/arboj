@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## 1.3.4 2024-05-31
 
 - Increased space between element and its description in help
 - Updated package description
