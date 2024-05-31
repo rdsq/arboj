@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.2 2024-05-31
+
+`treeGraph` can now represent commands without handlers as dimmed
+
 ## 1.3.1 2024-05-31
 
 There is now `rootCommand` in parsed commands
