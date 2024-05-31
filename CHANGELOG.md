@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.1 2024-05-31
+
+Added `never` type to `returnError` function
+
 ## 1.2.0 2024-05-24
 
 - Description is now showing in the help

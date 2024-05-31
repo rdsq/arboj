@@ -34,7 +34,7 @@ export function yaclil(options: YaclilOptions) {
  * Exit with error status
  * @param message The error message
  */
-export function returnError(message: string) {
+export function returnError(message: string): never {
     console.error(message);
     process.exit(1);
 }
