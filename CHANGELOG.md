@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.5 2024-0602
+
+Renamed `returnError` to `exitWithError`
+
 ## 1.3.4 2024-05-31
 
 - Increased space between element and its description in help

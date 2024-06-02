@@ -2,6 +2,7 @@ import { getHelpCommand, renderHelp } from "./help/help.js";
 import { parseCommand } from "./parser";
 import type { ParsedCommand } from "./types/parsed.js";
 import type { YaclilOptions } from "./types/init.js";
+import exitWithError from "./exit-with-error.js";
 
 /**
  * The YACLIL API
@@ -28,15 +29,6 @@ export function yaclil(options: YaclilOptions) {
         // if everything is ok
         parsed.command.handler!(parsed);
     }
-}
-
-/**
- * Exit with error status
- * @param message The error message
- */
-export function returnError(message: string): never {
-    console.error(message);
-    process.exit(1);
 }
 
 function checkForUnexpected(parsed: ParsedCommand, options: YaclilOptions): void {
@@ -72,7 +64,7 @@ function checkForUnexpected(parsed: ParsedCommand, options: YaclilOptions): void
     }
 
     if (errorMessage) {
-        returnError(
+        exitWithError(
             errorMessage
             + `\nUse "${getHelpCommand(parsed)}" to get help on this command`
         );
@@ -88,3 +80,10 @@ export { Handler } from './types/handler.js';
 
 // reexport graph
 export { treeGraph } from './tree-graph.js';
+
+// reexport `exitWithError`
+/**
+ * @deprecated Use `exitWithError` instead
+ */
+export const returnError = exitWithError;
+export { exitWithError };
