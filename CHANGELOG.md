@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Updated Usage message in help
+
 ## 1.4.3 20204-06-03
 
 Now hidden commands can be overridden in the tree graph generator

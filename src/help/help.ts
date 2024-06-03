@@ -18,7 +18,7 @@ export function renderCommandUsage(treePath: string[], command: Command): string
     if (command.handler === null) {
         return '(not callable)';
     }
-    const result: string[] = [];
+    const result: string[] = ['Usage:'];
     result.push(...treePath); // add the tree path
     for (const arg of command.args ?? []) {
         result.push(`<${arg}>`);
