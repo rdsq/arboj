@@ -1,5 +1,6 @@
 import type { Option } from "./option";
 import type { Handler } from "./handler";
+import { Arg } from "./arg";
 
 /**
  * Object type of commands
@@ -44,7 +45,7 @@ export type Command = {
     /**
      * Expected args of this command
      */
-    args?: string[],
+    args?: (string | Arg)[],
     /**
      * Allow args, that were not expected by this command.
      * `false` by default

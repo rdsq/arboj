@@ -32,10 +32,18 @@ function getOptionArgsLeft(parsedOption: ParsedOption): number {
  * @param arg The argument value
  */
 function fillNextOptionArg(option: ParsedOption, arg: string): void {
-    const argNames = option.option.args ?? [];
+    const expectedArgs = option.option.args ?? [];
     const count = Object.keys(option.args).length;
-    const argName = argNames[count];
+    const nextArg = expectedArgs[count];
+    const argName = (typeof nextArg === "string") ? nextArg : nextArg.name;
     option.args[argName] = arg;
+}
+
+/**
+ * I copied it from the internet
+ */
+function isNumeric(value: string) {
+    return /^-?\d+$/.test(value);
 }
 
 /**
@@ -110,8 +118,8 @@ export function parseCommand({
     let searchingForCommand = true;
     // process that argv
     for (let i = 0; i < argv.length; i++) {
-        if (argv[i].startsWith('-')) {
-            // for options
+        if (argv[i].startsWith('-') && !isNumeric(argv[i])) {
+            // for options and not negative numbers
             processOption(returning, argv[i], helpEnabledGlobally);
             searchingForCommand = false;
         } else {
@@ -140,7 +148,9 @@ export function parseCommand({
                         returning.unexpectedArgs.push(argv[i]);
                     } else {
                         // if it is expecting arguments
-                        const argName = commandArgs[foundArgsCount];
+                        const nextArg = commandArgs[foundArgsCount];
+                        // was this arg declared as a string or as an object
+                        const argName = (typeof nextArg === "string") ? nextArg : nextArg.name;
                         returning.args[argName] = argv[i];
                     }
                 }

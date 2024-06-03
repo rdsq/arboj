@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Now YACLIL does not think that negative numbers are options
+
 ## 1.3.5 2024-0602
 
 Renamed `returnError` to `exitWithError`

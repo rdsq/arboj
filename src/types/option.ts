@@ -1,3 +1,5 @@
+import { Arg } from "./arg";
+
 /**
  * Type of options for commands
  */
@@ -20,5 +22,5 @@ export type Option = {
      * Args for the option (optional)
      * Names of the args
      */
-    args?: string[]
+    args?: (string | Arg)[]
 };
