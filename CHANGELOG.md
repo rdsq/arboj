@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.2 2024-06-03
+
+Added new feature to hide some command's subcommands under ` +` sign
+
 ## 1.4.1 2024-06-03
 
 - Added new feature: ability to hide commands from help and tree graph

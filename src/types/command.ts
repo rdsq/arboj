@@ -62,4 +62,8 @@ export type Command = {
      * It will still be accessible
      */
     hidden?: boolean,
+    /**
+     * Hide command's subcommands from things like tree graph
+     */
+    hideSubcommands?: boolean,
 };

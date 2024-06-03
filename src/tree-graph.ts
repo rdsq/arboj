@@ -35,7 +35,13 @@ function recursiveTree(command: Command, margin: number, colored: boolean): stri
         );
         // if it has subcommands
         if (subcommand.subcommands && subcommand.subcommands.length > 0) {
-            result.push(recursiveTree(subcommand, margin + 1, colored));
+            // if subcommands are hidden
+            if (subcommand.hideSubcommands ?? false) {
+                // sign that it has hidden subcommands
+                result[result.length - 1] += ' +';
+            } else {
+                result.push(recursiveTree(subcommand, margin + 1, colored));
+            }
         }
     }
     return result.join("\n");
