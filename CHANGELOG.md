@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- `-` are not options anymore
+
 ## 1.4.4 20204-06-03
 
 - Updated Usage message in help

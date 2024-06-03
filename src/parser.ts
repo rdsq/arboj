@@ -115,8 +115,8 @@ export function parseCommand({
     };
     // process that argv
     for (let i = 0; i < argv.length; i++) {
-        if (argv[i].startsWith('-') && !isNumeric(argv[i])) {
-            // for options and not negative numbers
+        if (argv[i].startsWith('-') && !isNumeric(argv[i]) && argv[i].length > 1) {
+            // for options and not negative numbers and not `-`
             processOption(returning, argv[i], helpEnabledGlobally);
         } else {
             const optionsValues = Object.values(returning.options);
