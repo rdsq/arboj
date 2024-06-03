@@ -3,7 +3,7 @@ import type { Option } from "./option";
 
 export type ParsedOption = {
     option: Option,
-    args: { [key: string]: string | null },
+    args: { [key: string]: string },
 };
 
 export type ParsedCommand = {

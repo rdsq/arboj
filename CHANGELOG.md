@@ -1,8 +1,9 @@
 # Changelog
 
-## [Unreleased]
+## 1.4.0
 
 - Now YACLIL does not think that negative numbers are options
+- Now args can be required
 
 ## 1.3.5 2024-0602
 
