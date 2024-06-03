@@ -8,10 +8,11 @@ const branchAndStraightChar = '┣ ';
  * Generate graph recursively
  * @param command The command to get subcommands from
  * @param margin Count of `┃ ` repeats
+ * @param endedMargin Count of margin levels on start that are ended
  * @returns The graph of this command's subcommands
  */
-function recursiveTree(command: Command, margin: number, options: TreeGraphOptions): string {
-    const marginString = straightChar.repeat(margin);
+function recursiveTree(command: Command, margin: number, options: TreeGraphOptions, endedMargin: number): string {
+    const marginString = '  '.repeat(endedMargin) + straightChar.repeat(margin - endedMargin);
     let result: string[] = [];
     const subcommandsLength = (command.subcommands?.length ?? 0);
     for (let i = 0; i < subcommandsLength; i++) {
@@ -22,6 +23,8 @@ function recursiveTree(command: Command, margin: number, options: TreeGraphOptio
         let char = branchAndStraightChar;
         if (i === subcommandsLength - 1) {
             char = branchChar;
+            // increase ended margin count
+            endedMargin++;
         }
         // get command name
         let commandName = subcommand.name;
@@ -40,7 +43,7 @@ function recursiveTree(command: Command, margin: number, options: TreeGraphOptio
                 // sign that it has hidden subcommands
                 result[result.length - 1] += ' +';
             } else {
-                result.push(recursiveTree(subcommand, margin + 1, options));
+                result.push(recursiveTree(subcommand, margin + 1, options, endedMargin));
             }
         }
     }
@@ -70,6 +73,6 @@ export function treeGraph(command: Command, options: TreeGraphOptions | boolean 
     options.showHidden ??= false;
     options.showHiddenSubcommands ??= false;
     // run
-    const graph = recursiveTree(command, 0, options);
+    const graph = recursiveTree(command, 0, options, 0);
     return command.name + '\n' + graph;
 }

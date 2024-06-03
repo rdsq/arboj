@@ -1,8 +1,9 @@
 # Changelog
 
-## [Unreleased]
+## 1.4.4 20204-06-03
 
 - Updated Usage message in help
+- Fixed subcommands in tree graph error
 
 ## 1.4.3 20204-06-03
 
