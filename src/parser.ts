@@ -113,15 +113,11 @@ export function parseCommand({
         helpOption: false,
         rootCommand,
     };
-    /** If the parser found an option or arg,
-     * then it is not searching for a command */
-    let searchingForCommand = true;
     // process that argv
     for (let i = 0; i < argv.length; i++) {
         if (argv[i].startsWith('-') && !isNumeric(argv[i])) {
             // for options and not negative numbers
             processOption(returning, argv[i], helpEnabledGlobally);
-            searchingForCommand = false;
         } else {
             const optionsValues = Object.values(returning.options);
             const latestOption: ParsedOption | undefined = optionsValues[optionsValues.length - 1];
@@ -140,7 +136,6 @@ export function parseCommand({
                     returning.treePath.push(commandFound.name);
                 } else {
                     // or it is an arg to this command
-                    searchingForCommand = false;
                     const commandArgs = returning.command.args ?? [];
                     const foundArgsCount = Object.keys(returning.args).length;
                     if (foundArgsCount >= commandArgs.length) {
