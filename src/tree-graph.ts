@@ -10,7 +10,7 @@ const branchAndStraightChar = '┣ ';
  * @param margin Count of `┃ ` repeats
  * @returns The graph of this command's subcommands
  */
-function recursiveTree(command: Command, margin: number, colored: boolean): string {
+function recursiveTree(command: Command, margin: number, options: TreeGraphOptions): string {
     const marginString = straightChar.repeat(margin);
     let result: string[] = [];
     const subcommandsLength = (command.subcommands?.length ?? 0);
@@ -25,7 +25,7 @@ function recursiveTree(command: Command, margin: number, colored: boolean): stri
         }
         // get command name
         let commandName = subcommand.name;
-        if (colored && subcommand.handler === null) {
+        if (options.colored && subcommand.handler === null) {
             // dim it if it does not have a handler and coloring is enabled
             commandName = `\x1b[2m${commandName}\x1b[0m`;
         }
@@ -40,20 +40,31 @@ function recursiveTree(command: Command, margin: number, colored: boolean): stri
                 // sign that it has hidden subcommands
                 result[result.length - 1] += ' +';
             } else {
-                result.push(recursiveTree(subcommand, margin + 1, colored));
+                result.push(recursiveTree(subcommand, margin + 1, options));
             }
         }
     }
     return result.join("\n");
 }
 
+export type TreeGraphOptions = {
+    /** Should it dim commands without handlers for terminal */
+    colored?: boolean,
+    /** Show hidden commands */
+    showHidden?: boolean,
+    /** Show hidden subcommands of commands instead of hiding them under ` +` */
+    showHiddenSubcommands?: boolean,
+};
+
 /**
  * Generate tree graph from any command
  * @param command The command to create graph from
- * @param colored Should it dim commands without handlers for terminal
+ * @options Options for the tree graph generator. Boolean values are legacy
  * @returns The graph
  */
-export function treeGraph(command: Command, colored: boolean = false): string {
-    const graph = recursiveTree(command, 0, colored);
+export function treeGraph(command: Command, options: TreeGraphOptions | boolean = {}): string {
+    // boolean legacy
+    if (typeof options === 'boolean') options = { colored: options };
+    const graph = recursiveTree(command, 0, options);
     return command.name + '\n' + graph;
 }
