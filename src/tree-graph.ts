@@ -16,8 +16,8 @@ function recursiveTree(command: Command, margin: number, options: TreeGraphOptio
     const subcommandsLength = (command.subcommands?.length ?? 0);
     for (let i = 0; i < subcommandsLength; i++) {
         const subcommand = command.subcommands![i];
-        // if it is hidden, move to the next one
-        if (subcommand.hidden ?? false) continue;
+        // if it is hidden and showing them is not configured, move to the next one
+        if ((subcommand.hidden ?? false) && !options.showHidden) continue;
         // choose right char
         let char = branchAndStraightChar;
         if (i === subcommandsLength - 1) {
@@ -35,8 +35,8 @@ function recursiveTree(command: Command, margin: number, options: TreeGraphOptio
         );
         // if it has subcommands
         if (subcommand.subcommands && subcommand.subcommands.length > 0) {
-            // if subcommands are hidden
-            if (subcommand.hideSubcommands ?? false) {
+            // if subcommands are hidden and showing them is not configured
+            if ((subcommand.hideSubcommands ?? false) && !options.showHiddenSubcommands) {
                 // sign that it has hidden subcommands
                 result[result.length - 1] += ' +';
             } else {
@@ -65,6 +65,11 @@ export type TreeGraphOptions = {
 export function treeGraph(command: Command, options: TreeGraphOptions | boolean = {}): string {
     // boolean legacy
     if (typeof options === 'boolean') options = { colored: options };
+    // default values
+    options.colored ??= false;
+    options.showHidden ??= false;
+    options.showHiddenSubcommands ??= false;
+    // run
     const graph = recursiveTree(command, 0, options);
     return command.name + '\n' + graph;
 }

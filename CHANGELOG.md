@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.3 20204-06-03
+
+Now hidden commands can be overridden in the tree graph generator
+
 ## 1.4.2 2024-06-03
 
 Added new feature to hide some command's subcommands under ` +` sign
