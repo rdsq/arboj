@@ -1,11 +1,16 @@
 # Changelog
 
-## 1.4.0
+## 1.4.1 2024-06-03
+
+- Added new feature: ability to hide commands from help and tree graph
+- Fixed some typos in the Changelog
+
+## 1.4.0 2024-06-03
 
 - Now YACLIL does not think that negative numbers are options
 - Now args can be required
 
-## 1.3.5 2024-0602
+## 1.3.5 2024-06-02
 
 Renamed `returnError` to `exitWithError`
 

@@ -16,6 +16,8 @@ function recursiveTree(command: Command, margin: number, colored: boolean): stri
     const subcommandsLength = (command.subcommands?.length ?? 0);
     for (let i = 0; i < subcommandsLength; i++) {
         const subcommand = command.subcommands![i];
+        // if it is hidden, move to the next one
+        if (subcommand.hidden ?? false) continue;
         // choose right char
         let char = branchAndStraightChar;
         if (i === subcommandsLength - 1) {

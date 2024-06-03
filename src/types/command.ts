@@ -56,4 +56,10 @@ export type Command = {
      * `false` by default
      */
     allowUnexpectedOptions?: boolean,
+    /**
+     * Hide the command from help, tree graph and maybe other features.
+     * `false` by default.
+     * It will still be accessible
+     */
+    hidden?: boolean,
 };

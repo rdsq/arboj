@@ -70,6 +70,8 @@ export function renderCommandSubcommands(command: Command): string {
     if (!hasSubcommands(command)) return '(no subcommands)';
     const maxLength = getMaxSubcommandsLength(command);
     for (let subcommand of command.subcommands!) {
+        // if it is hidden, ignore it
+        if (subcommand.hidden ?? false) continue;
         result.push(renderCommandString(subcommand, maxLength));
     }
     return 'Subcommands:\n' + result.join('\n');
