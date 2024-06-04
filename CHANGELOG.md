@@ -1,15 +1,16 @@
 # Changelog
 
-## [Unreleased]
+## 1.4.5 2024-06-04
 
 - `-` are not options anymore
+- Better performance
 
-## 1.4.4 20204-06-03
+## 1.4.4 2024-06-03
 
 - Updated Usage message in help
 - Fixed subcommands in tree graph error
 
-## 1.4.3 20204-06-03
+## 1.4.3 2024-06-03
 
 Now hidden commands can be overridden in the tree graph generator
 
