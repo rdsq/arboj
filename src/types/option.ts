@@ -20,7 +20,6 @@ export type Option = {
     description?: string,
     /**
      * Args for the option (optional)
-     * Names of the args
      */
     args?: (string | Arg)[]
 };

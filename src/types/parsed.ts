@@ -6,9 +6,11 @@ export type ParsedOption = {
     args: { [key: string]: string },
 };
 
+export type ParsedOptions = { [key: string]: ParsedOption };
+
 export type ParsedCommand = {
     command: Command,
-    options: { [key: string]: ParsedOption | undefined },
+    options: ParsedOptions,
     unexpectedOptions: string[],
     unexpectedOptionsShort: string[],
     args: { [key: string]: string },

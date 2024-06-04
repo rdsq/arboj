@@ -2,7 +2,7 @@ import { exitWithErrorInternal } from "./exit-with-error-internal.js";
 import { errorIfNotEnoughCommandArgs, errorIfNotEnoughOptionArgs } from "./parser-checker.js";
 import type { YaclilOptions } from "./types/init";
 import type { Option } from "./types/option";
-import type { ParsedCommand, ParsedOption } from "./types/parsed";
+import type { ParsedCommand, ParsedOption, ParsedOptions } from "./types/parsed";
 
 /**
  * Turn option to parsed option
@@ -97,6 +97,12 @@ function processOption(returning: ParsedCommand, arg: string,
     }
 }
 
+function getLatestOption(options: ParsedOptions): ParsedOption | undefined {
+    const optionsValues = Object.values(options);
+    const latestOption: ParsedOption | undefined = optionsValues[optionsValues.length - 1];
+    return latestOption;
+}
+
 /**
  * Fully parse the CLI request
  * @param param0 Options for the parser
@@ -108,7 +114,7 @@ export function parseCommand(initOptions: YaclilOptions, argv: string[]): Parsed
         command: initOptions.rootCommand,
         args: {} as { [key: string]: string },
         unexpectedArgs: [] as string[],
-        options: {} as { [key: string]: ParsedOption },
+        options: {} as ParsedOptions,
         unexpectedOptions: [] as string[],
         unexpectedOptionsShort: [] as string[],
         treePath: [ initOptions.rootCommand.name ] as string[],
@@ -119,8 +125,7 @@ export function parseCommand(initOptions: YaclilOptions, argv: string[]): Parsed
     for (let i = 0; i < argv.length; i++) {
         const arg = argv[i];
         // some data about latest option
-        const optionsValues = Object.values(returning.options);
-        const latestOption: ParsedOption | undefined = optionsValues[optionsValues.length - 1];
+        const latestOption = getLatestOption(returning.options as ParsedOptions);
         if (arg.startsWith('-') && !isNumeric(arg) && arg.length > 1) {
             // for options and not negative numbers and not `-`
             // if this option is not the first one
@@ -169,6 +174,11 @@ export function parseCommand(initOptions: YaclilOptions, argv: string[]): Parsed
                 }
             }
         }
+    }
+    // check if ... of the last option ...
+    const latestOption = getLatestOption(returning.options as ParsedOptions);
+    if (latestOption) {
+        errorIfNotEnoughOptionArgs(latestOption, returning);
     }
     // check if some required arguments were not provided
     errorIfNotEnoughCommandArgs(returning);

@@ -45,7 +45,7 @@ export function errorIfNotEnoughOptionArgs(parsedOption: ParsedOption, parsedCom
     }
     // throw error
     exitWithErrorInternal(
-        `Error: option "${parsedOption.option.name}" expected, but not provided arguments: ${missing.join(', ')}`,
+        `Error: option "${parsedOption.option.name}" expected, but not received arguments: ${missing.join(', ')}`,
         parsedCommand
     );
 }
