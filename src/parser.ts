@@ -1,4 +1,4 @@
-import type { Command } from "./types/command";
+import exitWithParserError from "./exit-with-parser-error";
 import { YaclilOptions } from "./types/init";
 import type { Option } from "./types/option";
 import type { ParsedCommand, ParsedOption } from "./types/parsed";
@@ -134,12 +134,21 @@ export function parseCommand(initOptions: YaclilOptions, argv: string[]): Parsed
                     const foundArgsCount = Object.keys(returning.args).length;
                     if (foundArgsCount >= commandArgs.length) {
                         // if the command has all of its args
-                        returning.unexpectedArgs.push(arg);
+                        if (returning.command.allowUnexpectedArgs ?? false) {
+                            // if unexpected args are allowed
+                            returning.unexpectedArgs.push(arg);
+                        } else {
+                            // or throw an error
+                            exitWithParserError([
+                                `Error: unexpected argument "${arg}"`
+                            ], returning);
+                        }
                     } else {
                         // if it is expecting arguments
                         const nextArg = commandArgs[foundArgsCount];
                         // was this arg declared as a string or as an object
                         const argName = (typeof nextArg === "string") ? nextArg : nextArg.name;
+                        // add it
                         returning.args[argName] = arg;
                     }
                 }

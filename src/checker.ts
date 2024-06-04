@@ -53,13 +53,10 @@ export function checkForUnexpected(parsed: ParsedCommand, options: YaclilOptions
     options.advanced ??= {};
 
     // allow unexpected things
-    const allowUnexpectedArgs = parsed.command.allowUnexpectedArgs
-    ?? options.advanced.allowUnexpectedArgs ?? false;
     const allowUnexpectedOptions = parsed.command.allowUnexpectedOptions
     ?? options.advanced.allowUnexpectedOptions ?? false;
 
     // unexpected things
-    const unexpectedArgs = Object.keys(parsed.unexpectedArgs).length;
     const unexpectedOptions = Object.keys(parsed.unexpectedOptions).length
     + Object.keys(parsed.unexpectedOptionsShort).length;
 
@@ -69,11 +66,7 @@ export function checkForUnexpected(parsed: ParsedCommand, options: YaclilOptions
 
     let errorMessage: string | null = null;
 
-    if (!allowUnexpectedArgs && unexpectedArgs > 0) {
-        // args
-        const args = parsed.unexpectedArgs.join(', ');
-        errorMessage = `Error: unexpected arguments: ${args}`;
-    } else if (!allowUnexpectedOptions && unexpectedOptions) {
+    if (!allowUnexpectedOptions && unexpectedOptions) {
         // options
         const optionsRaw = parsed.unexpectedOptions.map(
             value => `--${value}`
