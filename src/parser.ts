@@ -1,5 +1,5 @@
 import { exitWithErrorInternal } from "./exit-with-error-internal.js";
-import { errorIfNotEnoughCommandArgs, errorIfNotEnoughOptionArgs } from "./exit-with-parser-error.js";
+import { errorIfNotEnoughCommandArgs, errorIfNotEnoughOptionArgs } from "./parser-checker.js";
 import type { YaclilOptions } from "./types/init";
 import type { Option } from "./types/option";
 import type { ParsedCommand, ParsedOption } from "./types/parsed";
