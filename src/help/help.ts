@@ -21,7 +21,8 @@ export function renderCommandUsage(treePath: string[], command: Command): string
     const result: string[] = ['Usage:'];
     result.push(...treePath); // add the tree path
     for (const arg of command.args ?? []) {
-        result.push(`<${arg}>`);
+        // for both string and object arg declarations
+        result.push(`<${(typeof arg === 'string') ? arg : arg.name}>`);
     }
     if (command.additionalUsage) result.push(command.additionalUsage);
     return result.join(' ');

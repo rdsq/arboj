@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - Added reexport for the `Arg` type
+- Fixed usage message for objective args declarations
 
 ## 1.4.5 2024-06-04
 
