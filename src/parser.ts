@@ -1,4 +1,5 @@
 import type { Command } from "./types/command";
+import { YaclilOptions } from "./types/init";
 import type { Option } from "./types/option";
 import type { ParsedCommand, ParsedOption } from "./types/parsed";
 
@@ -92,32 +93,24 @@ function processOption(returning: ParsedCommand, arg: string,
  * @param param0 Options for the parser
  * @returns Parsed command that can be passed to handler
  */
-export function parseCommand({
-    rootCommand,
-    argv,
-    helpEnabledGlobally,
-}: {
-    rootCommand: Command,
-    argv: string[],
-    helpEnabledGlobally: boolean | undefined,
-}): ParsedCommand {
+export function parseCommand(initOptions: YaclilOptions, argv: string[]): ParsedCommand | never {
     /** The parsed command object */
     const returning: ParsedCommand = {
-        command: rootCommand,
+        command: initOptions.rootCommand,
         args: {} as { [key: string]: string },
         unexpectedArgs: [] as string[],
         options: {} as { [key: string]: ParsedOption },
         unexpectedOptions: [] as string[],
         unexpectedOptionsShort: [] as string[],
-        treePath: [ rootCommand.name ] as string[],
+        treePath: [ initOptions.rootCommand.name ] as string[],
         helpOption: false,
-        rootCommand,
+        rootCommand: initOptions.rootCommand,
     };
     // process that argv
     for (let i = 0; i < argv.length; i++) {
         if (argv[i].startsWith('-') && !isNumeric(argv[i]) && argv[i].length > 1) {
             // for options and not negative numbers and not `-`
-            processOption(returning, argv[i], helpEnabledGlobally);
+            processOption(returning, argv[i], initOptions.advanced?.helpOptions ?? true);
         } else {
             const optionsValues = Object.values(returning.options);
             const latestOption: ParsedOption | undefined = optionsValues[optionsValues.length - 1];

@@ -12,12 +12,11 @@ export function yaclil(options: YaclilOptions) {
     options.advanced ??= {};
     const argv = options.advanced.argv ?? process.argv;
     // call the parser
-    const parsed = parseCommand({
+    const parsed = parseCommand(
+        options,
         // remove the first two arguments
-        argv: argv.slice(2),
-        rootCommand: options.rootCommand,
-        helpEnabledGlobally: options.advanced.helpOptions
-    });
+        argv.slice(2)
+    );
     // check for unexpected
     checkForUnexpected(parsed, options);
     // get the configured value of include help feature, or `true` by default
