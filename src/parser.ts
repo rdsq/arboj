@@ -108,19 +108,20 @@ export function parseCommand(initOptions: YaclilOptions, argv: string[]): Parsed
     };
     // process that argv
     for (let i = 0; i < argv.length; i++) {
-        if (argv[i].startsWith('-') && !isNumeric(argv[i]) && argv[i].length > 1) {
+        const arg = argv[i];
+        if (arg.startsWith('-') && !isNumeric(arg) && arg.length > 1) {
             // for options and not negative numbers and not `-`
-            processOption(returning, argv[i], initOptions.advanced?.helpOptions ?? true);
+            processOption(returning, arg, initOptions.advanced?.helpOptions ?? true);
         } else {
             const optionsValues = Object.values(returning.options);
             const latestOption: ParsedOption | undefined = optionsValues[optionsValues.length - 1];
             if (latestOption && getOptionArgsLeft(latestOption) > 0) {
                 // if the option requires args
-                fillNextOptionArg(latestOption, argv[i]);
+                fillNextOptionArg(latestOption, arg);
             } else {
                 // is this arg a command
                 const commandFound = (returning.command.subcommands ?? []).find(
-                    value => value.name === argv[i]
+                    value => value.name === arg
                 );
                 if (commandFound) {
                     // then switch to it
@@ -133,13 +134,13 @@ export function parseCommand(initOptions: YaclilOptions, argv: string[]): Parsed
                     const foundArgsCount = Object.keys(returning.args).length;
                     if (foundArgsCount >= commandArgs.length) {
                         // if the command has all of its args
-                        returning.unexpectedArgs.push(argv[i]);
+                        returning.unexpectedArgs.push(arg);
                     } else {
                         // if it is expecting arguments
                         const nextArg = commandArgs[foundArgsCount];
                         // was this arg declared as a string or as an object
                         const argName = (typeof nextArg === "string") ? nextArg : nextArg.name;
-                        returning.args[argName] = argv[i];
+                        returning.args[argName] = arg;
                     }
                 }
             }
