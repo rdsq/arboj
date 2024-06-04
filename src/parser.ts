@@ -81,10 +81,18 @@ function processOption(returning: ParsedCommand, arg: string,
         const parsedOption = optionToParsedOption(option);
         returning.options[parsedOption.option.name] = parsedOption;
     } else {
-        // put it into the list of unexpected options
-        // depending on its kind
-        (isShort ? returning.unexpectedOptionsShort :
-            returning.unexpectedOptions).push(optionName);
+        // check if unexpected options are allowed
+        if (returning.command.allowUnexpectedOptions ?? false) {
+            // put it into the list of unexpected options
+            // depending on its kind
+            (isShort ? returning.unexpectedOptionsShort :
+                returning.unexpectedOptions).push(optionName);
+        } else {
+            exitWithParserError(
+                `Error: unexpected option "${arg}`,
+                returning
+            );
+        }
     }
 }
 
@@ -139,9 +147,9 @@ export function parseCommand(initOptions: YaclilOptions, argv: string[]): Parsed
                             returning.unexpectedArgs.push(arg);
                         } else {
                             // or throw an error
-                            exitWithParserError([
-                                `Error: unexpected argument "${arg}"`
-                            ], returning);
+                            exitWithParserError(
+                                `Error: unexpected argument "${arg}"`,
+                            returning);
                         }
                     } else {
                         // if it is expecting arguments

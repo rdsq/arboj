@@ -52,31 +52,13 @@ function getRequiredNotProvidedArgsOfOptions(parsed: ParsedCommand): { [key: str
 export function checkForUnexpected(parsed: ParsedCommand, options: YaclilOptions): void {
     options.advanced ??= {};
 
-    // allow unexpected things
-    const allowUnexpectedOptions = parsed.command.allowUnexpectedOptions
-    ?? options.advanced.allowUnexpectedOptions ?? false;
-
-    // unexpected things
-    const unexpectedOptions = Object.keys(parsed.unexpectedOptions).length
-    + Object.keys(parsed.unexpectedOptionsShort).length;
-
     // required args
     const notProvidedArgs = getRequiredNotProvidedArgs(parsed.command.args, parsed.args);
     const notProvidedOptionArgs = getRequiredNotProvidedArgsOfOptions(parsed);
 
     let errorMessage: string | null = null;
 
-    if (!allowUnexpectedOptions && unexpectedOptions) {
-        // options
-        const optionsRaw = parsed.unexpectedOptions.map(
-            value => `--${value}`
-        );
-        optionsRaw.push(...parsed.unexpectedOptionsShort.map(
-            value => `-${value}`
-        ));
-        const options = optionsRaw.join(", ");
-        errorMessage = `Error: unexpected options: ${options}`
-    } else if (parsed.command.handler === null && !parsed.helpOption) {
+    if (parsed.command.handler === null && !parsed.helpOption) {
         // if this command is only for subcommands
         errorMessage = "Error: this command is not callable";
     } else if (notProvidedArgs.length > 0) {
