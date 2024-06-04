@@ -2,12 +2,13 @@ import { renderHelp } from "./help/help.js";
 import { parseCommand } from "./parser";
 import type { YaclilOptions } from "./types/init.js";
 import exitWithError from "./exit-with-error.js";
+import { exitWithErrorInternal } from "./exit-with-error-internal.js";
 
 /**
  * The YACLIL API
  * @param options Options for the app
  */
-export function yaclil(options: YaclilOptions) {
+export function yaclil(options: YaclilOptions): void | never {
     options.advanced ??= {};
     const argv = options.advanced.argv ?? process.argv;
     // call the parser
@@ -22,8 +23,15 @@ export function yaclil(options: YaclilOptions) {
         // return the help string
         console.log(renderHelp(parsed));
     } else {
+        // if this command is not callable
+        if (!parsed.command.handler) {
+            exitWithErrorInternal(
+                'Error: this command is not callable',
+                parsed
+            );
+        }
         // if everything is ok
-        parsed.command.handler!(parsed);
+        parsed.command.handler(parsed);
     }
 }
 

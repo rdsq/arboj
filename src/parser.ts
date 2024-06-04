@@ -1,5 +1,6 @@
-import { errorIfNotEnoughCommandArgs, errorIfNotEnoughOptionArgs, exitWithParserError } from "./exit-with-parser-error";
-import { YaclilOptions } from "./types/init";
+import { exitWithErrorInternal } from "./exit-with-error-internal.js";
+import { errorIfNotEnoughCommandArgs, errorIfNotEnoughOptionArgs } from "./exit-with-parser-error.js";
+import type { YaclilOptions } from "./types/init";
 import type { Option } from "./types/option";
 import type { ParsedCommand, ParsedOption } from "./types/parsed";
 
@@ -88,7 +89,7 @@ function processOption(returning: ParsedCommand, arg: string,
             (isShort ? returning.unexpectedOptionsShort :
                 returning.unexpectedOptions).push(optionName);
         } else {
-            exitWithParserError(
+            exitWithErrorInternal(
                 `Error: unexpected option "${arg}`,
                 returning
             );
@@ -153,7 +154,7 @@ export function parseCommand(initOptions: YaclilOptions, argv: string[]): Parsed
                             returning.unexpectedArgs.push(arg);
                         } else {
                             // or throw an error
-                            exitWithParserError(
+                            exitWithErrorInternal(
                                 `Error: unexpected argument "${arg}"`,
                             returning);
                         }

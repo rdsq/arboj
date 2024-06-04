@@ -1,15 +1,7 @@
-import exitWithError from "./exit-with-error.js";
-import { getHelpCommand } from "./help/help.js";
-import { Command } from "./types/command.js";
-import { Option } from "./types/option.js";
-import { ParsedCommand, ParsedOption } from "./types/parsed.js";
-
-export function exitWithParserError(message: string, parsed: ParsedCommand): never {
-    exitWithError(
-        message
-        + `\nUse "${getHelpCommand(parsed)}" to get help on this command`
-    )
-}
+import { exitWithErrorInternal } from "./exit-with-error-internal.js";
+import type { Command } from "./types/command.js";
+import type { Option } from "./types/option.js";
+import type { ParsedCommand, ParsedOption } from "./types/parsed.js";
 
 /**
  * Get required args of a command or option that were expected, but not provided
@@ -52,7 +44,7 @@ export function errorIfNotEnoughOptionArgs(parsedOption: ParsedOption, parsedCom
         return;
     }
     // throw error
-    exitWithParserError(
+    exitWithErrorInternal(
         `Error: option "${parsedOption.option.name}" expected, but not provided arguments: ${missing.join(', ')}`,
         parsedCommand
     );
@@ -69,7 +61,7 @@ export function errorIfNotEnoughCommandArgs(parsedCommand: ParsedCommand): void 
         return;
     }
     // throw error
-    exitWithParserError(
+    exitWithErrorInternal(
         `Error: expected, but not provided arguments: ${missing.join(', ')}`,
         parsedCommand
     );
