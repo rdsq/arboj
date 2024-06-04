@@ -28,22 +28,6 @@ function getRequiredNotProvidedArgs(
     return args;
 }
 
-function getRequiredNotProvidedArgsOfOptions(parsed: ParsedCommand): { [key: string]: string[] } {
-    const result: { [key:string ]: string[] } = {};
-    for (const option of parsed.command.options ?? []) {
-        const optionName = option.name;
-        const providedOption = parsed.options[optionName];
-        // if this option was not called
-        if (!providedOption) continue;
-        const notProvidedArgs = getRequiredNotProvidedArgs(option.args, providedOption?.args ?? {});
-        if (notProvidedArgs.length > 0) {
-            // if there are some, add them
-            result[optionName] = notProvidedArgs;
-        }
-    }
-    return result;
-}
-
 /**
  * Internal checker for commands
  * @param parsed Parsed command to check
