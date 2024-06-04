@@ -41,6 +41,7 @@ export { Option } from './types/option.js';
 export { ParsedCommand, ParsedOption } from './types/parsed.js';
 export { YaclilOptions } from './types/init.js';
 export { Handler } from './types/handler.js';
+export { Arg } from './types/arg.js';
 
 // reexport graph
 export { treeGraph } from './tree-graph.js';

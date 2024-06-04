@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Added reexport for the `Arg` type
+
 ## 1.4.5 2024-06-04
 
 - `-` are not options anymore
