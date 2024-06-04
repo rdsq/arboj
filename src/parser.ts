@@ -1,4 +1,4 @@
-import { errorIfNotEnoughOptionArgs, exitWithParserError } from "./exit-with-parser-error";
+import { errorIfNotEnoughCommandArgs, errorIfNotEnoughOptionArgs, exitWithParserError } from "./exit-with-parser-error";
 import { YaclilOptions } from "./types/init";
 import type { Option } from "./types/option";
 import type { ParsedCommand, ParsedOption } from "./types/parsed";
@@ -169,5 +169,7 @@ export function parseCommand(initOptions: YaclilOptions, argv: string[]): Parsed
             }
         }
     }
+    // check if some required arguments were not provided
+    errorIfNotEnoughCommandArgs(returning);
     return returning;
 }

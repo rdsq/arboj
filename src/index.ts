@@ -2,7 +2,6 @@ import { renderHelp } from "./help/help.js";
 import { parseCommand } from "./parser";
 import type { YaclilOptions } from "./types/init.js";
 import exitWithError from "./exit-with-error.js";
-import { checkForUnexpected } from "./checker.js";
 
 /**
  * The YACLIL API
@@ -17,8 +16,6 @@ export function yaclil(options: YaclilOptions) {
         // remove the first two arguments
         argv.slice(2)
     );
-    // check for unexpected
-    checkForUnexpected(parsed, options);
     // get the configured value of include help feature, or `true` by default
     const helpConfigValue = parsed.command.helpOption ?? options.advanced.helpOptions ?? true;
     if (parsed.helpOption && helpConfigValue) {
