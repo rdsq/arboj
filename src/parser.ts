@@ -1,4 +1,4 @@
-import exitWithParserError from "./exit-with-parser-error";
+import { errorIfNotEnoughOptionArgs, exitWithParserError } from "./exit-with-parser-error";
 import { YaclilOptions } from "./types/init";
 import type { Option } from "./types/option";
 import type { ParsedCommand, ParsedOption } from "./types/parsed";
@@ -117,12 +117,18 @@ export function parseCommand(initOptions: YaclilOptions, argv: string[]): Parsed
     // process that argv
     for (let i = 0; i < argv.length; i++) {
         const arg = argv[i];
+        // some data about latest option
+        const optionsValues = Object.values(returning.options);
+        const latestOption: ParsedOption | undefined = optionsValues[optionsValues.length - 1];
         if (arg.startsWith('-') && !isNumeric(arg) && arg.length > 1) {
             // for options and not negative numbers and not `-`
+            // if this option is not the first one
+            if (latestOption) {
+                // check if previous option is missing some arguments
+                errorIfNotEnoughOptionArgs(latestOption, returning);
+            }
             processOption(returning, arg, initOptions.advanced?.helpOptions ?? true);
         } else {
-            const optionsValues = Object.values(returning.options);
-            const latestOption: ParsedOption | undefined = optionsValues[optionsValues.length - 1];
             if (latestOption && getOptionArgsLeft(latestOption) > 0) {
                 // if the option requires args
                 fillNextOptionArg(latestOption, arg);
@@ -152,7 +158,7 @@ export function parseCommand(initOptions: YaclilOptions, argv: string[]): Parsed
                             returning);
                         }
                     } else {
-                        // if it is expecting arguments
+                        // if this command expects arguments
                         const nextArg = commandArgs[foundArgsCount];
                         // was this arg declared as a string or as an object
                         const argName = (typeof nextArg === "string") ? nextArg : nextArg.name;

@@ -54,7 +54,6 @@ export function checkForUnexpected(parsed: ParsedCommand, options: YaclilOptions
 
     // required args
     const notProvidedArgs = getRequiredNotProvidedArgs(parsed.command.args, parsed.args);
-    const notProvidedOptionArgs = getRequiredNotProvidedArgsOfOptions(parsed);
 
     let errorMessage: string | null = null;
 
@@ -65,13 +64,6 @@ export function checkForUnexpected(parsed: ParsedCommand, options: YaclilOptions
         // some of required args were not provided
         const args = notProvidedArgs.join(", ");
         errorMessage = `Error: expected, but not provided arguments: ${args}`;
-    } else if (Object.keys(notProvidedOptionArgs).length > 0) {
-        // some of required args of options were not provided
-        errorMessage = 'Error: expected, but not provided arguments of options:';
-        for (const optionName of Object.keys(notProvidedOptionArgs)) {
-            const args = notProvidedOptionArgs[optionName].join(', ');
-            errorMessage += `\n${optionName}: ${args}`;
-        }
     }
 
     if (errorMessage) {
