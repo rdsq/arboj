@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## 1.4.6 2024-06-08
 
 - Added reexport for the `Arg` type
 - Fixed usage message for objective args declarations
