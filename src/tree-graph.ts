@@ -62,11 +62,11 @@ export type TreeGraphOptions = {
 /**
  * Generate tree graph from any command
  * @param command The command to create graph from
- * @options Options for the tree graph generator. Boolean values are legacy
+ * @options Options for the tree graph generator. Boolean values are legacy, they represent the color
  * @returns The graph
  */
-export function treeGraph(command: Command, options: TreeGraphOptions | boolean = {}): string {
-    // boolean legacy
+export function treeGraph(command: Command, options: TreeGraphOptions = {}): string {
+    // legacy
     if (typeof options === 'boolean') options = { colored: options };
     // default values
     options.colored ??= false;
