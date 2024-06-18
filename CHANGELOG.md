@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.7 2024-06-18
+
+Removed legacy type declaration in tree graph
+
 ## 1.4.6 2024-06-08
 
 - Added reexport for the `Arg` type
