@@ -1,4 +1,16 @@
+import { exitWithErrorInternal } from "./exit-with-error-internal.js";
 import { Option, Command, Arg, YaclilOptions, ParsedCommand } from "./types.js";
+
+function checkIsHelp(option: string) {
+    return option === '--help' || option === '-h';
+}
+
+/**
+ * I copied it from the internet
+ */
+function isNumeric(value: string) {
+    return /^-?\d+$/.test(value);
+}
 
 export default class Parser {
     rootCommand: Command;
@@ -13,6 +25,8 @@ export default class Parser {
     unexpectedArgs: string[];
     currentOptionExpectsArgs: number;
     treePath: string[];
+    helpCalled: boolean;
+    optionsProcessingEnabled: boolean;
 
     constructor(options: {
         rootCommand: Command,
@@ -32,6 +46,54 @@ export default class Parser {
         this.unexpectedOptions = [];
         this.unexpectedArgs = [];
         this.currentOptionExpectsArgs = 0;
+        this.helpCalled = false;
+        this.optionsProcessingEnabled = true;
+    }
+
+    get unexpectedOptionsAllowed() {
+        return this.currentCommand.allowUnexpectedOptions
+        ?? this.initOptions.allowUnexpectedOptions
+        ?? false;
+    }
+
+    processOption(option: string): void {
+        // if options are disabled or this option is just a negative number
+        if (!this.optionsProcessingEnabled || isNumeric(option)) {
+            // process it as an argument
+            return;
+        };
+        // check if this is help
+        if (checkIsHelp(option)) {
+            this.helpCalled = true;
+            return;
+        }
+        // for disabling further options processing
+        if (option === '--') {
+            this.optionsProcessingEnabled = false;
+            this.commandSearchStopped = true;
+            return;
+        }
+        const isFullName = option.startsWith("--");
+        let processedOption = isFullName ? option.substring(2) : option.substring(1);
+        let thisOption: Option | undefined;
+        if (!this.currentCommand.options) {
+            thisOption = undefined;
+        } else {
+            const searchBy: keyof Option = isFullName ? 'name' : 'shortName';
+            thisOption = this.currentCommand.options.find(
+                value => value[searchBy] === processedOption
+            );
+        }
+        if (thisOption === undefined) {
+            if (this.unexpectedOptionsAllowed) {
+                this.unexpectedOptions.push(option); // raw option
+            } else {
+                exitWithErrorInternal(
+                    `Error: unexpected option: ${option}`,
+                    this.treePath,
+                );
+            }
+        }
     }
 
     parse(): void {}

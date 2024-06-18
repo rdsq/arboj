@@ -30,7 +30,7 @@ export function yaclil(rootCommand: Command, rootCommandName: string, options?: 
         if (!parsed.command.handler) {
             exitWithErrorInternal(
                 'Error: this command is not callable',
-                parsed
+                parsed.treePath
             );
         }
         // if everything is ok

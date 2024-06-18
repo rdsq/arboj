@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+
+- Added feature to disable further options processing with `--`
+- Updated YACLIL function options
+- Now `subcommands` is an object, not array
+- Added `yaclil/types` path
+
 ## 1.4.7 2024-06-18
 
 Removed legacy type declaration in tree graph
