@@ -1,5 +1,6 @@
 import { exitWithErrorInternal } from "./exit-with-error-internal.js";
 import { errorIfNotEnoughCommandArgs, errorIfNotEnoughOptionArgs } from "./parser-checker.js";
+import type { Command } from "./types/command.js";
 import type { YaclilOptions } from "./types/init";
 import type { Option } from "./types/option";
 import type { ParsedCommand, ParsedOption, ParsedOptions } from "./types/parsed";
@@ -108,18 +109,18 @@ function getLatestOption(options: ParsedOptions): ParsedOption | undefined {
  * @param param0 Options for the parser
  * @returns Parsed command that can be passed to handler
  */
-export function parseCommand(initOptions: YaclilOptions, argv: string[]): ParsedCommand | never {
+export function parseCommand(rootCommand: Command, initOptions: YaclilOptions, argv: string[]): ParsedCommand | never {
     /** The parsed command object */
     const returning: ParsedCommand = {
-        command: initOptions.rootCommand,
+        command: rootCommand,
         args: {} as { [key: string]: string },
         unexpectedArgs: [] as string[],
         options: {} as ParsedOptions,
         unexpectedOptions: [] as string[],
         unexpectedOptionsShort: [] as string[],
-        treePath: [ initOptions.rootCommand.name ] as string[],
+        treePath: [ rootCommand.name ] as string[],
         helpOption: false,
-        rootCommand: initOptions.rootCommand,
+        rootCommand: rootCommand,
     };
     // process that argv
     for (let i = 0; i < argv.length; i++) {
@@ -133,7 +134,7 @@ export function parseCommand(initOptions: YaclilOptions, argv: string[]): Parsed
                 // check if previous option is missing some arguments
                 errorIfNotEnoughOptionArgs(latestOption, returning);
             }
-            processOption(returning, arg, initOptions.advanced?.helpOptions ?? true);
+            processOption(returning, arg, initOptions.helpOptions ?? true);
         } else {
             if (latestOption && getOptionArgsLeft(latestOption) > 0) {
                 // if the option requires args

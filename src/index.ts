@@ -3,22 +3,24 @@ import { parseCommand } from "./parser";
 import type { YaclilOptions } from "./types/init.js";
 import exitWithError from "./exit-with-error.js";
 import { exitWithErrorInternal } from "./exit-with-error-internal.js";
+import type { Command } from "./types/command.js";
 
 /**
  * The YACLIL API
  * @param options Options for the app
  */
-export function yaclil(options: YaclilOptions): void | never {
-    options.advanced ??= {};
-    const argv = options.advanced.argv ?? process.argv;
+export function yaclil(rootCommand: Command, options?: YaclilOptions): void | never {
+    options ??= {};
+    const argv = options.argv ?? process.argv;
     // call the parser
     const parsed = parseCommand(
+        rootCommand,
         options,
         // remove the first two arguments
         argv.slice(2)
     );
     // get the configured value of include help feature, or `true` by default
-    const helpConfigValue = parsed.command.helpOption ?? options.advanced.helpOptions ?? true;
+    const helpConfigValue = parsed.command.helpOption ?? options.helpOptions ?? true;
     if (parsed.helpOption && helpConfigValue) {
         // return the help string
         console.log(renderHelp(parsed));
