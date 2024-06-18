@@ -109,7 +109,7 @@ function getLatestOption(options: ParsedOptions): ParsedOption | undefined {
  * @param param0 Options for the parser
  * @returns Parsed command that can be passed to handler
  */
-export function parseCommand(rootCommand: Command, initOptions: YaclilOptions, argv: string[]): ParsedCommand | never {
+export function parseCommandOld(rootCommand: Command, initOptions: YaclilOptions, argv: string[]): ParsedCommand | never {
     /** The parsed command object */
     const returning: ParsedCommand = {
         command: rootCommand,
@@ -185,3 +185,10 @@ export function parseCommand(rootCommand: Command, initOptions: YaclilOptions, a
     errorIfNotEnoughCommandArgs(returning);
     return returning;
 }
+
+export function parseCommand(options: {
+    rootCommand: Command,
+    rootCommandName: string,
+    initOptions: YaclilOptions,
+    argv: string[],
+}): ParsedCommand {}

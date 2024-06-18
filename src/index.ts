@@ -9,16 +9,17 @@ import type { Command } from "./types/command.js";
  * The YACLIL API
  * @param options Options for the app
  */
-export function yaclil(rootCommand: Command, options?: YaclilOptions): void | never {
+export function yaclil(rootCommand: Command, rootCommandName: string, options?: YaclilOptions): void | never {
     options ??= {};
-    const argv = options.argv ?? process.argv;
+    const argv = options.customArgv ?? process.argv;
     // call the parser
-    const parsed = parseCommand(
+    const parsed = parseCommand({
         rootCommand,
-        options,
+        rootCommandName,
+        initOptions: options,
         // remove the first two arguments
-        argv.slice(2)
-    );
+        argv: argv.slice(2)
+    });
     // get the configured value of include help feature, or `true` by default
     const helpConfigValue = parsed.command.helpOption ?? options.helpOptions ?? true;
     if (parsed.helpOption && helpConfigValue) {

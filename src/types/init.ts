@@ -14,7 +14,7 @@ export type YaclilOptions = {
      * Don't forget to set first two args to something useless,
      * because the app will delete them automatically
      */
-    argv?: string[],
+    customArgv?: string[],
     /**
      * Allow args, that were not expected by this app's commands.
      * `false` by default
