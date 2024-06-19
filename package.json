@@ -21,7 +21,16 @@
     "typescript": "^5.4.5"
   },
   "exports": {
-    ".": "./out/index.js",
-    "./types": "./out/types"
+    ".": {
+      "default": "./out/index.js",
+      "types": "./out/index.d.ts"
+    },
+    "./types": {
+      "types": "./out/types.d.ts"
+    },
+    "./utils": {
+      "default": "./out/utils.js",
+      "types": "./out/utils.d.ts"
+    }
   }
 }
