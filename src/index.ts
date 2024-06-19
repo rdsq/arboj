@@ -1,24 +1,26 @@
 import { renderHelp } from "./help/help.js";
 import { parseCommand } from "./parser";
-import type { YaclilOptions } from "./types/init.js";
 import exitWithError from "./exit-with-error.js";
 import { exitWithErrorInternal } from "./exit-with-error-internal.js";
+import type { YaclilOptions, Command } from "./types";
 
 /**
  * The YACLIL API
  * @param options Options for the app
  */
-export function yaclil(options: YaclilOptions): void | never {
-    options.advanced ??= {};
-    const argv = options.advanced.argv ?? process.argv;
+export function yaclil(rootCommand: Command, cliName: string, options?: YaclilOptions): void | never {
+    options ??= {};
+    const argv = options.customArgv ?? process.argv;
     // call the parser
-    const parsed = parseCommand(
-        options,
+    const parsed = parseCommand({
+        rootCommand,
+        rootCommandName: cliName,
+        initOptions: options,
         // remove the first two arguments
-        argv.slice(2)
-    );
+        argv: argv.slice(2)
+    });
     // get the configured value of include help feature, or `true` by default
-    const helpConfigValue = parsed.command.helpOption ?? options.advanced.helpOptions ?? true;
+    const helpConfigValue = parsed.command.helpOption ?? options.helpOptions ?? true;
     if (parsed.helpOption && helpConfigValue) {
         // return the help string
         console.log(renderHelp(parsed));
@@ -27,7 +29,7 @@ export function yaclil(options: YaclilOptions): void | never {
         if (!parsed.command.handler) {
             exitWithErrorInternal(
                 'Error: this command is not callable',
-                parsed
+                parsed.treePath
             );
         }
         // if everything is ok

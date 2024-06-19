@@ -1,5 +1,4 @@
-import type { Command } from "../types/command";
-import type { Option } from "../types/option";
+import type { Command, Option } from "../types";
 
 /**
  * Does some command have options or not
@@ -65,5 +64,5 @@ export function renderCommandOptions(command: Command): string {
     for (const option of command.options!) {
         result.push(renderOptionString(option, maxLength));
     }
-    return 'Options:\n' + result.join('\n');
+    return 'Options:\n  ' + result.join('\n  ');
 }

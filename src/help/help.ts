@@ -1,5 +1,4 @@
-import type { Command } from "../types/command";
-import type { Option } from "../types/option";
+import type { Command, Option } from "../types";
 import { ParsedCommand } from "../types/parsed.js";
 import { renderCommandOptions } from "./options.js";
 import { renderCommandSubcommands } from "./subcommands.js";
@@ -116,12 +115,11 @@ export function renderHelp(parsedCommand: ParsedCommand): string {
 
 /**
  * Get the help command for some command
- * @param parsed The parser result
  * @returns Something like `my-cli my-command --help`
  */
-export function getHelpCommand(parsed: ParsedCommand): string {
+export function getHelpCommand(treePath: string[]): string {
     const result: string[] = [];
-    result.push(...parsed.treePath);
+    result.push(...treePath);
     result.push('--help');
     return result.join(' ');
 }
