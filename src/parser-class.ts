@@ -161,10 +161,13 @@ export default class Parser {
     }
 
     processCommand(arg: string) {
-        assert(this.currentCommand.subcommands, `Subcommand "${arg}" does not exist`)
+        assert(this.currentCommand.subcommands, `Subcommand "${arg}" does not exist`);
+        this.currentCommand = this.currentCommand.subcommands[arg];
     }
 
     processArg(arg: string) {
+        // if help, ignore any errors
+        if (this.helpCalled) return;
         if (this.currentOptionExpectsArgs > 0) {
             // args for options
             this.argsForCurrentOption.push(arg);
@@ -193,6 +196,8 @@ export default class Parser {
     }
 
     setArgsForOption() {
+        // if help, ignore any errors
+        if (this.helpCalled) return;
         if (this.currentOption === null) return;
         const option = this.currentOption;
         if (option.option.args) {
@@ -215,6 +220,8 @@ export default class Parser {
     }
 
     setArgsForCommand() {
+        // if help, ignore any errors
+        if (this.helpCalled) return;
         const command = this.currentCommand;
         const args: ParsedArgs = {};
         if (command.args) {
