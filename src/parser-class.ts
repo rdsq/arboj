@@ -54,7 +54,6 @@ export default class Parser {
     treePath: string[];
     helpCalled: boolean;
     optionsProcessingEnabled: boolean;
-    optionArgsProcessed: boolean;
 
     constructor(options: {
         rootCommand: Command,
@@ -81,7 +80,6 @@ export default class Parser {
         this.currentCommandExpectsArgs = 0;
         this.helpCalled = false;
         this.optionsProcessingEnabled = true;
-        this.optionArgsProcessed = true;
     }
 
     get unexpectedOptionsAllowed() {
@@ -102,7 +100,6 @@ export default class Parser {
 
     setExpectedOptionArgsCount(option: Option) {
         this.currentOptionExpectsArgs = option.args?.length ?? 0;
-        if (this.currentOptionExpectsArgs === 0) this.optionArgsProcessed = false;
     }
 
     processOption(option: string): void {
@@ -165,7 +162,6 @@ export default class Parser {
 
     processCommand(arg: string) {
         assert(this.currentCommand.subcommands, `Subcommand "${arg}" does not exist`)
-        this.currentCommand = this.currentCommand.subcommands[arg];
     }
 
     processArg(arg: string) {
@@ -260,7 +256,7 @@ export default class Parser {
             // else
             this.processArg(arg);
         }
-        if (!this.optionArgsProcessed) this.setArgsForOption();
+        if (this.currentOptionExpectsArgs > 0) this.setArgsForOption();
         this.setArgsForCommand();
     }
 
