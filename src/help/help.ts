@@ -1,5 +1,4 @@
-import type { Command } from "../types/command";
-import type { Option } from "../types/option";
+import type { Command, Option } from "../types";
 import { ParsedCommand } from "../types/parsed.js";
 import { renderCommandOptions } from "./options.js";
 import { renderCommandSubcommands } from "./subcommands.js";

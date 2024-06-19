@@ -1,7 +1,5 @@
 import { exitWithErrorInternal } from "./exit-with-error-internal.js";
-import type { Command } from "./types/command.js";
-import type { Option } from "./types/option.js";
-import type { ParsedCommand, ParsedOption } from "./types/parsed.js";
+import type { Command, Option, ParsedCommand, ParsedOption } from "./types";
 
 /**
  * Get required args of a command or option that were expected, but not provided
@@ -46,7 +44,7 @@ export function errorIfNotEnoughOptionArgs(parsedOption: ParsedOption, parsedCom
     // throw error
     exitWithErrorInternal(
         `Error: option "${parsedOption.option.name}" expected, but not received arguments: ${missing.join(', ')}`,
-        parsedCommand
+        parsedCommand.treePath,
     );
 }
 
@@ -63,6 +61,6 @@ export function errorIfNotEnoughCommandArgs(parsedCommand: ParsedCommand): void 
     // throw error
     exitWithErrorInternal(
         `Error: expected, but not provided arguments: ${missing.join(', ')}`,
-        parsedCommand
+        parsedCommand.treePath,
     );
 }

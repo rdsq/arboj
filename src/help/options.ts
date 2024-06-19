@@ -1,5 +1,4 @@
-import type { Command } from "../types/command";
-import type { Option } from "../types/option";
+import type { Command, Option } from "../types";
 
 /**
  * Does some command have options or not

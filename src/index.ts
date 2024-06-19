@@ -1,9 +1,8 @@
 import { renderHelp } from "./help/help.js";
 import { parseCommand } from "./parser";
-import type { YaclilOptions } from "./types/init.js";
 import exitWithError from "./exit-with-error.js";
 import { exitWithErrorInternal } from "./exit-with-error-internal.js";
-import type { Command } from "./types/command.js";
+import type { YaclilOptions, Command } from "./types";
 
 /**
  * The YACLIL API
