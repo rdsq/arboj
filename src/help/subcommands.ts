@@ -76,5 +76,5 @@ export function renderCommandSubcommands(command: Command): string {
         if (subcommand.hidden ?? false) continue;
         result.push(renderCommandString(subcommand, subcommandName, maxLength));
     }
-    return 'Subcommands:\n' + result.join('\n');
+    return 'Subcommands:\n  ' + result.join('\n  ');
 }
