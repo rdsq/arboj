@@ -58,11 +58,11 @@ export default class Parser {
     constructor(options: {
         rootCommand: Command,
         rootCommandName: string,
-        options: YaclilOptions,
+        initOptions: YaclilOptions,
         argv: string[],
     }) {
         this.rootCommand = options.rootCommand;
-        this.initOptions = options.options;
+        this.initOptions = options.initOptions;
         this.argv = options.argv;
         this.treePath = [ options.rootCommandName ];
 
