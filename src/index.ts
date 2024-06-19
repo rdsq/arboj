@@ -9,13 +9,13 @@ import type { Command } from "./types/command.js";
  * The YACLIL API
  * @param options Options for the app
  */
-export function yaclil(rootCommand: Command, rootCommandName: string, options?: YaclilOptions): void | never {
+export function yaclil(rootCommand: Command, cliName: string, options?: YaclilOptions): void | never {
     options ??= {};
     const argv = options.customArgv ?? process.argv;
     // call the parser
     const parsed = parseCommand({
         rootCommand,
-        rootCommandName,
+        rootCommandName: cliName,
         initOptions: options,
         // remove the first two arguments
         argv: argv.slice(2)

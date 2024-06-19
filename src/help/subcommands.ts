@@ -6,7 +6,7 @@ import type { Command } from "../types/command";
  * @returns Does it have subcommands or not
  */
 export function hasSubcommands(command: Command): boolean | undefined {
-    return command.subcommands && command.subcommands.length > 0;
+    return command.subcommands && Object.keys(command.subcommands).length > 0;
 }
 
 /**
@@ -15,8 +15,8 @@ export function hasSubcommands(command: Command): boolean | undefined {
  * @param includeArgs Include the args string like `<3>`
  * @returns The rendered string
  */
-export function renderCommandName(command: Command): string {
-    let name = command.name;
+export function renderCommandName(command: Command, commandName: string): string {
+    let name = commandName;
     if (command.args && command.args.length > 0) {
         // add args string
         name += ` <${command.args.length}>`
@@ -35,8 +35,9 @@ export function getMaxSubcommandsLength(command: Command): number {
         return 0;
     }
     let maxLength = 0;
-    for (let subcommand of command.subcommands!) {
-        const thisLength = renderCommandName(subcommand).length;
+    for (let subcommandName of Object.keys(command.subcommands!)) {
+        const subcommand = command.subcommands![subcommandName];
+        const thisLength = renderCommandName(subcommand, subcommandName).length;
         if (thisLength > maxLength) {
             maxLength = thisLength;
         }
@@ -50,8 +51,8 @@ export function getMaxSubcommandsLength(command: Command): number {
  * @param maxLength Max length of all commands
  * @returns The result string with command's name, args and description
  */
-export function renderCommandString(command: Command, maxLength: number): string {
-    let result = renderCommandName(command);
+export function renderCommandString(command: Command, commandName: string, maxLength: number): string {
+    let result = renderCommandName(command, commandName);
     if (command.description) {
         const freeSpaceCount = maxLength - result.length + 3;
         const freeSpace = ' '.repeat(freeSpaceCount);
@@ -69,10 +70,11 @@ export function renderCommandSubcommands(command: Command): string {
     const result: string[] = [];
     if (!hasSubcommands(command)) return '(no subcommands)';
     const maxLength = getMaxSubcommandsLength(command);
-    for (let subcommand of command.subcommands!) {
+    for (let subcommandName of Object.keys(command.subcommands!)) {
+        const subcommand = command.subcommands![subcommandName];
         // if it is hidden, ignore it
         if (subcommand.hidden ?? false) continue;
-        result.push(renderCommandString(subcommand, maxLength));
+        result.push(renderCommandString(subcommand, subcommandName, maxLength));
     }
     return 'Subcommands:\n' + result.join('\n');
 }
