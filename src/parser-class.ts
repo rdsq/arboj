@@ -1,5 +1,5 @@
 import { exitWithErrorInternal } from "./exit-with-error-internal.js";
-import { Option, Command, Arg, YaclilOptions, ParsedCommand } from "./types.js";
+import { Option, Command, Arg, YaclilOptions, ParsedCommand, ParsedOption, ParsedOptions } from "./types.js";
 
 function checkIsHelp(option: string) {
     return option === '--help' || option === '-h';
@@ -19,11 +19,13 @@ export default class Parser {
 
     currentCommand: Command;
     commandSearchStopped: boolean;
-    options: Option[];
+    options: ParsedOptions;
     args: Arg[];
     unexpectedOptions: string[];
+    unexpectedOptionsShort: string[];
     unexpectedArgs: string[];
     currentOptionExpectsArgs: number;
+    currentCommandExpectsArgs: number;
     treePath: string[];
     helpCalled: boolean;
     optionsProcessingEnabled: boolean;
@@ -41,11 +43,13 @@ export default class Parser {
 
         this.currentCommand = this.rootCommand;
         this.commandSearchStopped = false;
-        this.options = [];
+        this.options = {};
         this.args = [];
         this.unexpectedOptions = [];
+        this.unexpectedOptionsShort = [];
         this.unexpectedArgs = [];
         this.currentOptionExpectsArgs = 0;
+        this.currentCommandExpectsArgs = 0;
         this.helpCalled = false;
         this.optionsProcessingEnabled = true;
     }
@@ -53,6 +57,12 @@ export default class Parser {
     get unexpectedOptionsAllowed() {
         return this.currentCommand.allowUnexpectedOptions
         ?? this.initOptions.allowUnexpectedOptions
+        ?? false;
+    }
+
+    get unexpectedArgsAllowed() {
+        return this.currentCommand.allowUnexpectedArgs
+        ?? this.initOptions.allowUnexpectedArgs
         ?? false;
     }
 
@@ -86,13 +96,24 @@ export default class Parser {
         }
         if (thisOption === undefined) {
             if (this.unexpectedOptionsAllowed) {
-                this.unexpectedOptions.push(option); // raw option
+                if (isFullName) {
+                    this.unexpectedOptions.push(processedOption);
+                } else {
+                    this.unexpectedOptionsShort.push(processedOption);
+                }
             } else {
                 exitWithErrorInternal(
                     `Error: unexpected option: ${option}`,
                     this.treePath,
                 );
             }
+        } else {
+            // if there is an option
+            this.options[thisOption.name] = {
+                option: thisOption,
+                args: {},
+            };
+            this.commandSearchStopped = true;
         }
     }
 
@@ -105,6 +126,9 @@ export default class Parser {
             treePath: this.treePath,
             unexpectedOptions: this.unexpectedOptions,
             unexpectedArgs: this.unexpectedArgs,
+            options: this.options,
+            helpOption: this.helpCalled,
+            unexpectedOptionsShort: this.unexpectedOptionsShort,
         }
     }
 }
