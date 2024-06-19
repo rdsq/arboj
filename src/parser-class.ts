@@ -66,6 +66,14 @@ export default class Parser {
         ?? false;
     }
 
+    setExpectedCommandArgsCount(command: Command) {
+        this.currentCommandExpectsArgs = command.args?.length ?? 0;
+    }
+
+    setExpectedOptionArgsCount(option: Option) {
+        this.currentOptionExpectsArgs = option.args?.length ?? 0;
+    }
+
     processOption(option: string): void {
         // if options are disabled or this option is just a negative number
         if (!this.optionsProcessingEnabled || isNumeric(option)) {
@@ -114,6 +122,7 @@ export default class Parser {
                 args: {},
             };
             this.commandSearchStopped = true;
+            this.setExpectedOptionArgsCount(thisOption);
         }
     }
 
