@@ -54,6 +54,7 @@ export default class Parser {
     treePath: string[];
     helpCalled: boolean;
     optionsProcessingEnabled: boolean;
+    optionArgsProcessed: boolean;
 
     constructor(options: {
         rootCommand: Command,
@@ -80,6 +81,7 @@ export default class Parser {
         this.currentCommandExpectsArgs = 0;
         this.helpCalled = false;
         this.optionsProcessingEnabled = true;
+        this.optionArgsProcessed = true;
     }
 
     get unexpectedOptionsAllowed() {
@@ -100,6 +102,7 @@ export default class Parser {
 
     setExpectedOptionArgsCount(option: Option) {
         this.currentOptionExpectsArgs = option.args?.length ?? 0;
+        if (this.currentOptionExpectsArgs === 0) this.optionArgsProcessed = false;
     }
 
     processOption(option: string): void {
@@ -134,17 +137,19 @@ export default class Parser {
                 }
             } else {
                 exitWithErrorInternal(
-                    `Error: unexpected option: ${option}`,
+                    `Error: unexpected option "${option}"`,
                     this.treePath,
                 );
             }
         } else {
             // if there is an option
-            this.options[thisOption.name] = {
+            const parsedOption = {
                 option: thisOption,
                 args: {},
             };
+            this.options[thisOption.name] = parsedOption;
             this.commandSearchStopped = true;
+            this.currentOption = parsedOption;
             this.setExpectedOptionArgsCount(thisOption);
         }
     }
@@ -192,7 +197,7 @@ export default class Parser {
     }
 
     setArgsForOption() {
-        assert(this.currentOption !== null, 'Current option is not defined');
+        if (this.currentOption === null) return;
         const option = this.currentOption;
         if (option.option.args) {
             // if args are defined
@@ -200,14 +205,12 @@ export default class Parser {
                 const arg = option.option.args[i];
                 const argName = getArgName(arg);
                 const providedArg = this.argsForCurrentOption[i];
-                if (!providedArg) {
-                    if (isArgRequired(arg)) {
-                        // if arg was not provided and it is required
-                        exitWithErrorInternal(
-                            `Error: required argument "${argName}" was not provided`,
-                            this.treePath,
-                        );
-                    }
+                if (!providedArg && isArgRequired(arg)) {
+                    // if arg was not provided and it is required
+                    exitWithErrorInternal(
+                        `Error: required argument "${argName}" was not provided`,
+                        this.treePath,
+                    );
                 }
                 this.currentOption.args[argName] = providedArg;
             }
@@ -238,9 +241,10 @@ export default class Parser {
     }
 
     parse(): void {
+        this.setExpectedCommandArgsCount(this.currentCommand);
         for (const arg of this.argv) {
-            if (this.optionsProcessingEnabled) {
-                this.processOption(arg);
+            if (!this.optionsProcessingEnabled) {
+                this.processArg(arg);
                 continue;
             }
             if (isOption(arg)) {
@@ -256,7 +260,7 @@ export default class Parser {
             // else
             this.processArg(arg);
         }
-        this.setArgsForOption();
+        if (!this.optionArgsProcessed) this.setArgsForOption();
         this.setArgsForCommand();
     }
 
