@@ -20,4 +20,5 @@ export type ParsedCommand = {
     treePath: string[],
     helpOption: boolean,
     rootCommand: Command,
+    appName: string,
 };

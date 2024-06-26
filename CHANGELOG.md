@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Added `appName` (basically `treePath[0]`) to the event object
+
 ## 2.0.0 2024-06-19
 
 - Added feature to disable further options processing with `--`
