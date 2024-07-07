@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Updated error message from `Error: unexpected arg` to `Error: unexpected argument`
+
 ## 2.0.1 2024-07-07
 
 - Added `appName` (basically `treePath[0]`) to the event object

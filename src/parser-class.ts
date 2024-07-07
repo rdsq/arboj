@@ -192,7 +192,7 @@ export default class Parser {
         }
         // else print error
         exitWithErrorInternal(
-            `Error: unexpected arg "${arg}"`,
+            `Error: unexpected argument "${arg}"`,
             this.treePath,
         )
     }
