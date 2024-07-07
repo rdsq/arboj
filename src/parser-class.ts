@@ -164,7 +164,7 @@ export default class Parser {
         assert(this.currentCommand.subcommands, `Subcommand "${arg}" does not exist`);
         this.currentCommand = this.currentCommand.subcommands[arg];
 	this.treePath.push(arg);
-	this.setExpectedCommandArgsCount();
+	this.setExpectedCommandArgsCount(this.currentCommand);
     }
 
     processArg(arg: string) {
