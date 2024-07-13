@@ -1,10 +1,17 @@
-import type { Command, Option } from "../types";
-import { ParsedCommand } from "../types/parsed.js";
+import type { Command, Option, Arg, ParsedCommand } from "../types";
 import { renderCommandOptions } from "./options.js";
 import { renderCommandSubcommands } from "./subcommands.js";
 
 /** Separator for the help */
 const separator = '\n\n';
+
+function argName(arg: Arg): string {
+    if (typeof arg === 'string') {
+	return arg;
+    } else {
+	return arg.name;
+    }
+}
 
 /**
  * Render the usage string from some command
@@ -21,7 +28,7 @@ export function renderCommandUsage(treePath: string[], command: Command): string
     result.push(...treePath); // add the tree path
     for (const arg of command.args ?? []) {
         // for both string and object arg declarations
-        result.push(`<${(typeof arg === 'string') ? arg : arg.name}>`);
+        result.push(`<${argName(arg)}>`);
     }
     if (command.additionalUsage) result.push(command.additionalUsage);
     return result.join(' ');
@@ -38,7 +45,7 @@ export function renderOptionUsage(treePath: string[], option: Option): string {
     result.push(...treePath);
     result.push(`--${option.name}`);
     for (const arg of option.args ?? []) {
-        result.push(`<${arg}>`);
+        result.push(`<${argName(arg)}>`);
     }
     return result.join(' ');
 }

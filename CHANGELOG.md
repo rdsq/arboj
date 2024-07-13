@@ -4,6 +4,7 @@
 
 - Updated error message from `Error: unexpected arg` to `Error: unexpected argument`
 - Added v to versions in Changelog
+- Fixed option argumunt rendering in usage error
 
 ## v2.0.1 2024-07-07
 
