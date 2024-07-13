@@ -5,7 +5,7 @@ import { renderCommandSubcommands } from "./subcommands.js";
 /** Separator for the help */
 const separator = '\n\n';
 
-function argName(arg: Arg): string {
+function argName(arg: Arg | string): string {
     if (typeof arg === 'string') {
 	return arg;
     } else {
