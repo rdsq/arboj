@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.0.3 2024-07-14
+
+- Fixed unexpected arguments when allowed
+
 ## v2.0.2 2024-07-13
 
 - Updated error message from `Error: unexpected arg` to `Error: unexpected argument`

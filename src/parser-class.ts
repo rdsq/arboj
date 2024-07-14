@@ -189,6 +189,7 @@ export default class Parser {
         if (this.unexpectedArgsAllowed) {
             // if unexpected args are allowed
             this.unexpectedArgs.push(arg);
+	    return;
         }
         // else print error
         exitWithErrorInternal(
