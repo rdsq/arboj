@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## v2.1.0 2024-07-18
 
 - Added colors to the `+` on commands with hidden subcommands in the tree graph
 - `-` is not an option anymore (again)

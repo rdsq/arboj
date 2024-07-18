@@ -1,6 +1,6 @@
 {
   "name": "yaclil",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "An object based minimal library for building Command Line Apps",
   "main": "out/index.js",
   "types": "out/index.d.ts",
