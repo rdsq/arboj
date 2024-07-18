@@ -44,7 +44,8 @@ function recursiveTree(command: Command, margin: number, options: TreeGraphOptio
                 // if subcommands are hidden and showing them is not configured
                 if ((subcommand.hideSubcommands ?? false) && !options.showHiddenSubcommands) {
                     // sign that it has hidden subcommands
-                    result[result.length - 1] += ' +';
+		    const sign = options.colored ? ' \x1b[34m+\x1b[0m' : ' +';
+                    result[result.length - 1] += sign;
                 } else {
                     result.push(recursiveTree(subcommand, margin + 1, options, endedMargin));
                 }

@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Added colors to the `+` on commands with hidden subcommands in the tree graph
+
 ## v2.0.3 2024-07-14
 
 - Fixed unexpected arguments when allowed
