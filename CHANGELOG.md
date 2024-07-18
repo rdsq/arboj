@@ -6,6 +6,7 @@
 - `-` is not an option anymore (again)
 - Changed types file extensions from `.ts` to `.d.ts`
 - Added `pre` export with `treeGraphCommand`
+- When the target command doesn't have subcommands, `treeGraph` shows the `(empty)` message
 
 ## v2.0.3 2024-07-14
 

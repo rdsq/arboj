@@ -79,5 +79,6 @@ export function treeGraph(command: Command, commandName: string, options: TreeGr
     options.showHiddenSubcommands ??= false;
     // run
     const graph = recursiveTree(command, 0, options, 0);
-    return commandName + '\n' + graph;
+    const emptyMessage = options.colored ? '\x1b[34m(empty)\x1b[0m' : '(empty)';
+    return commandName + '\n' + (graph || emptyMessage);
 }
