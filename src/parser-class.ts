@@ -31,7 +31,7 @@ function isArgRequired(arg: Arg | string): boolean {
 }
 
 function isOption(element: string) {
-    return element.startsWith('-') && !isNumeric(element);
+    return element.startsWith('-') && !isNumeric(element) && element !== '-';
 }
 
 export default class Parser {
