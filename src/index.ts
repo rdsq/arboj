@@ -38,12 +38,17 @@ export function yaclil(rootCommand: Command, cliName: string, options?: YaclilOp
 }
 
 // reexport types
-export { Command } from '../types/command.js';
-export { Option } from '../types/option.js';
-export { ParsedCommand, ParsedOption } from '../types/parsed.js';
-export { YaclilOptions } from '../types/init.js';
-export { Handler } from '../types/handler.js';
-export { Arg } from '../types/arg.js';
+export type {
+    Command,
+    Arg,
+    Handler,
+    Option,
+    ParsedArgs,
+    ParsedCommand,
+    ParsedOption,
+    ParsedOptions,
+    YaclilOptions,
+} from '../types';
 
 // reexport graph
 export { treeGraph } from './tree-graph.js';
