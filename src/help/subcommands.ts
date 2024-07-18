@@ -1,4 +1,4 @@
-import type { Command } from "../types";
+import type { Command } from "../../types";
 
 /**
  * Check if some command has subcommands

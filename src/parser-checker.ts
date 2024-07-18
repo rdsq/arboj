@@ -1,5 +1,5 @@
 import { exitWithErrorInternal } from "./exit-with-error-internal.js";
-import type { Command, Option, ParsedCommand, ParsedOption } from "./types";
+import type { Command, Option, ParsedCommand, ParsedOption } from "../types.js";
 
 /**
  * Get required args of a command or option that were expected, but not provided

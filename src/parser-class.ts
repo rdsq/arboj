@@ -1,7 +1,7 @@
 import assert from "assert";
 import { exitWithErrorInternal } from "./exit-with-error-internal.js";
-import { Option, Command, Arg, YaclilOptions, ParsedCommand, ParsedOption, ParsedOptions } from "./types.js";
-import { ParsedArgs } from "./types/parsed.js";
+import { Option, Command, Arg, YaclilOptions, ParsedCommand, ParsedOption, ParsedOptions } from "../types.js";
+import { ParsedArgs } from "../types/parsed.js";
 
 function checkIsHelp(option: string) {
     return option === '--help' || option === '-h';

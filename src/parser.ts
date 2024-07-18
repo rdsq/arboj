@@ -1,5 +1,5 @@
 import Parser from "./parser-class.js";
-import type { Command, ParsedCommand, YaclilOptions } from "./types.js";
+import type { Command, ParsedCommand, YaclilOptions } from "../types.js";
 
 export function parseCommand(options: {
     rootCommand: Command,
