@@ -5,6 +5,7 @@
 - Added colors to the `+` on commands with hidden subcommands in the tree graph
 - `-` is not an option anymore (again)
 - Changed types file extensions from `.ts` to `.d.ts`
+- Added `pre` export with `treeGraphCommand`
 
 ## v2.0.3 2024-07-14
 

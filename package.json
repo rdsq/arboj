@@ -31,6 +31,10 @@
     "./utils": {
       "default": "./out/utils.js",
       "types": "./out/utils.d.ts"
+    },
+    "./pre": {
+      "default": "./out/pre.js",
+      "types": "./out/pre.d.ts"
     }
   }
 }
