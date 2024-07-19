@@ -22,7 +22,7 @@ const treeGraphCommand: Command = {
         if (treePath.length !== 0) {
             for (const element of treePath) {
                 command = (command.subcommands ?? {})[element];
-                if (!command) exitWithError(`Error: unknown subcommand "${element}"`);
+                if (!command) exitWithError(`Error: could not find subcommand "${element}" of command "${commandName}"`);
                 commandName = element;
             }
         }

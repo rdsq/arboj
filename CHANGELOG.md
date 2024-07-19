@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Updated tree graph command error message to include the command of the subcommand
+
 ## v2.1.0 2024-07-18
 
 - Added colors to the `+` on commands with hidden subcommands in the tree graph
