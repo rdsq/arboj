@@ -20,6 +20,7 @@ Then use the `yaclil` method from this package
 import { yaclil } from 'yaclil';
 
 yaclil({
+    // the main command
     // the function that will be called
     handler: event => console.log('Hello World'),
     // optional subcommands
@@ -47,7 +48,3 @@ yaclil({
 }, 'my-cli')
 // ...
 ```
-
-## TypeScript
-
-Yes, it supports TypeScript
