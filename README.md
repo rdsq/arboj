@@ -24,7 +24,9 @@ yaclil({
     // the function that will be called
     handler: event => console.log('Hello World'),
     // optional subcommands
-    subcommands: []
+    subcommands: {
+        subcommand: { handler: console.log('Hello from "command-name subcommand"') }
+    }
 }, 'command-name');
 ```
 
