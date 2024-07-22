@@ -47,6 +47,9 @@ export function renderOptionUsage(treePath: string[], option: Option): string {
     for (const arg of option.args ?? []) {
         result.push(`<${argName(arg)}>`);
     }
+    if (option.standaloneHandler) {
+        result.push(' (standalone)');
+    }
     return result.join(' ');
 }
 
@@ -125,8 +128,6 @@ export function renderHelp(parsedCommand: ParsedCommand): string {
  * @returns Something like `my-cli my-command --help`
  */
 export function getHelpCommand(treePath: string[]): string {
-    const result: string[] = [];
-    result.push(...treePath);
-    result.push('--help');
+    const result: string[] = [ ...treePath, '--help' ];
     return result.join(' ');
 }
