@@ -1,6 +1,4 @@
-import { renderHelp } from "./help/help.js";
 import { parseCommand } from "./parser";
-import exitWithError from "./exit-with-error.js";
 import { exitWithErrorInternal } from "./exit-with-error-internal.js";
 import type { YaclilOptions, Command } from "../types.js";
 import { helpOption } from "./pre.js";
@@ -9,7 +7,7 @@ import { helpOption } from "./pre.js";
  * The YACLIL API
  * @param options Options for the app
  */
-export function yaclil(rootCommand: Command, cliName: string, options?: YaclilOptions): void | never {
+export default function yaclil(rootCommand: Command, cliName: string, options?: YaclilOptions): void | never {
     options ??= {};
     const globalOptions = options.globalOptions ?? [
         helpOption,
@@ -44,26 +42,3 @@ export function yaclil(rootCommand: Command, cliName: string, options?: YaclilOp
         parsed.command.handler(parsed);
     }
 }
-
-// reexport types
-export type {
-    Command,
-    Arg,
-    Handler,
-    Option,
-    ParsedArgs,
-    ParsedCommand,
-    ParsedOption,
-    ParsedOptions,
-    YaclilOptions,
-} from '../types';
-
-// reexport graph
-export { treeGraph } from './tree-graph.js';
-
-// reexport `exitWithError`
-/**
- * @deprecated Use `exitWithError` instead
- */
-export const returnError = exitWithError;
-export { exitWithError };

@@ -93,8 +93,6 @@ export type TreeGraphOptions = {
  * @returns The graph
  */
 export function treeGraph(command: Command, commandNameOrTreePath: string | string[], options: TreeGraphOptions = {}): string {
-    // legacy
-    if (typeof options === 'boolean') options = { colored: options };
     // default values
     options.colored ??= false;
     options.showHidden ??= false;
