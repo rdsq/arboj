@@ -12,7 +12,7 @@ export function yaclil(rootCommand: Command, cliName: string, options?: YaclilOp
     options ??= {};
     const argv = options.customArgv ?? process.argv;
     // call the parser
-    const parsed = parseCommand({
+    const { parsed, helpCalled } = parseCommand({
         rootCommand,
         rootCommandName: cliName,
         initOptions: options,
@@ -21,7 +21,7 @@ export function yaclil(rootCommand: Command, cliName: string, options?: YaclilOp
     });
     // get the configured value of include help feature, or `true` by default
     const helpConfigValue = parsed.command.helpOption ?? options.helpOptions ?? true;
-    if (parsed.helpOption && helpConfigValue) {
+    if (helpCalled && helpConfigValue) {
         // return the help string
         console.log(renderHelp(parsed));
     } else {

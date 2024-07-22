@@ -21,5 +21,5 @@ export type Option = {
     /**
      * Args for the option (optional)
      */
-    args?: (string | Arg)[]
+    args?: (string | Arg)[],
 };

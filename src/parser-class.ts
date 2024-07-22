@@ -278,7 +278,6 @@ export default class Parser {
             unexpectedOptions: this.unexpectedOptions,
             unexpectedArgs: this.unexpectedArgs,
             options: this.options,
-            helpOption: this.helpCalled,
             unexpectedOptionsShort: this.unexpectedOptionsShort,
             args: this.processedArgsForCurrentCommand,
             appName: this.treePath[0],

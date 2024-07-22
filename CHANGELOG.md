@@ -7,6 +7,8 @@
 - Added a function to count subcommands
 - Added tree path rendering to `treeGraph` function
 - Tree graph is now dimming target command if it is not callable
+- Updated doc strings
+- Removed `helpOption` from `ParsedCommand` type
 
 ## v2.1.0 2024-07-18
 
