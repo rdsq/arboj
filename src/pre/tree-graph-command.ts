@@ -6,7 +6,7 @@ function renderTreePath(treePath: string[], appName: string, colored: boolean): 
     const full: string[] = [ appName, ...treePath ];
     full.pop(); // remove the last element  because it will be added by the command
     if (full.length === 0) {
-	return '';
+	    return '';
     }
     return (colored ? '\x1b[2m' : '') // dimmed
     + full.join('/') + '/'
