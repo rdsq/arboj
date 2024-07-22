@@ -52,20 +52,22 @@ export default class Parser {
     currentOptionExpectsArgs: number;
     currentCommandExpectsArgs: number;
     treePath: string[];
-    helpCalled: boolean;
     optionsProcessingEnabled: boolean;
     standaloneOptionName: string | null;
+    globalOptions: Option[];
 
     constructor(options: {
         rootCommand: Command,
         rootCommandName: string,
         initOptions: YaclilOptions,
         argv: string[],
+        globalOptions: Option[],
     }) {
         this.rootCommand = options.rootCommand;
         this.initOptions = options.initOptions;
         this.argv = options.argv;
         this.treePath = [ options.rootCommandName ];
+        this.globalOptions = options.globalOptions ?? [];
 
         this.currentCommand = this.rootCommand;
         this.currentOption = null;
@@ -79,7 +81,6 @@ export default class Parser {
         this.unexpectedArgs = [];
         this.currentOptionExpectsArgs = 0;
         this.currentCommandExpectsArgs = 0;
-        this.helpCalled = false;
         this.optionsProcessingEnabled = true;
         this.standaloneOptionName = null;
     }
@@ -105,11 +106,6 @@ export default class Parser {
     }
 
     processOption(option: string): void {
-        // check if this is help
-        if (checkIsHelp(option)) {
-            this.helpCalled = true;
-            return;
-        }
         // for disabling further options processing
         if (option === '--') {
             this.optionsProcessingEnabled = false;
@@ -119,14 +115,14 @@ export default class Parser {
         const isFullName = option.startsWith("--");
         let processedOption = isFullName ? option.substring(2) : option.substring(1);
         let thisOption: Option | undefined;
-        if (!this.currentCommand.options) {
-            thisOption = undefined;
-        } else {
-            const searchBy: keyof Option = isFullName ? 'name' : 'shortName';
-            thisOption = this.currentCommand.options.find(
-                value => value[searchBy] === processedOption
-            );
-        }
+        // search
+        const searchBy: keyof Option = isFullName ? 'name' : 'shortName';
+        const searchFunc = (value: Option) => value[searchBy] === processedOption;
+        const currentCommandOptions = this.currentCommand.options ?? [];
+        thisOption = currentCommandOptions.find(
+            searchFunc
+        ) ?? this.globalOptions.find(searchFunc);
+        // find it in command's options or in global options
         if (thisOption === undefined) {
             if (this.unexpectedOptionsAllowed) {
                 if (isFullName) {
@@ -169,13 +165,13 @@ export default class Parser {
     processCommand(arg: string) {
         assert(this.currentCommand.subcommands, `Subcommand "${arg}" does not exist`);
         this.currentCommand = this.currentCommand.subcommands[arg];
-	this.treePath.push(arg);
-	this.setExpectedCommandArgsCount(this.currentCommand);
+        this.treePath.push(arg);
+        this.setExpectedCommandArgsCount(this.currentCommand);
     }
 
     processArg(arg: string) {
         // if help or standalone option, ignore any errors
-        if (this.helpCalled || this.standaloneOptionCalled) return;
+        if (this.standaloneOptionCalled) return;
         if (this.currentOptionExpectsArgs > 0) {
             // args for options
             this.argsForCurrentOption.push(arg);
@@ -205,8 +201,8 @@ export default class Parser {
     }
 
     setArgsForOption() {
-        // if help, ignore any errors
-        if (this.helpCalled) return;
+        // if standalone option, ignore any errors
+        if (this.standaloneOptionCalled) return;
         if (this.currentOption === null) return;
         const option = this.currentOption;
         if (option.option.args) {
@@ -229,8 +225,8 @@ export default class Parser {
     }
 
     setArgsForCommand() {
-        // if help, ignore any errors
-        if (this.helpCalled) return;
+        // if standalone option, ignore any errors
+        if (this.standaloneOptionCalled) return;
         const command = this.currentCommand;
         const args: ParsedArgs = {};
         if (command.args) {

@@ -27,11 +27,6 @@ export type Command = {
     subcommands?: {
         [key: string]: Command,
     },
-    /** 
-     * Enable `--help` and `-h` options for this command?
-     * `true` by default
-     */
-    helpOption?: boolean,
     /**
      * The function that will handle this command.
      * Set to `null` for commands that exist only for subcommands

@@ -1,14 +1,10 @@
 import type { Command } from "./command";
+import { Option } from "./option";
 
 /**
  * The init options for YACLIL
  */
 export type YaclilOptions = {
-    /**
-     * Enable or disable `--help` and `-h` options in the app.
-     * `true` by default
-     */
-    helpOptions?: boolean,
     /**
      * Custom argv, mostly for testing.
      * Don't forget to set first two args to something useless,
@@ -25,4 +21,6 @@ export type YaclilOptions = {
      * `false` by default
      */
     allowUnexpectedOptions?: boolean,
+    /** Global options, by default only `--help -h` */
+    globalOptions?: Option[],
 };

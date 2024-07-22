@@ -10,6 +10,7 @@
 - Updated doc strings
 - Removed `helpOption` from `ParsedCommand` type
 - Added standalone options
+- Added global options, completely redesigned help logic
 
 ## v2.1.0 2024-07-18
 
