@@ -2,17 +2,6 @@ import exitWithError from '../exit-with-error.js';
 import { treeGraph } from "../tree-graph.js";
 import type { Command } from "../../types";
 
-function renderTreePath(treePath: string[], appName: string, colored: boolean): string {
-    const full: string[] = [ appName, ...treePath ];
-    full.pop(); // remove the last element  because it will be added by the command
-    if (full.length === 0) {
-	    return '';
-    }
-    return (colored ? '\x1b[2m' : '') // dimmed
-    + full.join('/') + '/'
-    + (colored ? '\x1b[0m' : ''); // reset
-}
-
 const treeGraphCommand: Command = {
     description: 'Show a tree graph of the CLI',
     handler: event => {
@@ -28,11 +17,11 @@ const treeGraphCommand: Command = {
         }
 	    const colored = !Boolean(event.options['no-color']);
         console.log(
-            renderTreePath(treePath, event.appName, colored) +
-            treeGraph(command, commandName, {
+            treeGraph(command, [event.appName, ...treePath], {
                 colored: colored,
                 showHidden: Boolean(event.options['show-commands']),
                 showHiddenSubcommands: Boolean(event.options["show-subcommands"]),
+                addTreePath: true,
             }
         ));
     },

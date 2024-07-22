@@ -5,6 +5,7 @@
 - Updated tree graph command error message to include the command of the subcommand
 - Updated usage in [README](README.md)
 - Added a function to count subcommands
+- Added tree path rendering to `treeGraph` function
 
 ## v2.1.0 2024-07-18
 
