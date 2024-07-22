@@ -2,6 +2,7 @@ import { parseCommand } from "./parser";
 import { exitWithErrorInternal } from "./exit-with-error-internal.js";
 import type { YaclilOptions, Command } from "../types.js";
 import { helpOption } from "./pre.js";
+import Parser from "./parser-class";
 
 /**
  * The YACLIL API
@@ -14,7 +15,7 @@ export default function yaclil(rootCommand: Command, cliName: string, options?: 
     ];
     const argv = options.customArgv ?? process.argv;
     // call the parser
-    const parser = parseCommand({
+    const parser = new Parser({
         rootCommand,
         rootCommandName: cliName,
         initOptions: options,
@@ -22,6 +23,7 @@ export default function yaclil(rootCommand: Command, cliName: string, options?: 
         argv: argv.slice(2),
         globalOptions,
     });
+    parser.parse();
     const parsed = parser.parsedObject;
     if (parser.standaloneOptionCalled) {
         // if standalone option called
