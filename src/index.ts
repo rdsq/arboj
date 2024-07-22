@@ -1,4 +1,3 @@
-import { parseCommand } from "./parser";
 import { exitWithErrorInternal } from "./exit-with-error-internal.js";
 import type { YaclilOptions, Command } from "../types.js";
 import { helpOption } from "./pre.js";
