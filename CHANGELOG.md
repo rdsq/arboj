@@ -4,7 +4,7 @@
 
 - Updated tree graph command error message to include the command of the subcommand
 - Updated usage in [README](README.md)
-- Added a function to count subcommands
+- Added a function to count subcommands: `countSubcommands` in `yaclil/utils`
 - Added tree path rendering to `treeGraph` function
 - Tree graph is now dimming target command if it is not callable
 - Updated doc strings
