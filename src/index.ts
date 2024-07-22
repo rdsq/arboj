@@ -1,13 +1,13 @@
 import { exitWithErrorInternal } from "./exit-with-error-internal.js";
 import type { YaclilOptions, Command } from "../types.js";
 import { helpOption } from "./pre.js";
-import Parser from "./parser-class";
+import Parser from "./parser-class.js";
 
 /**
  * The YACLIL API
  * @param options Options for the app
  */
-export default function yaclil(rootCommand: Command, cliName: string, options?: YaclilOptions): void | never {
+export function yaclil(rootCommand: Command, cliName: string, options?: YaclilOptions): void | never {
     options ??= {};
     const globalOptions = options.globalOptions ?? [
         helpOption,

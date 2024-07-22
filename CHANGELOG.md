@@ -13,7 +13,6 @@
 - Added global options, completely redesigned help logic
 - Added `argv` and `initOptions` to the parsed object
 - Removed deprecated objects
-- Now exporting `yaclil` as default
 
 ## v2.1.0 2024-07-18
 
