@@ -283,6 +283,8 @@ export default class Parser {
             unexpectedOptionsShort: this.unexpectedOptionsShort,
             args: this.processedArgsForCurrentCommand,
             appName: this.treePath[0],
+            initOptions: this.initOptions,
+            argv: this.argv,
         };
     }
 

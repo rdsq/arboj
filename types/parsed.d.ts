@@ -1,4 +1,5 @@
 import type { Command } from "./command";
+import { YaclilOptions } from "./init";
 import type { Option } from "./option";
 
 export type ParsedOption = {
@@ -34,6 +35,10 @@ export type ParsedCommand = {
     rootCommand: Command,
     /** Basically the same as `treePath[0]` */
     appName: string,
+    /** Options, that were passed to the `yaclil` function as the 3rd argument */
+    initOptions: YaclilOptions,
+    /** `argv` used to generate this parsed object */
+    argv: string[],
 };
 
 export type ParsedStandaloneOption = {
