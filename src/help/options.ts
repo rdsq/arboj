@@ -18,6 +18,7 @@ export function renderOptionName(option: Option): string {
     let result = `--${option.name}`;
     if (option.shortName) result += ` -${option.shortName}`;
     if (option.args && option.args.length > 0) result += ` <${option.args.length}>`;
+    if (option.standaloneHandler) result += ' (standalone)';
     return result;
 }
 
