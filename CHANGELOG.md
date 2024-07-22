@@ -13,6 +13,7 @@
 - Added global options, completely redesigned help logic
 - Added `argv` and `initOptions` to the parsed object
 - Removed deprecated objects
+- Added `treeGraphOption` to `pre`
 
 ## v2.1.0 2024-07-18
 
