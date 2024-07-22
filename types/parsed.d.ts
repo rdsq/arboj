@@ -2,7 +2,9 @@ import type { Command } from "./command";
 import type { Option } from "./option";
 
 export type ParsedOption = {
+    /** The declaration of the option */
     option: Option,
+    /** Arguments to this option */
     args: ParsedArgs,
 };
 
@@ -32,4 +34,11 @@ export type ParsedCommand = {
     rootCommand: Command,
     /** Basically the same as `treePath[0]` */
     appName: string,
+};
+
+export type ParsedStandaloneOption = {
+    /** Parsed command, where the option was called */
+    parsedCommand: ParsedCommand,
+    /** This parsed option */
+    parsedOption: ParsedOption,
 };

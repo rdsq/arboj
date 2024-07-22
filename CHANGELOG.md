@@ -9,6 +9,7 @@
 - Tree graph is now dimming target command if it is not callable
 - Updated doc strings
 - Removed `helpOption` from `ParsedCommand` type
+- Added standalone options
 
 ## v2.1.0 2024-07-18
 

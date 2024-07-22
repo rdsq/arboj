@@ -1,7 +1,7 @@
 import assert from "assert";
 import { exitWithErrorInternal } from "./exit-with-error-internal.js";
 import { Option, Command, Arg, YaclilOptions, ParsedCommand, ParsedOption, ParsedOptions } from "../types.js";
-import { ParsedArgs } from "../types/parsed.js";
+import { ParsedArgs, ParsedStandaloneOption } from "../types/parsed.js";
 
 function checkIsHelp(option: string) {
     return option === '--help' || option === '-h';
@@ -54,6 +54,7 @@ export default class Parser {
     treePath: string[];
     helpCalled: boolean;
     optionsProcessingEnabled: boolean;
+    standaloneOptionName: string | null;
 
     constructor(options: {
         rootCommand: Command,
@@ -80,6 +81,7 @@ export default class Parser {
         this.currentCommandExpectsArgs = 0;
         this.helpCalled = false;
         this.optionsProcessingEnabled = true;
+        this.standaloneOptionName = null;
     }
 
     get unexpectedOptionsAllowed() {
@@ -148,6 +150,10 @@ export default class Parser {
             this.commandSearchStopped = true;
             this.currentOption = parsedOption;
             this.setExpectedOptionArgsCount(thisOption);
+            if (thisOption.standaloneHandler && !this.standaloneOptionCalled) {
+                // if this is a standalone option, and first one
+                this.standaloneOptionName = thisOption.name;
+            }
         }
     }
 
@@ -168,8 +174,8 @@ export default class Parser {
     }
 
     processArg(arg: string) {
-        // if help, ignore any errors
-        if (this.helpCalled) return;
+        // if help or standalone option, ignore any errors
+        if (this.helpCalled || this.standaloneOptionCalled) return;
         if (this.currentOptionExpectsArgs > 0) {
             // args for options
             this.argsForCurrentOption.push(arg);
@@ -281,6 +287,20 @@ export default class Parser {
             unexpectedOptionsShort: this.unexpectedOptionsShort,
             args: this.processedArgsForCurrentCommand,
             appName: this.treePath[0],
+        };
+    }
+
+    get standaloneOptionCalled(): boolean {
+        return this.standaloneOptionName !== null;
+    }
+
+    get parsedStandaloneOption(): ParsedStandaloneOption {
+        if (this.standaloneOptionName === null) {
+            throw new Error('Attempted to get parsed standalone option when it was not called')
         }
+        return {
+            parsedCommand: this.parsedObject,
+            parsedOption: this.options[this.standaloneOptionName],
+        };
     }
 }

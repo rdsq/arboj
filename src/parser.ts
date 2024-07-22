@@ -9,6 +9,5 @@ export function parseCommand(options: {
 }) {
     const parser = new Parser(options);
     parser.parse();
-    const parsed = parser.parsedObject;
-    return { parsed, helpCalled: parser.helpCalled };
+    return parser;
 }
