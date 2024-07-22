@@ -6,6 +6,7 @@
 - Updated usage in [README](README.md)
 - Added a function to count subcommands
 - Added tree path rendering to `treeGraph` function
+- Tree graph is now dimming target command if it is not callable
 
 ## v2.1.0 2024-07-18
 

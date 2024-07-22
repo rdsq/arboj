@@ -4,6 +4,10 @@ const branchChar = '┗ ';
 const straightChar = '┃ ';
 const branchAndStraightChar = '┣ ';
 
+function dimmed(text: string): string {
+    return `\x1b[2m${text}\x1b[0m`;
+}
+
 /**
  * Create something like `cli-name/command/another/`
  * @param treePath The path to the command, including app name
@@ -49,7 +53,7 @@ function recursiveTree(command: Command, margin: number, options: TreeGraphOptio
             let commandName = subcommandName;
             if (options.colored && subcommand.handler === null) {
                 // dim it if it does not have a handler and coloring is enabled
-                commandName = `\x1b[2m${commandName}\x1b[0m`;
+                commandName = dimmed(commandName);
             }
             // add it
             result.push(
@@ -113,8 +117,15 @@ export function treeGraph(command: Command, commandNameOrTreePath: string | stri
     } else {
         treePathRender = '';
     }
+    // colored command name
+    let coloredCommandName: string;
+    if (options.colored) {
+        coloredCommandName = dimmed(commandName);
+    } else {
+        coloredCommandName = commandName;
+    }
     // run
     const graph = recursiveTree(command, 0, options, 0);
     const emptyMessage = options.colored ? '\x1b[34m(empty)\x1b[0m' : '(empty)';
-    return treePathRender + commandName + '\n' + (graph || emptyMessage);
+    return treePathRender + coloredCommandName + '\n' + (graph || emptyMessage);
 }
