@@ -1,4 +1,4 @@
-import type { Command } from "../../types";
+import type { Command, CommandDefinition } from "../../types";
 import { navigateSubcommands } from "../utils";
 
 const branchChar = '┗ ';
@@ -34,7 +34,7 @@ function renderTreePath(treePath: string[], colored: boolean): string {
  * @param endedMargin Count of margin levels on start that are ended
  * @returns The graph of this command's subcommands
  */
-async function recursiveTree(command: Command, margin: number, options: TreeGraphOptions, endedMargin: number): Promise<string> {
+async function recursiveTree(command: CommandDefinition, margin: number, options: TreeGraphOptions, endedMargin: number): Promise<string> {
     const marginString = '  '.repeat(endedMargin) + straightChar.repeat(margin - endedMargin);
     let result: string[] = [];
     const subcommandsKeys = Object.keys(command.subcommands ?? {});
@@ -95,7 +95,7 @@ export type TreeGraphOptions = {
  * @options Options for the tree graph generator. Boolean values are legacy, they represent the color
  * @returns The graph
  */
-export async function treeGraph(command: Command, commandNameOrTreePath: string | string[], options: TreeGraphOptions = {}): Promise<string> {
+export async function treeGraph(command: CommandDefinition, commandNameOrTreePath: string | string[], options: TreeGraphOptions = {}): Promise<string> {
     // default values
     options.colored ??= false;
     options.showHidden ??= false;

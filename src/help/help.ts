@@ -60,7 +60,7 @@ export function renderOptionUsage(treePath: string[], option: Option): string {
  * @param command The command
  * @returns The full string
  */
-export function renderCommandHelp(treePath: string[], command: CommandDefinition): string {
+export async function renderCommandHelp(treePath: string[], command: CommandDefinition): Promise<string> {
     const result: string[] = [];
     // usage
     const usage = renderCommandUsage(treePath, command);
@@ -69,7 +69,7 @@ export function renderCommandHelp(treePath: string[], command: CommandDefinition
     const description = command.description;
     if (description) result.push(description);
     // subcommands
-    const subcommands = renderCommandSubcommands(command);
+    const subcommands: string = await renderCommandSubcommands(command);
     if (subcommands.length > 0) result.push(subcommands);
     // options
     const options = renderCommandOptions(command);
@@ -102,12 +102,12 @@ export function renderOptionHelp(treePath: string[], option: Option): string {
  * @param parsedCommand The result of the parser
  * @returns The result string
  */
-export function renderHelp(parsedCommand: ParsedCommand): string {
+export async function renderHelp(parsedCommand: ParsedCommand): Promise<string> {
     const { options, treePath, command } = parsedCommand;
     const optionsCount = Object.keys(options).length;
     if (optionsCount === 0) {
         // for command only
-        return renderCommandHelp(treePath, command);
+        return await renderCommandHelp(treePath, command);
     } else if (optionsCount === 1) {
         // for option only
         return renderOptionHelp(treePath, Object.values(options)[0]!.option);
@@ -115,7 +115,7 @@ export function renderHelp(parsedCommand: ParsedCommand): string {
         // for command and multiple options
         const result: string[] = [];
         // command help
-        result.push(renderCommandHelp(treePath, command));
+        result.push(await renderCommandHelp(treePath, command));
         for (const option of Object.values(options)) {
             // options help
             result.push(renderOptionHelp(treePath, option!.option))
