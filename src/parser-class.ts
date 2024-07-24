@@ -39,12 +39,10 @@ export default class Parser {
     commandSearchStopped: boolean;
     options: ParsedOptions;
     args: string[];
-    argsForCurrentOption: string[];
     processedArgsForCurrentCommand: ParsedArgs;
     unexpectedOptions: string[];
     unexpectedOptionsShort: string[];
     unexpectedArgs: string[];
-    currentOptionExpectsArgs: number;
     currentCommandExpectsArgs: number;
     treePath: string[];
     optionsProcessingEnabled: boolean;
@@ -69,12 +67,10 @@ export default class Parser {
         this.commandSearchStopped = false;
         this.options = {};
         this.args = [];
-        this.argsForCurrentOption = [];
         this.processedArgsForCurrentCommand = {};
         this.unexpectedOptions = [];
         this.unexpectedOptionsShort = [];
         this.unexpectedArgs = [];
-        this.currentOptionExpectsArgs = 0;
         this.currentCommandExpectsArgs = 0;
         this.optionsProcessingEnabled = true;
         this.standaloneOptionName = null;
@@ -96,10 +92,6 @@ export default class Parser {
         this.currentCommandExpectsArgs = command.args?.length ?? 0;
     }
 
-    setExpectedOptionArgsCount(option: Option) {
-        this.currentOptionExpectsArgs = option.args?.length ?? 0;
-    }
-
     processOption(option: string): void {
         // for disabling further options processing
         if (option === '--') {
@@ -107,6 +99,15 @@ export default class Parser {
             this.commandSearchStopped = true;
             return;
         }
+        // option arg
+        let optionArg: string | undefined;
+        const splitted = option.split('=');
+        // should be implemented better
+        if (splitted.length === 2) {
+            optionArg = splitted[1];
+            option = splitted[0];
+        }
+        // name
         const isFullName = option.startsWith("--");
         let processedOption = isFullName ? option.substring(2) : option.substring(1);
         let thisOption: Option | undefined;
@@ -133,14 +134,27 @@ export default class Parser {
             }
         } else {
             // if there is an option
-            const parsedOption = {
+            if (thisOption.arg && thisOption.arg.required && !optionArg) {
+                // if arg was not provided
+                exitWithErrorInternal(
+                    `Error: expected, but not provided argument for option "${option}"`,
+                    this.treePath,
+                );
+            }
+            if (!thisOption.arg && optionArg) {
+                // if unexpected arg
+                exitWithErrorInternal(
+                    `Error: unexpected argument "${optionArg}" for option "${option}"`,
+                    this.treePath,
+                );
+            }
+            const parsedOption: ParsedOption = {
                 option: thisOption,
-                args: {},
+                arg: optionArg,
             };
             this.options[thisOption.name] = parsedOption;
             this.commandSearchStopped = true;
             this.currentOption = parsedOption;
-            this.setExpectedOptionArgsCount(thisOption);
             if (thisOption.standaloneHandler && !this.standaloneOptionCalled) {
                 // if this is a standalone option, and first one
                 this.standaloneOptionName = thisOption.name;
@@ -167,16 +181,6 @@ export default class Parser {
     processArg(arg: string) {
         // if help or standalone option, ignore any errors
         if (this.standaloneOptionCalled) return;
-        if (this.currentOptionExpectsArgs > 0) {
-            // args for options
-            this.argsForCurrentOption.push(arg);
-            this.currentOptionExpectsArgs--;
-            if (this.currentOptionExpectsArgs === 0) {
-                // if all args were provided
-                this.setArgsForOption();
-            }
-            return;
-        }
         if (this.currentCommandExpectsArgs > 0) {
             // args for commands
             this.args.push(arg);
@@ -193,30 +197,6 @@ export default class Parser {
             `Error: unexpected argument "${arg}"`,
             this.treePath,
         )
-    }
-
-    setArgsForOption() {
-        // if standalone option, ignore any errors
-        if (this.standaloneOptionCalled) return;
-        if (this.currentOption === null) return;
-        const option = this.currentOption;
-        if (option.option.args) {
-            // if args are defined
-            for (let i = 0; i < option.option.args.length; i++) {
-                const arg = option.option.args[i];
-                const argName = getArgName(arg);
-                const providedArg = this.argsForCurrentOption[i];
-                if (!providedArg && isArgRequired(arg)) {
-                    // if arg was not provided and it is required
-                    exitWithErrorInternal(
-                        `Error: required argument "${argName}" was not provided`,
-                        this.treePath,
-                    );
-                }
-                this.currentOption.args[argName] = providedArg;
-            }
-        }
-        this.argsForCurrentOption = []; // clean it
     }
 
     setArgsForCommand() {
@@ -251,19 +231,16 @@ export default class Parser {
                 continue;
             }
             if (isOption(arg)) {
-                this.setArgsForOption(); // set args for previous option
                 this.processOption(arg);
                 continue;
             }
             if (!this.commandSearchStopped && arg in (this.currentCommand.subcommands ?? {})) {
-                this.setArgsForOption(); // set args for previous option
                 this.processCommand(arg);
                 continue;
             }
             // else
             this.processArg(arg);
         }
-        if (this.currentOptionExpectsArgs > 0) this.setArgsForOption();
         this.setArgsForCommand();
     }
 

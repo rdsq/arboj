@@ -5,8 +5,8 @@ import type { Option } from "./option";
 export type ParsedOption = {
     /** The declaration of the option */
     option: Option,
-    /** Arguments to this option */
-    args: ParsedArgs,
+    /** Argument to this option. Defined at `option.arg` */
+    arg?: string,
 };
 
 export type ParsedOptions = { [key: string]: ParsedOption };

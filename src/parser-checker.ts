@@ -8,8 +8,8 @@ import type { Command, Option, ParsedCommand, ParsedOption } from "../types";
  * @returns Required args that were not provided
  */
 function getNotProvidedArguments(
-    parsedVersion: ParsedCommand | ParsedOption,
-    declaredVersion: Command | Option
+    parsedVersion: ParsedCommand,
+    declaredVersion: Command
 ): string[] {
     const hasArgs = Object.keys(parsedVersion.args).length;
     const expectedArgs = declaredVersion.args?.length ?? 0;
@@ -28,24 +28,6 @@ function getNotProvidedArguments(
         }
     }
     return missing;
-}
-
-/**
- * Throw an error that some option is missing its required args (if it is)
- * @param parsedOption Option that may be missing some arguments
- * @param parsedCommand Parsed command by parser
- */
-export function errorIfNotEnoughOptionArgs(parsedOption: ParsedOption, parsedCommand: ParsedCommand): void | never {
-    const missing = getNotProvidedArguments(parsedOption, parsedOption.option);
-    // if there are no required args
-    if (missing.length === 0) {
-        return;
-    }
-    // throw error
-    exitWithErrorInternal(
-        `Error: option "${parsedOption.option.name}" expected, but not received arguments: ${missing.join(', ')}`,
-        parsedCommand.treePath,
-    );
 }
 
 /**

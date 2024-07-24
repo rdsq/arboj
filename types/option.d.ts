@@ -1,5 +1,9 @@
-import { Arg } from "./arg";
 import { ParsedStandaloneOption } from "./parsed";
+
+export type OptionArg = {
+    name: string,
+    required?: boolean,
+};
 
 /**
  * Type of options for commands
@@ -19,10 +23,8 @@ export type Option = {
      * The option's description (optional)
      */
     description?: string,
-    /**
-     * Args for the option (optional)
-     */
-    args?: (string | Arg)[],
+    /** Argument for the option, for example `--example=example` */
+    arg?: OptionArg,
     /** Optional handler to make this option standalone */
     standaloneHandler?: (event: ParsedStandaloneOption) => void;
 };

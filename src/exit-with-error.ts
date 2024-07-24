@@ -5,7 +5,7 @@
 export default function exitWithError(message: string): never {
     console.error(message);
     // @ts-ignore
-    if (Deno) {
+    if (typeof Deno !== 'undefined') {
         // for deno
         // @ts-ignore
         return DelayNode.exit(1);

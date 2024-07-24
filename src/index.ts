@@ -6,7 +6,7 @@ import Parser from "./parser-class.js";
 function getArgv(customArgv?: string[]): string[] {
     if (customArgv) return customArgv;
     // @ts-ignore
-    if (Deno) {
+    if (typeof Deno !== 'undefined') {
         // if deno
         // @ts-ignore
         return Deno.args;
@@ -21,8 +21,8 @@ function getArgv(customArgv?: string[]): string[] {
  * The YACLIL API
  * @param options Options for the app
  */
-export function yaclil(rootCommand: Command, cliName: string, options?: YaclilOptions): void | never {
-    options ??= {};
+export function yaclil(rootCommand: Command, cliName: string, options: YaclilOptions = {}): void | never {
+    cliName ??= 'unnamed-cli';
     const globalOptions = options.globalOptions ?? [
         helpOption,
     ];

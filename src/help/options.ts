@@ -17,7 +17,7 @@ export function hasOptions(command: Command): boolean | undefined {
 export function renderOptionName(option: Option): string {
     let result = `--${option.name}`;
     if (option.shortName) result += ` -${option.shortName}`;
-    if (option.args && option.args.length > 0) result += ` <${option.args.length}>`;
+    if (option.arg) result += `=<${option.arg.name}>`;
     if (option.standaloneHandler) result += ' (s)';
     return result;
 }

@@ -16,6 +16,7 @@
 - Added `treeGraphOption` to `pre`
 - Added `VersionOption` to `pre` to easily create `--version -v` flags
 - Renamed `customArgv` to `argv`, which requires removing first two arguments on node
+- Replaced `args` in options with `arg`, which passes by `--example=arg`
 
 ## v2.1.0 2024-07-18
 

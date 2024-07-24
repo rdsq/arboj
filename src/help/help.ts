@@ -43,10 +43,11 @@ export function renderCommandUsage(treePath: string[], command: Command): string
 export function renderOptionUsage(treePath: string[], option: Option): string {
     const result: string[] = [];
     result.push(...treePath);
-    result.push(`--${option.name}`);
-    for (const arg of option.args ?? []) {
-        result.push(`<${argName(arg)}>`);
+    let optionItself = `--${option.name}`;
+    if (option.arg) {
+        optionItself += `=<${option.arg.name}>`;
     }
+    result.push(optionItself);
     if (option.standaloneHandler) {
         result.push(' (standalone)');
     }
