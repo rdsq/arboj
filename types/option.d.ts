@@ -26,5 +26,5 @@ export type Option = {
     /** Argument for the option, for example `--example=example` */
     arg?: OptionArg,
     /** Optional handler to make this option standalone */
-    standaloneHandler?: (event: ParsedStandaloneOption) => void;
+    standaloneHandler?: (event: ParsedStandaloneOption) => any;
 };

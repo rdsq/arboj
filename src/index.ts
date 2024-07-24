@@ -21,7 +21,7 @@ function getArgv(customArgv?: string[]): string[] {
  * The YACLIL API
  * @param options Options for the app
  */
-export function yaclil(rootCommand: Command, cliName: string, options: YaclilOptions = {}): void | never {
+export async function yaclil(rootCommand: Command, cliName: string, options: YaclilOptions = {}): Promise<any | never> {
     cliName ??= 'unnamed-cli';
     const globalOptions = options.globalOptions ?? [
         helpOption,
@@ -44,7 +44,7 @@ export function yaclil(rootCommand: Command, cliName: string, options: YaclilOpt
         const handler = parsedForStandalone.parsedOption.option.standaloneHandler;
         if (!handler) throw new Error('Impossible error with standalone options');
         // execute standalone option
-        handler(parsedForStandalone);
+        return handler(parsedForStandalone);
     } else {
         // if this command is not callable
         if (!parsed.command.handler) {
@@ -54,6 +54,6 @@ export function yaclil(rootCommand: Command, cliName: string, options: YaclilOpt
             );
         }
         // if everything is ok
-        parsed.command.handler(parsed);
+        return parsed.command.handler(parsed);
     }
 }

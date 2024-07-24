@@ -1,6 +1,6 @@
 import type { Option } from "./option";
-import type { Handler } from "./handler";
 import { Arg } from "./arg";
+import { ParsedCommand } from "./parsed";
 
 /**
  * Object type of commands
@@ -31,7 +31,7 @@ export type Command = {
      * The function that will handle this command.
      * Set to `null` for commands that exist only for subcommands
      */
-    handler: Handler | null,
+    handler: (event: ParsedCommand) => any | null,
     /**
      * Expected args of this command
      */
