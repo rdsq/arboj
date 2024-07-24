@@ -15,6 +15,7 @@
 - Removed deprecated objects
 - Added `treeGraphOption` to `pre`
 - Added `VersionOption` to `pre` to easily create `--version -v` flags
+- Renamed `customArgv` to `argv`, which requires removing first two arguments on node
 
 ## v2.1.0 2024-07-18
 

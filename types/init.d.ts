@@ -6,11 +6,10 @@ import { Option } from "./option";
  */
 export type YaclilOptions = {
     /**
-     * Custom argv, mostly for testing.
-     * Don't forget to set first two args to something useless,
-     * because the app will delete them automatically
+     * Custom argv
+     * Don't forget remove the first two arguments on node
      */
-    customArgv?: string[],
+    argv?: string[],
     /**
      * Allow args, that were not expected by this app's commands.
      * `false` by default

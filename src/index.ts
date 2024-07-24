@@ -3,6 +3,20 @@ import type { YaclilOptions, Command } from "../types";
 import { helpOption } from "./pre.js";
 import Parser from "./parser-class.js";
 
+function getArgv(customArgv?: string[]): string[] {
+    if (customArgv) return customArgv;
+    // @ts-ignore
+    if (Deno) {
+        // if deno
+        // @ts-ignore
+        return Deno.args;
+    } else {
+        // if node
+        // @ts-ignore
+        return process.argv.slice(2);
+    }
+}
+
 /**
  * The YACLIL API
  * @param options Options for the app
@@ -12,14 +26,14 @@ export function yaclil(rootCommand: Command, cliName: string, options?: YaclilOp
     const globalOptions = options.globalOptions ?? [
         helpOption,
     ];
-    const argv = options.customArgv ?? process.argv;
+    const argv = getArgv(options.argv);
     // call the parser
     const parser = new Parser({
         rootCommand,
         rootCommandName: cliName,
         initOptions: options,
         // remove the first two arguments
-        argv: argv.slice(2),
+        argv: argv,
         globalOptions,
     });
     parser.parse();
