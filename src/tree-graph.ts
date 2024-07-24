@@ -4,8 +4,12 @@ const branchChar = '┗ ';
 const straightChar = '┃ ';
 const branchAndStraightChar = '┣ ';
 
-function dimmed(text: string): string {
-    return `\x1b[2m${text}\x1b[0m`;
+function dimmed(text: string, colored: boolean = true): string {
+    if (colored) {
+        return `\x1b[2m${text}\x1b[0m`;
+    } else {
+        return text;
+    }
 }
 
 /**
@@ -19,9 +23,7 @@ function renderTreePath(treePath: string[], colored: boolean): string {
     if (treePath.length === 0) {
 	    return '';
     }
-    return (colored ? '\x1b[2m' : '') // dimmed
-    + treePath.join('/') + '/'
-    + (colored ? '\x1b[0m' : ''); // reset
+    return dimmed(treePath.join('/') + '/', colored);
 }
 
 /**
