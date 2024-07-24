@@ -1,20 +1,12 @@
-import exitWithError from '../utils/exit-with-error.js';
 import { treeGraph } from "../utils/tree-graph.js";
 import type { Command } from "../../types";
+import { navigateSubcommands } from '../utils.js';
 
 const treeGraphCommand: Command = {
     description: 'Show a tree graph of the CLI',
-    handler: event => {
+    handler:async  event => {
         const treePath = event.unexpectedArgs;
-        let command: Command = event.rootCommand;
-        let commandName: string = event.appName;
-        if (treePath.length !== 0) {
-            for (const element of treePath) {
-                command = (command.subcommands ?? {})[element];
-                if (!command) exitWithError(`Error: could not find subcommand "${element}" of command "${commandName}"`);
-                commandName = element;
-            }
-        }
+        const command: Command = await navigateSubcommands(event.rootCommand, ...treePath);
 	    const colored = !Boolean(event.options['no-color']);
         console.log(
             treeGraph(command, [event.appName, ...treePath], {

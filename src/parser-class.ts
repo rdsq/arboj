@@ -1,7 +1,7 @@
 import assert from "node:assert";
 import { exitWithErrorInternal } from "./utils/exit-with-error-internal.js";
-import type { Option, Command, Arg, YaclilOptions, ParsedCommand, ParsedOption, ParsedOptions, ParsedArgs, ParsedStandaloneOption } from "../types";
-import { navigateSubcommands } from "./utils.js";
+import type { Option, Command, Arg, YaclilOptions, ParsedCommand, ParsedOption, ParsedOptions, ParsedArgs, ParsedStandaloneOption, CommandDefinition } from "../types";
+import { navigateSubcommands, resolveDynamic } from "./utils.js";
 
 /**
  * I copied it from the internet
@@ -31,11 +31,11 @@ function isOption(element: string) {
 }
 
 export default class Parser {
-    rootCommand: Command;
+    rootCommand!: CommandDefinition;
     initOptions: YaclilOptions;
     argv: string[];
 
-    currentCommand: Command;
+    currentCommand!: CommandDefinition;
     currentOption: ParsedOption | null;
     commandSearchStopped: boolean;
     options: ParsedOptions;
@@ -50,6 +50,8 @@ export default class Parser {
     standaloneOptionName: string | null;
     globalOptions: Option[];
 
+    waitForConstruct: Promise<void>;
+
     constructor(options: {
         rootCommand: Command,
         rootCommandName: string,
@@ -57,13 +59,11 @@ export default class Parser {
         argv: string[],
         globalOptions: Option[],
     }) {
-        this.rootCommand = options.rootCommand;
         this.initOptions = options.initOptions;
         this.argv = options.argv;
         this.treePath = [ options.rootCommandName ];
         this.globalOptions = options.globalOptions ?? [];
 
-        this.currentCommand = this.rootCommand;
         this.currentOption = null;
         this.commandSearchStopped = false;
         this.options = {};
@@ -75,6 +75,11 @@ export default class Parser {
         this.currentCommandExpectsArgs = 0;
         this.optionsProcessingEnabled = true;
         this.standaloneOptionName = null;
+
+        this.waitForConstruct = (async() => {
+            this.rootCommand = await resolveDynamic(options.rootCommand);
+            this.currentCommand = this.rootCommand;
+        })();
     }
 
     get unexpectedOptionsAllowed() {
@@ -89,7 +94,7 @@ export default class Parser {
         ?? false;
     }
 
-    setExpectedCommandArgsCount(command: Command) {
+    setExpectedCommandArgsCount(command: CommandDefinition) {
         this.currentCommandExpectsArgs = command.args?.length ?? 0;
     }
 

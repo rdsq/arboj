@@ -1,11 +1,11 @@
-import type { Command, Option } from "../../types";
+import type { Command, CommandDefinition, Option } from "../../types";
 
 /**
  * Does some command have options or not
  * @param command The command
  * @returns The result
  */
-export function hasOptions(command: Command): boolean | undefined {
+export function hasOptions(command: CommandDefinition): boolean | undefined {
     return command.options && command.options.length > 0;
 }
 
@@ -27,7 +27,7 @@ export function renderOptionName(option: Option): string {
  * @param command The command to test options from
  * @returns The max length of the first part of the table
  */
-export function getMaxOptionsLength(command: Command): number {
+export function getMaxOptionsLength(command: CommandDefinition): number {
     if (!hasOptions(command)) return 0;
     let maxLength = 0;
     for (const option of command.options!) {
@@ -58,7 +58,7 @@ export function renderOptionString(option: Option, maxLength: number): string {
  * @param command The command
  * @returns The full table
  */
-export function renderCommandOptions(command: Command): string {
+export function renderCommandOptions(command: CommandDefinition): string {
     const result: string[] = [];
     if (!hasOptions(command)) return '(no options)';
     const maxLength = getMaxOptionsLength(command);

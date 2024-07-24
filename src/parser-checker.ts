@@ -1,5 +1,5 @@
 import { exitWithErrorInternal } from "./utils/exit-with-error-internal";
-import type { Command, ParsedCommand } from "../types";
+import type { CommandDefinition, ParsedCommand } from "../types";
 
 /**
  * Get required args of a command or option that were expected, but not provided
@@ -9,7 +9,7 @@ import type { Command, ParsedCommand } from "../types";
  */
 function getNotProvidedArguments(
     parsedVersion: ParsedCommand,
-    declaredVersion: Command
+    declaredVersion: CommandDefinition
 ): string[] {
     const hasArgs = Object.keys(parsedVersion.args).length;
     const expectedArgs = declaredVersion.args?.length ?? 0;

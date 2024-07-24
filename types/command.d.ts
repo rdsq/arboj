@@ -2,10 +2,7 @@ import type { Option } from "./option";
 import { Arg } from "./arg";
 import { ParsedCommand } from "./parsed";
 
-/**
- * Object type of commands
- */
-export type Command = {
+export type CommandDefinition = {
     /** Description of the command for help */
     description?: string,
     /**
@@ -57,3 +54,10 @@ export type Command = {
      */
     hideSubcommands?: boolean,
 };
+
+export type DynamicCommand = {
+    /** Function that loads a command */
+    dynamicLoader: () => CommandDefinition | Promise<CommandDefinition>,
+};
+
+export type Command = CommandDefinition | DynamicCommand;

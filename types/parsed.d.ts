@@ -1,5 +1,5 @@
 import { Arg } from "./arg";
-import type { Command } from "./command";
+import type { Command, CommandDefinition } from "./command";
 import { YaclilOptions } from "./init";
 import type { Option } from "./option";
 
@@ -21,7 +21,7 @@ export type ParsedArgs = { [key: string]: ParsedArg };
 
 export type ParsedCommand = {
     /** The command that was called */
-    command: Command,
+    command: CommandDefinition,
     /** Called options of this command */
     options: ParsedOptions,
     /** Options that were not expected by this command
@@ -38,7 +38,7 @@ export type ParsedCommand = {
     /** Tree path to this command, like `['cli-name', 'command', 'this-command']` */
     treePath: string[],
     /** The root command, that was passed to the `yaclil` function as the first argument */
-    rootCommand: Command,
+    rootCommand: CommandDefinition,
     /** Basically the same as `treePath[0]` */
     appName: string,
     /** Options, that were passed to the `yaclil` function as the 3rd argument */

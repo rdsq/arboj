@@ -1,4 +1,4 @@
-import type { Command, Option, Arg, ParsedCommand } from "../../types";
+import type { Command, Option, Arg, ParsedCommand, CommandDefinition } from "../../types";
 import { renderCommandOptions } from "./options.js";
 import { renderCommandSubcommands } from "./subcommands.js";
 
@@ -20,7 +20,7 @@ function argName(arg: Arg | string): string {
  * @param command The command to get usage from
  * @returns The result string like `my-cli my-command <arg> <additional...>`
  */
-export function renderCommandUsage(treePath: string[], command: Command): string {
+export function renderCommandUsage(treePath: string[], command: CommandDefinition): string {
     if (command.handler === null) {
         return '(not callable)';
     }
@@ -60,7 +60,7 @@ export function renderOptionUsage(treePath: string[], option: Option): string {
  * @param command The command
  * @returns The full string
  */
-export function renderCommandHelp(treePath: string[], command: Command): string {
+export function renderCommandHelp(treePath: string[], command: CommandDefinition): string {
     const result: string[] = [];
     // usage
     const usage = renderCommandUsage(treePath, command);
