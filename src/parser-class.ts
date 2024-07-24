@@ -1,5 +1,5 @@
 import assert from "node:assert";
-import { exitWithErrorInternal } from "./exit-with-error-internal.js";
+import { exitWithErrorInternal } from "./utils/exit-with-error-internal.js";
 import type { Option, Command, Arg, YaclilOptions, ParsedCommand, ParsedOption, ParsedOptions, ParsedArgs, ParsedStandaloneOption } from "../types";
 
 /**

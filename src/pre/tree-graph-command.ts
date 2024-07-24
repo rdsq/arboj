@@ -1,5 +1,5 @@
-import exitWithError from '../exit-with-error.js';
-import { treeGraph } from "../tree-graph.js";
+import exitWithError from '../utils/exit-with-error.js';
+import { treeGraph } from "../utils/tree-graph.js";
 import type { Command } from "../../types";
 
 const treeGraphCommand: Command = {
