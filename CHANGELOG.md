@@ -14,6 +14,7 @@
 - Added `argv` and `initOptions` to the parsed object
 - Removed deprecated objects
 - Added `treeGraphOption` to `pre`
+- Added `VersionOption` to `pre` to easily create `--version -v` flags
 
 ## v2.1.0 2024-07-18
 
