@@ -1,3 +1,4 @@
+import { Arg } from "./arg";
 import type { Command } from "./command";
 import { YaclilOptions } from "./init";
 import type { Option } from "./option";
@@ -9,9 +10,14 @@ export type ParsedOption = {
     arg?: string,
 };
 
+export type ParsedArg = {
+    value: string,
+    arg: Arg,
+};
+
 export type ParsedOptions = { [key: string]: ParsedOption };
 
-export type ParsedArgs = { [key: string]: string };
+export type ParsedArgs = { [key: string]: ParsedArg };
 
 export type ParsedCommand = {
     /** The command that was called */

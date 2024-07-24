@@ -217,7 +217,10 @@ export default class Parser {
                         );
                     }
                 }
-                args[argName] = providedArg;
+                args[argName] = {
+                    value: providedArg,
+                    arg: arg,
+                };
             }
         }
         this.processedArgsForCurrentCommand = args;

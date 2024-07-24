@@ -35,7 +35,7 @@ export type Command = {
     /**
      * Expected args of this command
      */
-    args?: (string | Arg)[],
+    args?: Arg[],
     /**
      * Allow args, that were not expected by this command.
      * `false` by default
