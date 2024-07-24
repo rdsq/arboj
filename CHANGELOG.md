@@ -19,6 +19,7 @@
 - Replaced `args` in options with `arg`, which passes by `--example=arg`
 - Now if no `cliName` passed, it sets `unnamed-cli`
 - Updated return value of args from string to object
+- Added an async util `navigateSubcommands`
 
 ## v2.1.0 2024-07-18
 
