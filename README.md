@@ -18,6 +18,7 @@ Then use the `yaclil` method from this package
 
 ```js
 import { yaclil } from 'yaclil';
+// or 'npm:yaclil' in Deno
 
 yaclil({
     // the main command
