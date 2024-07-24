@@ -36,7 +36,7 @@ export async function yaclil(rootCommand: Command, cliName: string, options: Yac
         argv: argv,
         globalOptions,
     });
-    parser.parse();
+    await parser.parse();
     const parsed = parser.parsedObject;
     if (parser.standaloneOptionCalled) {
         // if standalone option called

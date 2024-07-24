@@ -1,6 +1,7 @@
 import assert from "node:assert";
 import { exitWithErrorInternal } from "./utils/exit-with-error-internal.js";
 import type { Option, Command, Arg, YaclilOptions, ParsedCommand, ParsedOption, ParsedOptions, ParsedArgs, ParsedStandaloneOption } from "../types";
+import { navigateSubcommands } from "./utils.js";
 
 /**
  * I copied it from the internet
@@ -171,9 +172,9 @@ export default class Parser {
         return false;
     }
 
-    processCommand(arg: string) {
+    async processCommand(arg: string) {
         assert(this.currentCommand.subcommands, `Subcommand "${arg}" does not exist`);
-        this.currentCommand = this.currentCommand.subcommands[arg];
+        this.currentCommand = await navigateSubcommands(this.currentCommand, arg);
         this.treePath.push(arg);
         this.setExpectedCommandArgsCount(this.currentCommand);
     }
@@ -226,7 +227,7 @@ export default class Parser {
         this.processedArgsForCurrentCommand = args;
     }
 
-    parse(): void {
+    async parse(): Promise<void> {
         this.setExpectedCommandArgsCount(this.currentCommand);
         for (const arg of this.argv) {
             if (!this.optionsProcessingEnabled) {
@@ -238,7 +239,7 @@ export default class Parser {
                 continue;
             }
             if (!this.commandSearchStopped && arg in (this.currentCommand.subcommands ?? {})) {
-                this.processCommand(arg);
+                await this.processCommand(arg);
                 continue;
             }
             // else
