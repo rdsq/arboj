@@ -26,7 +26,7 @@ yaclil({
     handler: event => console.log('Hello World'),
     // optional subcommands
     subcommands: {
-        subcommand: { handler: console.log('Hello from "command-name subcommand"') }
+        subcommand: { handler: () => console.log('Hello from "command-name subcommand"') }
     }
 }, 'command-name');
 ```
