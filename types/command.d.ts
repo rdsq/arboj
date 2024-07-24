@@ -28,7 +28,7 @@ export type CommandDefinition = {
      * The function that will handle this command.
      * Set to `null` for commands that exist only for subcommands
      */
-    handler: (event: ParsedCommand) => any | null,
+    handler: ((event: ParsedCommand) => any) | null,
     /**
      * Expected args of this command
      */

@@ -22,6 +22,7 @@
 - Added an async util `navigateSubcommands`
 - Made `treeGraph` and `yaclil` async
 - Removed `Handler` type
+- Added dynamic commands
 
 ## v2.1.0 2024-07-18
 

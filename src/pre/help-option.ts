@@ -5,12 +5,12 @@ const helpOption: Option = {
     name: 'help',
     shortName: 'h',
     description: 'Get help',
-    standaloneHandler(event) {
+    async standaloneHandler(event) {
         const parsedCommand = event.parsedCommand;
         // exclude help option
         delete parsedCommand.options.help;
         console.log(
-            renderHelp(parsedCommand)
+            await renderHelp(parsedCommand)
         );
     },
 };
