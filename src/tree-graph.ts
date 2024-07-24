@@ -1,4 +1,5 @@
 import type { Command } from "../types";
+import { navigateSubcommands } from "./utils";
 
 const branchChar = '┗ ';
 const straightChar = '┃ ';
@@ -33,7 +34,7 @@ function renderTreePath(treePath: string[], colored: boolean): string {
  * @param endedMargin Count of margin levels on start that are ended
  * @returns The graph of this command's subcommands
  */
-function recursiveTree(command: Command, margin: number, options: TreeGraphOptions, endedMargin: number): string {
+async function recursiveTree(command: Command, margin: number, options: TreeGraphOptions, endedMargin: number): Promise<string> {
     const marginString = '  '.repeat(endedMargin) + straightChar.repeat(margin - endedMargin);
     let result: string[] = [];
     const subcommandsKeys = Object.keys(command.subcommands ?? {});
@@ -41,7 +42,7 @@ function recursiveTree(command: Command, margin: number, options: TreeGraphOptio
     if (command.subcommands) {
         for (let i = 0; i < subcommandsLength; i++) {
             const subcommandName = subcommandsKeys[i];
-            const subcommand = command.subcommands[subcommandName];
+            const subcommand: Command = await navigateSubcommands(command, subcommandName);
             // if it is hidden and showing them is not configured, move to the next one
             if ((subcommand.hidden ?? false) && !options.showHidden) continue;
             // choose right char
@@ -69,7 +70,7 @@ function recursiveTree(command: Command, margin: number, options: TreeGraphOptio
 		            const sign = options.colored ? ' \x1b[34m+\x1b[0m' : ' +';
                     result[result.length - 1] += sign;
                 } else {
-                    result.push(recursiveTree(subcommand, margin + 1, options, endedMargin));
+                    result.push(await recursiveTree(subcommand, margin + 1, options, endedMargin));
                 }
             }
         }
@@ -94,7 +95,7 @@ export type TreeGraphOptions = {
  * @options Options for the tree graph generator. Boolean values are legacy, they represent the color
  * @returns The graph
  */
-export function treeGraph(command: Command, commandNameOrTreePath: string | string[], options: TreeGraphOptions = {}): string {
+export async function treeGraph(command: Command, commandNameOrTreePath: string | string[], options: TreeGraphOptions = {}): Promise<string> {
     // default values
     options.colored ??= false;
     options.showHidden ??= false;
@@ -125,7 +126,7 @@ export function treeGraph(command: Command, commandNameOrTreePath: string | stri
         coloredCommandName = commandName;
     }
     // run
-    const graph = recursiveTree(command, 0, options, 0);
+    const graph: string = await recursiveTree(command, 0, options, 0);
     const emptyMessage = options.colored ? '\x1b[34m(empty)\x1b[0m' : '(empty)';
     return treePathRender + coloredCommandName + '\n' + (graph || emptyMessage);
 }
