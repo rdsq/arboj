@@ -1,4 +1,4 @@
-import { Option } from "../../types";
+import type { Option } from "../../types";
 import { treeGraph } from "../tree-graph";
 
 const treeGraphOption: Option = {

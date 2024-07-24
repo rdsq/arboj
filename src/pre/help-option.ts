@@ -1,4 +1,4 @@
-import { Option } from "../../types";
+import type { Option } from "../../types";
 import { renderHelp } from "../help/help.js";
 
 const helpOption: Option = {

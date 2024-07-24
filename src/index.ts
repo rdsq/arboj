@@ -1,5 +1,5 @@
 import { exitWithErrorInternal } from "./exit-with-error-internal.js";
-import type { YaclilOptions, Command } from "../types.js";
+import type { YaclilOptions, Command } from "../types";
 import { helpOption } from "./pre.js";
 import Parser from "./parser-class.js";
 

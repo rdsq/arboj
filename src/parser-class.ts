@@ -1,11 +1,6 @@
-import assert from "assert";
+import assert from "node:assert";
 import { exitWithErrorInternal } from "./exit-with-error-internal.js";
-import { Option, Command, Arg, YaclilOptions, ParsedCommand, ParsedOption, ParsedOptions } from "../types.js";
-import { ParsedArgs, ParsedStandaloneOption } from "../types/parsed.js";
-
-function checkIsHelp(option: string) {
-    return option === '--help' || option === '-h';
-}
+import type { Option, Command, Arg, YaclilOptions, ParsedCommand, ParsedOption, ParsedOptions, ParsedArgs, ParsedStandaloneOption } from "../types";
 
 /**
  * I copied it from the internet
