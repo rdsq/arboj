@@ -8,19 +8,7 @@ export type PossibleArgTypes = {
     'boolean': boolean,
 };
 
-export type ConfidentReturnType<T extends keyof PossibleArgTypes, A extends ParsedArg> = (
-    A['arg']['required'] extends true
-    ? PossibleArgTypes[T]
-    : PossibleArgTypes[T] | undefined
-)
-
-export type ResultType<T extends keyof PossibleArgTypes, A extends ParsedArg | undefined> = (
-    A extends ParsedArg
-    ? ConfidentReturnType<T, A>
-    : undefined
-);
-
-export function argAsType<T extends keyof PossibleArgTypes, A extends ParsedArg | undefined>(arg: A, argType: T): ResultType<T, A> {
+export function argAsType(arg: ParsedArg | undefined, argType: keyof PossibleArgTypes): any {
     if (arg === undefined) {
         return undefined;
     }
