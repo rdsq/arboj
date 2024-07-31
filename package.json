@@ -28,9 +28,9 @@
     "./types": {
       "types": "./types.d.ts"
     },
-    "./utils": {
-      "default": "./out/utils.js",
-      "types": "./out/utils.d.ts"
+    "./util": {
+      "default": "./out/util.js",
+      "types": "./out/util.d.ts"
     },
     "./pre": {
       "default": "./out/pre.js",

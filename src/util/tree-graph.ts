@@ -1,5 +1,5 @@
 import type { Command, CommandDefinition } from "../../types";
-import { navigateSubcommands } from "../utils";
+import { navigateSubcommands } from "../util";
 
 const branchChar = '┗ ';
 const straightChar = '┃ ';

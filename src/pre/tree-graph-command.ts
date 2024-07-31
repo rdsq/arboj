@@ -1,6 +1,6 @@
-import { treeGraph } from "../utils/tree-graph.js";
+import { treeGraph } from "../util/tree-graph.js";
 import type { Command } from "../../types";
-import { navigateSubcommands } from '../utils.js';
+import { navigateSubcommands } from '../util.js';
 
 const treeGraphCommand: Command = {
     description: 'Show a tree graph of the CLI',

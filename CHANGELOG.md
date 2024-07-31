@@ -23,6 +23,7 @@
 - Made `treeGraph` and `yaclil` async
 - Removed `Handler` type
 - Added dynamic commands
+- Renamed `utils` to `util`
 
 ## v2.1.0 2024-07-18
 

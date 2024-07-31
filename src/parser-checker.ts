@@ -1,4 +1,4 @@
-import { exitWithErrorInternal } from "./utils/exit-with-error-internal";
+import { exitWithErrorInternal } from "./util/exit-with-error-internal";
 import type { CommandDefinition, ParsedCommand } from "../types";
 
 /**
