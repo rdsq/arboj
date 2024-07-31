@@ -57,7 +57,7 @@ export type CommandDefinition = {
 
 export type DynamicCommand = {
     /** Function that loads a command */
-    dynamicLoader: () => CommandDefinition | Promise<CommandDefinition>,
+    dynamicLoader: () => Command | Promise<Command>,
 };
 
 export type Command = CommandDefinition | DynamicCommand;
