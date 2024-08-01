@@ -8,6 +8,12 @@ export type PossibleArgTypes = {
     'boolean': boolean,
 };
 
+/**
+ * Parse argument as some type
+ * @param arg The argument, like `event.args.example`
+ * @param argType Parse this argument as
+ * @returns Parsed value of this argument
+ */
 export function argAsType(arg: ParsedArg | undefined, argType: keyof PossibleArgTypes): any {
     if (arg === undefined) {
         return undefined;

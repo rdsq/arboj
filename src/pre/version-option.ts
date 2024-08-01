@@ -1,5 +1,14 @@
 import type { Option, ParsedStandaloneOption } from "../../types";
 
+/**
+ * Add an option to show the version of your app
+ * @example 
+ * {
+ *     options: [
+ *         new VersionOption('1.0.0'),
+ *     ]
+ * }
+ */
 export class VersionOption implements Option {
     description = 'Show the version of this CLI';
     version: string;

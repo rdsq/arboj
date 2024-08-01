@@ -1,6 +1,15 @@
 import type { Option } from "../../types";
 import { renderHelp } from "../help/help.js";
 
+/**
+ * The help option, that is being used in the global options
+ * @example
+ * {
+ *     globalOptions: [
+ *         helpOption,
+ *     ],
+ * }
+ */
 const helpOption: Option = {
     name: 'help',
     shortName: 'h',

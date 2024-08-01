@@ -1,4 +1,4 @@
-import { CommandDefinition, DynamicCommand } from "../../types";
+import { Command, CommandDefinition, DynamicCommand } from "../../types";
 import { resolveDynamic } from "./resolve-dynamic";
 
 async function getSubcommand(command: CommandDefinition, subcommandName: string): Promise<CommandDefinition | never> {
@@ -8,7 +8,14 @@ async function getSubcommand(command: CommandDefinition, subcommandName: string)
     return subcommand;
 }
 
-export async function navigateSubcommands(command: CommandDefinition, ...path: string[]): Promise<CommandDefinition | never> {
+/**
+ * Navigate command's subcommands
+ * @param command The start command
+ * @param path Path to navigate, like `['subcommand', 'another-subcommand']
+ * @returns The target command
+ */
+export async function navigateSubcommands(command: Command, ...path: string[]): Promise<CommandDefinition | never> {
+    command = await resolveDynamic(command);
     for (const subcommandName of path) {
         command = await getSubcommand(command, subcommandName);
     }

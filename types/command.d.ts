@@ -34,19 +34,19 @@ export type CommandDefinition = {
      */
     args?: Arg[],
     /**
-     * Allow args, that were not expected by this command.
-     * `false` by default
+     * Allow args, that were not expected by this command
+     * @default false
      */
     allowUnexpectedArgs?: boolean,
     /**
-     * Allow options that were not expected by the command.
-     * `false` by default
+     * Allow options that were not expected by the command
+     * @default false
      */
     allowUnexpectedOptions?: boolean,
     /**
-     * Hide the command from help, tree graph and maybe other features.
-     * `false` by default.
+     * Hide the command from help, tree graph and maybe other features
      * It will still be accessible
+     * @default false
      */
     hidden?: boolean,
     /**

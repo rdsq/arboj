@@ -2,6 +2,15 @@ import { treeGraph } from "../util/tree-graph.js";
 import type { Command } from "../../types";
 import { navigateSubcommands } from '../util.js';
 
+/**
+ * Tree graph command, that prints a tree graph of the CLI
+ * @example
+ * {
+ *     subcommands: {
+ *         tree: treeGraphCommand,
+ *     },
+ * }
+ */
 const treeGraphCommand: Command = {
     description: 'Show a tree graph of the CLI',
     handler:async  event => {

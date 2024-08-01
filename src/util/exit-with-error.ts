@@ -5,13 +5,16 @@
 export default function exitWithError(message: string): never {
     console.error(message);
     // @ts-ignore
-    if (typeof Deno !== 'undefined') {
+    if (typeof Deno !== 'undefined' && 'exit' in Deno) {
         // for deno
         // @ts-ignore
-        return DelayNode.exit(1);
-    } else {
+        return Deno.exit(1);
+        // @ts-ignore
+    } else if (typeof process !== 'undefined' && 'exit' in process) {
         // for node
         // @ts-ignore
         return process.exit(1);
+    } else {
+        throw new Error('unknown runtime');
     }
 }

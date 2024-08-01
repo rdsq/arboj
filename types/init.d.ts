@@ -11,15 +11,15 @@ export type YaclilOptions = {
      */
     argv?: string[],
     /**
-     * Allow args, that were not expected by this app's commands.
-     * `false` by default
+     * Allow args, that were not expected by this app's commands
+     * @default false
      */
     allowUnexpectedArgs?: boolean,
     /**
-     * Allow options that were not expected by this app's commands.
-     * `false` by default
+     * Allow options that were not expected by this app's commands
+     * @default false
      */
     allowUnexpectedOptions?: boolean,
-    /** Global options, by default only `--help -h` */
+    /** Global options, by default only `--help -h` (`helpOption`) */
     globalOptions?: Option[],
 };

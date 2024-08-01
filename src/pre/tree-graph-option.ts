@@ -1,6 +1,15 @@
 import type { Option } from "../../types";
 import { treeGraph } from "../util/tree-graph";
 
+/**
+ * Same as `treeGraphCommand`, but as an option
+ * @example
+ * {
+ *     globalOptions: [
+ *         treeGraphOption,
+ *     ],
+ * }
+ */
 const treeGraphOption: Option = {
     name: 'tree',
     shortName: 't',
