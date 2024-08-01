@@ -2,8 +2,8 @@
   "name": "yaclil",
   "version": "2.1.0",
   "description": "An object based minimal library for building Command Line Apps",
-  "main": "out/index.js",
-  "types": "out/index.d.ts",
+  "main": "out/mod.js",
+  "types": "out/mod.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "tsc",
@@ -22,8 +22,8 @@
   },
   "exports": {
     ".": {
-      "default": "./out/index.js",
-      "types": "./out/index.d.ts"
+      "default": "./out/mod.js",
+      "types": "./out/mod.d.ts"
     },
     "./types": {
       "types": "./types.d.ts"
