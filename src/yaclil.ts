@@ -3,17 +3,25 @@ import type { YaclilOptions, Command } from "../types.js";
 import { helpOption } from "./pre.js";
 import Parser from "./parser-class.js";
 
-function getArgv(customArgv?: string[]): string[] {
+function getArgv(customArgv?: string[]): string[] | never {
     if (customArgv) return customArgv;
     // @ts-ignore
-    if (typeof Deno !== 'undefined') {
+    if (typeof Deno !== 'undefined' && 'args' in Deno) {
         // if deno
         // @ts-ignore
         return Deno.args;
-    } else {
+        // @ts-ignore
+    } else if (typeof process !== 'undefined' && 'argv' in process) {
         // if node
         // @ts-ignore
         return process.argv.slice(2);
+        // @ts-ignore
+    } else if (typeof Bun !== 'undefined' && 'argv' in Bun) {
+        // if bun
+        // @ts-ignore
+        return Bun.args.slice(2);
+    } else {
+        throw new Error('Unknown runtime. Please pass the argv manually');
     }
 }
 
