@@ -1,7 +1,10 @@
 {
   "name": "@rdsq/yaclil",
   "exports": {
-    ".": "./mod.ts"
+    ".": "./src/mod.ts",
+    "./util": "./src/util.ts",
+    "./std": "./src/std.ts",
+    "./types": "./types.d.ts"
   },
   "imports": {
     "@rdsq/cross-utils": "jsr:@rdsq/cross-utils@^1.1.0"
