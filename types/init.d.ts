@@ -1,5 +1,4 @@
-import type { Command } from "./command";
-import { Option } from "./option";
+import type { Option } from "./option.d.ts";
 
 /**
  * The init options for YACLIL

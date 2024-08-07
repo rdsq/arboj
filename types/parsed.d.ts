@@ -1,7 +1,7 @@
-import { Arg } from "./arg";
-import type { Command, CommandDefinition } from "./command";
-import { YaclilOptions } from "./init";
-import type { Option } from "./option";
+import type { Arg } from "./arg.d.ts";
+import type { CommandDefinition } from "./command.d.ts";
+import type { YaclilOptions } from "./init.d.ts";
+import type { Option } from "./option.d.ts";
 
 export type ParsedOption = {
     /** The declaration of the option */

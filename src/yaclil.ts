@@ -8,7 +8,7 @@ import getArgv from '@rdsq/cross-utils/argv';
  * The YACLIL API
  * @param options Options for the app
  */
-export async function yaclil(rootCommand: Command, cliName: string, options: YaclilOptions = {}): Promise<any | never> {
+export async function yaclil(rootCommand: Command, cliName: string, options: YaclilOptions = {}): Promise<void | never> {
     cliName ??= 'unnamed-cli';
     const globalOptions = options.globalOptions ?? [
         helpOption,

@@ -1,6 +1,6 @@
-import type { Option } from "./option";
-import { Arg } from "./arg";
-import { ParsedCommand } from "./parsed";
+import type { Option } from "./option.d.ts";
+import type { Arg } from "./arg.d.ts";
+import type { ParsedCommand } from "./parsed.d.ts";
 
 export type CommandDefinition = {
     /** Description of the command for help */
@@ -28,7 +28,7 @@ export type CommandDefinition = {
      * The function that will handle this command.
      * Set to `null` for commands that exist only for subcommands
      */
-    handler: ((event: ParsedCommand) => any) | null,
+    handler: ((event: ParsedCommand) => void) | null,
     /**
      * Expected args of this command
      */

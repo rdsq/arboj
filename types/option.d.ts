@@ -1,5 +1,5 @@
-import type { Arg } from "./arg";
-import type { ParsedStandaloneOption } from "./parsed";
+import type { Arg } from "./arg.d.ts";
+import type { ParsedStandaloneOption } from "./parsed.d.ts";
 
 /**
  * Type of options for commands
@@ -22,5 +22,5 @@ export type Option = {
     /** Argument for the option, for example `--example=example` */
     arg?: Arg,
     /** Optional handler to make this option standalone */
-    standaloneHandler?: (event: ParsedStandaloneOption) => any;
+    standaloneHandler?: (event: ParsedStandaloneOption) => void;
 };
