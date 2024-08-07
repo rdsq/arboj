@@ -1,4 +1,4 @@
-import { Command, CommandDefinition } from "../../types";
+import type { Command, CommandDefinition } from "../../types.d.ts";
 
 /**
  * Resolve dynamic command and return its definition

@@ -1,5 +1,5 @@
-import type { Command, CommandDefinition } from "../../types";
-import { resolveDynamic } from "./resolve-dynamic";
+import type { Command, CommandDefinition } from "../../types.d.ts";
+import { resolveDynamic } from "./resolve-dynamic.ts";
 
 export type CountSubcommandsOptions = {
     /** Should it count hidden commands? `true` by default */

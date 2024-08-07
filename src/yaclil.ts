@@ -1,7 +1,8 @@
-import { exitWithErrorInternal } from "./util/exit-with-error-internal.js";
-import type { YaclilOptions, Command } from "../types.js";
-import { helpOption } from "./std.js";
-import Parser from "./parser-class.js";
+import { exitWithErrorInternal } from "./util/exit-with-error-internal.ts";
+import type { YaclilOptions, Command } from "../types.d.ts";
+import { helpOption } from "./std.ts";
+import Parser from "./parser-class.ts";
+// import getArgv from '@rdsq/cross-utils/argv';
 
 function getArgv(customArgv?: string[]): string[] | never {
     if (customArgv) return customArgv;

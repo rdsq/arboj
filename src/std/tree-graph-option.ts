@@ -1,5 +1,5 @@
-import type { Option } from "../../types";
-import { treeGraph } from "../util/tree-graph";
+import type { Option, ParsedStandaloneOption } from "../../types.d.ts";
+import { treeGraph } from "../util/tree-graph.ts";
 
 /**
  * Same as `treeGraphCommand`, but as an option
@@ -14,7 +14,7 @@ const treeGraphOption: Option = {
     name: 'tree',
     shortName: 't',
     description: 'Create a tree graph of a command',
-    standaloneHandler(event) {
+    standaloneHandler(event: ParsedStandaloneOption) {
         const graph = treeGraph(
             event.parsedCommand.command,
             event.parsedCommand.treePath,

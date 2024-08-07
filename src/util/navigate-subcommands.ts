@@ -1,5 +1,5 @@
-import { Command, CommandDefinition, DynamicCommand } from "../../types";
-import { resolveDynamic } from "./resolve-dynamic";
+import type { Command, CommandDefinition, DynamicCommand } from "../../types.d.ts";
+import { resolveDynamic } from "./resolve-dynamic.ts";
 
 async function getSubcommand(command: CommandDefinition, subcommandName: string): Promise<CommandDefinition | never> {
     const subcommands = command.subcommands ?? {};

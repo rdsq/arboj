@@ -1,7 +1,6 @@
-import assert from "node:assert";
-import { exitWithErrorInternal } from "./util/exit-with-error-internal.js";
-import type { Option, Command, Arg, YaclilOptions, ParsedCommand, ParsedOption, ParsedOptions, ParsedArgs, ParsedStandaloneOption, CommandDefinition } from "../types";
-import { navigateSubcommands, resolveDynamic } from "./util.js";
+import { exitWithErrorInternal } from "./util/exit-with-error-internal.ts";
+import type { Option, Command, Arg, YaclilOptions, ParsedCommand, ParsedOption, ParsedOptions, ParsedArgs, ParsedStandaloneOption, CommandDefinition } from "../types.d.ts";
+import { navigateSubcommands, resolveDynamic } from "./util.ts";
 
 /**
  * I copied it from the internet
@@ -178,7 +177,7 @@ export default class Parser {
     }
 
     async processCommand(arg: string) {
-        assert(this.currentCommand.subcommands, `Subcommand "${arg}" does not exist`);
+        if (!this.currentCommand.subcommands) throw new Error(`Subcommand "${arg}" does not exist`);
         this.currentCommand = await navigateSubcommands(this.currentCommand, arg);
         this.treePath.push(arg);
         this.setExpectedCommandArgsCount(this.currentCommand);

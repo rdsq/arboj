@@ -1,6 +1,6 @@
-import { treeGraph } from "../util/tree-graph.js";
-import type { Command } from "../../types.js";
-import { navigateSubcommands } from '../util.js';
+import { treeGraph } from "../util/tree-graph.ts";
+import type { Command, ParsedCommand } from "../../types.d.ts";
+import { navigateSubcommands } from '../util.ts';
 
 /**
  * Tree graph command, that prints a tree graph of the CLI
@@ -13,7 +13,7 @@ import { navigateSubcommands } from '../util.js';
  */
 const treeGraphCommand: Command = {
     description: 'Show a tree graph of the CLI',
-    handler:async  event => {
+    handler: async (event: ParsedCommand) => {
         const treePath = event.unexpectedArgs;
         const command: Command = await navigateSubcommands(event.rootCommand, ...treePath);
 	    const colored = !Boolean(event.options['no-color']);

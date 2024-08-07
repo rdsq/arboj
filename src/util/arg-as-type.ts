@@ -1,5 +1,5 @@
-import type { ParsedArg } from "../../types";
-import exitWithError from "./exit-with-error";
+import type { ParsedArg } from "../../types.d.ts";
+import exitWithError from "./exit-with-error.ts";
 
 export type PossibleArgTypes = {
     'string': string,

@@ -1,6 +1,6 @@
-import type { Command, Option, Arg, ParsedCommand, CommandDefinition } from "../../types";
-import { renderCommandOptions } from "./options.js";
-import { renderCommandSubcommands } from "./subcommands.js";
+import type { Command, Option, Arg, ParsedCommand, CommandDefinition } from "../../types.d.ts";
+import { renderCommandOptions } from "./options.ts";
+import { renderCommandSubcommands } from "./subcommands.ts";
 
 /** Separator for the help */
 const separator = '\n\n';
@@ -110,7 +110,7 @@ export async function renderHelp(parsedCommand: ParsedCommand): Promise<string> 
         return await renderCommandHelp(treePath, command);
     } else if (optionsCount === 1) {
         // for option only
-        return renderOptionHelp(treePath, Object.values(options)[0]!.option);
+        return renderOptionHelp(treePath, (Object.values(options)[0] as any).option);
     } else {
         // for command and multiple options
         const result: string[] = [];
@@ -118,7 +118,7 @@ export async function renderHelp(parsedCommand: ParsedCommand): Promise<string> 
         result.push(await renderCommandHelp(treePath, command));
         for (const option of Object.values(options)) {
             // options help
-            result.push(renderOptionHelp(treePath, option!.option))
+            result.push(renderOptionHelp(treePath, (option as any).option))
         }
         return result.join(separator);
     }

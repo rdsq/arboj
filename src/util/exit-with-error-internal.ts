@@ -1,5 +1,5 @@
-import exitWithError from "./exit-with-error.js";
-import { getHelpCommand } from "../help/help.js";
+import exitWithError from "./exit-with-error.ts";
+import { getHelpCommand } from "../help/help.ts";
 
 export function exitWithErrorInternal(message: string, treePath: string[]): never {
     exitWithError(

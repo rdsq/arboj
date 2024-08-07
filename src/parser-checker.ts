@@ -1,5 +1,5 @@
-import { exitWithErrorInternal } from "./util/exit-with-error-internal";
-import type { CommandDefinition, ParsedCommand } from "../types";
+import { exitWithErrorInternal } from "./util/exit-with-error-internal.ts";
+import type { CommandDefinition, ParsedCommand } from "../types.d.ts";
 
 /**
  * Get required args of a command or option that were expected, but not provided

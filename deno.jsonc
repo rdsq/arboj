@@ -1,0 +1,6 @@
+{
+    "name": "@rdsq/yaclil",
+    "exports": {
+        ".": "./mod.ts"
+    }
+}

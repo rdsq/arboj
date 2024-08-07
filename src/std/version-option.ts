@@ -1,4 +1,4 @@
-import type { Option, ParsedStandaloneOption } from "../../types";
+import type { Option, ParsedStandaloneOption } from "../../types.d.ts";
 
 /**
  * Add an option to show the version of your app

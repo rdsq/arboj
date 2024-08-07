@@ -1,1 +1,1 @@
-export { yaclil } from "./yaclil.js";
+export { yaclil } from "./yaclil.ts";

@@ -1,5 +1,5 @@
-import type { Option } from "../../types";
-import { renderHelp } from "../help/help.js";
+import type { Option, ParsedStandaloneOption } from "../../types.d.ts";
+import { renderHelp } from "../help/help.ts";
 
 /**
  * The help option, that is being used in the global options
@@ -14,7 +14,7 @@ const helpOption: Option = {
     name: 'help',
     shortName: 'h',
     description: 'Get help',
-    async standaloneHandler(event) {
+    async standaloneHandler(event: ParsedStandaloneOption) {
         const parsedCommand = event.parsedCommand;
         // exclude help option
         delete parsedCommand.options.help;

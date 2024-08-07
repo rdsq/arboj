@@ -1,9 +1,9 @@
-import { treeGraph } from './util/tree-graph.js';
-import exitWithError from './util/exit-with-error.js';
-import { countSubcommands } from './util/count-commands.js';
-import { navigateSubcommands } from './util/navigate-subcommands.js';
-import { resolveDynamic } from './util/resolve-dynamic.js';
-import { argAsType } from './util/arg-as-type.js';
+import { treeGraph } from './util/tree-graph.ts';
+import exitWithError from './util/exit-with-error.ts';
+import { countSubcommands } from './util/count-commands.ts';
+import { navigateSubcommands } from './util/navigate-subcommands.ts';
+import { resolveDynamic } from './util/resolve-dynamic.ts';
+import { argAsType } from './util/arg-as-type.ts';
 
 export {
     exitWithError,
