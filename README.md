@@ -1,5 +1,6 @@
 > [!WARNING]
 > This package is deprecated. Newer versions will be published to JSR [@rdsq/arboj](https://jsr.io/@rdsq/arboj)
+> Install it using `npx jsr add @rdsq/arboj`
 
 # YACLIL
 
