@@ -1,3 +1,6 @@
+> [!WARNING]
+> This package is deprecated. Newer versions will be published to JSR [@rdsq/arboj](https://jsr.io/@rdsq/arboj)
+
 # YACLIL
 
 Yet Another (but different) CLI Library
