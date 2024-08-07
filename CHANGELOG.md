@@ -13,8 +13,8 @@
 - Added global options, completely redesigned help logic
 - Added `argv` and `initOptions` to the parsed object
 - Removed deprecated objects
-- Added `treeGraphOption` to `pre`
-- Added `VersionOption` to `pre` to easily create `--version -v` flags
+- Added `treeGraphOption` to `std`
+- Added `VersionOption` to `std` to easily create `--version -v` flags
 - Renamed `customArgv` to `argv`, which requires removing first two arguments on node
 - Replaced `args` in options with `arg`, which passes by `--example=arg`
 - Now if no `cliName` passed, it sets `unnamed-cli`
@@ -25,6 +25,7 @@
 - Added dynamic commands
 - Renamed `utils` to `util`
 - Added `argAsType` to `util` (with simple types)
+- Renamed `pre` to `std`
 
 ## v2.1.0 2024-07-18
 
