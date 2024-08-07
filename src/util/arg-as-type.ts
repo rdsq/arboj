@@ -22,30 +22,28 @@ export function argAsType(arg: ParsedArg | undefined, argType: keyof PossibleArg
         return exitWithError(`Error: invalid value "${arg!.value}" for argument "${arg!.arg.name}" of type "${typeName}"`);
     }
     let result: PossibleArgTypes[keyof PossibleArgTypes];
-    switch (argType) {
-        case 'int':
-            result = parseInt(arg.value);
-            if (Number.isNaN(result)) {
-                error('int number');
-            }
-            break;
-        case 'float':
-            result = parseFloat(arg.value);
-            if (Number.isNaN(result)) {
-                error('float number');
-            }
-        case 'string':
-            result = arg.value;
-        case 'boolean':
-            if (arg.value === 'true') {
-                result = true;
-            } else if (arg.value === 'false') {
-                result = false;
-            } else {
-                error('boolean');
-            }
-        default:
-            throw new TypeError('unknown arg type');
+    if (argType === 'int') {
+        result = parseInt(arg.value);
+        if (Number.isNaN(result)) {
+            error('int number');
+        }
+    } else if (argType === 'float') {
+        result = parseFloat(arg.value);
+        if (Number.isNaN(result)) {
+            error('float number');
+        }
+    } else if (argType === 'string') {
+        result = arg.value;
+    } else if (argType === 'boolean') {
+        if (arg.value === 'true') {
+            result = true;
+        } else if (arg.value === 'false') {
+            result = false;
+        } else {
+            error('boolean');
+        }
+    } else {
+        throw new TypeError('unknown arg type');
     }
     return result;
 }

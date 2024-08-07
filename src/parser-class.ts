@@ -114,13 +114,12 @@ export default class Parser {
         }
         // name
         const isFullName = option.startsWith("--");
-        let processedOption = isFullName ? option.substring(2) : option.substring(1);
-        let thisOption: Option | undefined;
+        const processedOption = isFullName ? option.substring(2) : option.substring(1);
         // search
         const searchBy: keyof Option = isFullName ? 'name' : 'shortName';
         const searchFunc = (value: Option) => value[searchBy] === processedOption;
         const currentCommandOptions = this.currentCommand.options ?? [];
-        thisOption = currentCommandOptions.find(
+        const thisOption = currentCommandOptions.find(
             searchFunc
         ) ?? this.globalOptions.find(searchFunc);
         // find it in command's options or in global options

@@ -1,4 +1,4 @@
-import type { Command, CommandDefinition } from "../../types.d.ts";
+import type { CommandDefinition } from "../../types.d.ts";
 import { navigateSubcommands } from "../util.ts";
 
 /**
@@ -36,7 +36,7 @@ export async function getMaxSubcommandsLength(command: CommandDefinition): Promi
         return 0;
     }
     let maxLength = 0;
-    for (let subcommandName of Object.keys(command.subcommands!)) {
+    for (const subcommandName of Object.keys(command.subcommands!)) {
         const subcommand = await navigateSubcommands(command, subcommandName);
         const thisLength = renderCommandName(subcommand, subcommandName).length;
         if (thisLength > maxLength) {
@@ -71,7 +71,7 @@ export async function renderCommandSubcommands(command: CommandDefinition): Prom
     const result: string[] = [];
     if (!hasSubcommands(command)) return '(no subcommands)';
     const maxLength: number = await getMaxSubcommandsLength(command);
-    for (let subcommandName of Object.keys(command.subcommands!)) {
+    for (const subcommandName of Object.keys(command.subcommands!)) {
         const subcommand = await navigateSubcommands(command, subcommandName);
         // if it is hidden, ignore it
         if (subcommand.hidden ?? false) continue;

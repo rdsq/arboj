@@ -1,4 +1,4 @@
-import type { Option, ParsedStandaloneOption } from "../../types.d.ts";
+import type { Option } from "../../types.d.ts";
 
 /**
  * Add an option to show the version of your app
@@ -19,7 +19,7 @@ export class VersionOption implements Option {
         this.version = version;
     }
 
-    standaloneHandler(event: ParsedStandaloneOption) {
+    standaloneHandler() {
         console.log(this.version);
     }
 }

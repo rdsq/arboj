@@ -16,7 +16,7 @@ const treeGraphCommand: Command = {
     handler: async (event: ParsedCommand) => {
         const treePath = event.unexpectedArgs;
         const command: Command = await navigateSubcommands(event.rootCommand, ...treePath);
-	    const colored = !Boolean(event.options['no-color']);
+	    const colored = !event.options['no-color'];
         console.log(
             treeGraph(command, [event.appName, ...treePath], {
                 colored: colored,

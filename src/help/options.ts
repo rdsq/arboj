@@ -1,4 +1,4 @@
-import type { Command, CommandDefinition, Option } from "../../types.d.ts";
+import type { CommandDefinition, Option } from "../../types.d.ts";
 
 /**
  * Does some command have options or not

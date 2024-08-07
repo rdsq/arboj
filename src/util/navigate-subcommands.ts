@@ -3,7 +3,7 @@ import { resolveDynamic } from "./resolve-dynamic.ts";
 
 async function getSubcommand(command: CommandDefinition, subcommandName: string): Promise<CommandDefinition | never> {
     const subcommands = command.subcommands ?? {};
-    let subcommand: CommandDefinition | DynamicCommand = await resolveDynamic(subcommands[subcommandName]);
+    const subcommand: CommandDefinition | DynamicCommand = await resolveDynamic(subcommands[subcommandName]);
     if (!subcommand) throw new Error(`Error: subcommand "${subcommandName}" does not exist on this command`);
     return subcommand;
 }

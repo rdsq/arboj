@@ -36,7 +36,7 @@ function renderTreePath(treePath: string[], colored: boolean): string {
  */
 async function recursiveTree(command: CommandDefinition, margin: number, options: TreeGraphOptions, endedMargin: number): Promise<string> {
     const marginString = '  '.repeat(endedMargin) + straightChar.repeat(margin - endedMargin);
-    let result: string[] = [];
+    const result: string[] = [];
     const subcommandsKeys = Object.keys(command.subcommands ?? {});
     const subcommandsLength: number = subcommandsKeys.length;
     if (command.subcommands) {
