@@ -2,29 +2,7 @@ import { exitWithErrorInternal } from "./util/exit-with-error-internal.ts";
 import type { YaclilOptions, Command } from "../types.d.ts";
 import { helpOption } from "./std.ts";
 import Parser from "./parser-class.ts";
-// import getArgv from '@rdsq/cross-utils/argv';
-
-function getArgv(customArgv?: string[]): string[] | never {
-    if (customArgv) return customArgv;
-    // @ts-ignore
-    if (typeof Deno !== 'undefined' && 'args' in Deno) {
-        // if deno
-        // @ts-ignore
-        return Deno.args;
-        // @ts-ignore
-    } else if (typeof process !== 'undefined' && 'argv' in process) {
-        // if node
-        // @ts-ignore
-        return process.argv.slice(2);
-        // @ts-ignore
-    } else if (typeof Bun !== 'undefined' && 'argv' in Bun) {
-        // if bun
-        // @ts-ignore
-        return Bun.args.slice(2);
-    } else {
-        throw new Error('Unknown runtime. Please pass the argv manually');
-    }
-}
+import getArgv from '@rdsq/cross-utils/argv';
 
 /**
  * The YACLIL API
@@ -35,7 +13,7 @@ export async function yaclil(rootCommand: Command, cliName: string, options: Yac
     const globalOptions = options.globalOptions ?? [
         helpOption,
     ];
-    const argv = getArgv(options.argv);
+    const argv = options.argv ?? getArgv({ onlyArgs: true });
     // call the parser
     const parser = new Parser({
         rootCommand,

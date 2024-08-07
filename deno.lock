@@ -1,0 +1,21 @@
+{
+  "version": "3",
+  "packages": {
+    "specifiers": {
+      "jsr:@rdsq/cross-utils@^1.1.0": "jsr:@rdsq/cross-utils@1.1.0",
+      "npm:@types/node": "npm:@types/node@18.16.19"
+    },
+    "jsr": {
+      "@rdsq/cross-utils@1.1.0": {
+        "integrity": "eb6f9dc21f095ed6925a7fd553b185d78cfa05f1bb6f68396bd57668318bcbe0"
+      }
+    },
+    "npm": {
+      "@types/node@18.16.19": {
+        "integrity": "sha512-IXl7o+R9iti9eBW4Wg2hx1xQDig183jj7YLn8F7udNceyfkbn1ZxmzZXuak20gR40D7pIkIY1kYGx5VIGbaHKA==",
+        "dependencies": {}
+      }
+    }
+  },
+  "remote": {}
+}
