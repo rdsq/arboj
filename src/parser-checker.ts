@@ -4,7 +4,7 @@ import type { CommandDefinition, ParsedCommand } from "../types.d.ts";
 /**
  * Get required args of a command or option that were expected, but not provided
  * @param parsedVersion Version of a command or option by the parser
- * @param declaredVersion Version that developer of this YACLIL based app declared
+ * @param declaredVersion Version that developer of this ARBOJ based app declared
  * @returns Required args that were not provided
  */
 function getNotProvidedArguments(

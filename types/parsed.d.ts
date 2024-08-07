@@ -1,6 +1,6 @@
 import type { Arg } from "./arg.d.ts";
 import type { CommandDefinition } from "./command.d.ts";
-import type { YaclilOptions } from "./init.d.ts";
+import type { ArbojOptions } from "./init.d.ts";
 import type { Option } from "./option.d.ts";
 
 export type ParsedOption = {
@@ -37,12 +37,12 @@ export type ParsedCommand = {
     unexpectedArgs: string[],
     /** Tree path to this command, like `['cli-name', 'command', 'this-command']` */
     treePath: string[],
-    /** The root command, that was passed to the `yaclil` function as the first argument */
+    /** The root command, that was passed to the `arboj` function as the first argument */
     rootCommand: CommandDefinition,
     /** Basically the same as `treePath[0]` */
     appName: string,
-    /** Options, that were passed to the `yaclil` function as the 3rd argument */
-    initOptions: YaclilOptions,
+    /** Options, that were passed to the `arboj` function as the 3rd argument */
+    initOptions: ArbojOptions,
     /** `argv` used to generate this parsed object */
     argv: string[],
 };

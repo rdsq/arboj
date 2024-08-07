@@ -1,4 +1,4 @@
-# YACLIL
+# ARBOJ
 
 Yet Another (but different) CLI Library
 
@@ -9,18 +9,18 @@ This is a minimal library for building command line apps
 To use this library, you need to install it (obviously)
 
 ```shell
-npm install yaclil
+npm install arboj
 ```
 
 It doesn't support yarn yet
 
-Then use the `yaclil` method from this package
+Then use the `arboj` method from this package
 
 ```js
-import { yaclil } from 'yaclil';
-// or 'npm:yaclil' in Deno
+import { arboj } from 'arboj';
+// or 'npm:arboj' in Deno
 
-yaclil({
+arboj({
     // the main command
     // the function that will be called
     handler: event => console.log('Hello World'),
@@ -46,7 +46,7 @@ Then don't forget to change the command's name
 
 ```js
 // ...
-yaclil({
+arboj({
     // command
 }, 'my-cli')
 // ...

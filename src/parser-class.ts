@@ -1,5 +1,5 @@
 import { exitWithErrorInternal } from "./util/exit-with-error-internal.ts";
-import type { Option, Command, Arg, YaclilOptions, ParsedCommand, ParsedOption, ParsedOptions, ParsedArgs, ParsedStandaloneOption, CommandDefinition } from "../types.d.ts";
+import type { Option, Command, Arg, ArbojOptions, ParsedCommand, ParsedOption, ParsedOptions, ParsedArgs, ParsedStandaloneOption, CommandDefinition } from "../types.d.ts";
 import { navigateSubcommands, resolveDynamic } from "./util.ts";
 
 /**
@@ -31,7 +31,7 @@ function isOption(element: string) {
 
 export default class Parser {
     rootCommand!: CommandDefinition;
-    initOptions: YaclilOptions;
+    initOptions: ArbojOptions;
     argv: string[];
 
     currentCommand!: CommandDefinition;
@@ -54,7 +54,7 @@ export default class Parser {
     constructor(options: {
         rootCommand: Command,
         rootCommandName: string,
-        initOptions: YaclilOptions,
+        initOptions: ArbojOptions,
         argv: string[],
         globalOptions: Option[],
     }) {

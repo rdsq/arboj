@@ -1,5 +1,5 @@
 {
-  "name": "@rdsq/yaclil",
+  "name": "@rdsq/arboj",
   "exports": {
     ".": "./src/mod.ts",
     "./util": "./src/util.ts",

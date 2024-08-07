@@ -1,14 +1,14 @@
 import { exitWithErrorInternal } from "./util/exit-with-error-internal.ts";
-import type { YaclilOptions, Command } from "../types.d.ts";
+import type { ArbojOptions, Command } from "../types.d.ts";
 import { helpOption } from "./std.ts";
 import Parser from "./parser-class.ts";
 import getArgv from '@rdsq/cross-utils/argv';
 
 /**
- * The YACLIL API
+ * The ARBOJ API
  * @param options Options for the app
  */
-export async function yaclil(rootCommand: Command, cliName: string, options: YaclilOptions = {}): Promise<void | never> {
+export async function arboj(rootCommand: Command, cliName: string, options: ArbojOptions = {}): Promise<void | never> {
     cliName ??= 'unnamed-cli';
     const globalOptions = options.globalOptions ?? [
         helpOption,

@@ -1,9 +1,9 @@
 import type { Option } from "./option.d.ts";
 
 /**
- * The init options for YACLIL
+ * The init options for ARBOJ
  */
-export type YaclilOptions = {
+export type ArbojOptions = {
     /**
      * Custom argv
      * Don't forget remove the first two arguments on node

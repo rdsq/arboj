@@ -4,7 +4,7 @@
 
 - Updated tree graph command error message to include the command of the subcommand
 - Updated usage in [README](README.md)
-- Added a function to count subcommands: `countSubcommands` in `yaclil/util`
+- Added a function to count subcommands: `countSubcommands` in `arboj/util`
 - Added tree path rendering to `treeGraph` function
 - Tree graph is now dimming target command if it is not callable
 - Updated doc strings
@@ -20,12 +20,14 @@
 - Now if no `cliName` passed, it sets `unnamed-cli`
 - Updated return value of args from string to object
 - Added an async util `navigateSubcommands`
-- Made `treeGraph` and `yaclil` async
+- Made `treeGraph` and `arboj` async
 - Removed `Handler` type
 - Added dynamic commands
 - Renamed `utils` to `util`
 - Added `argAsType` to `util` (with simple types)
 - Renamed `pre` to `std`
+- Switched to Deno and JSR
+- Renamed the project from `yaclil` to `arboj`
 
 ## v2.1.0 2024-07-18
 
