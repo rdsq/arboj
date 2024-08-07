@@ -1,24 +1,13 @@
 # ARBOJ
 
-Yet Another (but different) CLI Library
-
-This is a minimal library for building command line apps
+This is a library for building command line apps, using object declarations, making its components reusable and readable
 
 ## Usage
 
-To use this library, you need to install it (obviously)
-
-```shell
-npm install arboj
-```
-
-It doesn't support yarn yet
-
-Then use the `arboj` method from this package
+`arboj` method from this package is the entry point for your app
 
 ```js
-import { arboj } from 'arboj';
-// or 'npm:arboj' in Deno
+import { arboj } from '@rdsq/arboj';
 
 arboj({
     // the main command
@@ -29,25 +18,5 @@ arboj({
         subcommand: { handler: () => console.log('Hello from "command-name subcommand"') }
     }
 }, 'command-name');
-```
-
-## Bin
-
-You can also assign a package.json bin name to this app
-
-```shell
-my-cli say-hello
-# output: hello
-my-cli say-hi
-# output: hi
-```
-
-Then don't forget to change the command's name
-
-```js
-// ...
-arboj({
-    // command
-}, 'my-cli')
-// ...
+// use the command that calls your app here, like `command-name`, `my-cli`, `deno run main.ts`, whatever
 ```
