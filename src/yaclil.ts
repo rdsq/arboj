@@ -1,6 +1,6 @@
 import { exitWithErrorInternal } from "./util/exit-with-error-internal.js";
 import type { YaclilOptions, Command } from "../types.js";
-import { helpOption } from "./pre.js";
+import { helpOption } from "./std.js";
 import Parser from "./parser-class.js";
 
 function getArgv(customArgv?: string[]): string[] | never {

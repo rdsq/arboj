@@ -32,9 +32,9 @@
       "default": "./out/util.js",
       "types": "./out/util.d.ts"
     },
-    "./pre": {
-      "default": "./out/pre.js",
-      "types": "./out/pre.d.ts"
+    "./std": {
+      "default": "./out/std.js",
+      "types": "./out/std.d.ts"
     }
   }
 }

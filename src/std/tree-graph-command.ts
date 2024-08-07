@@ -1,5 +1,5 @@
 import { treeGraph } from "../util/tree-graph.js";
-import type { Command } from "../../types";
+import type { Command } from "../../types.js";
 import { navigateSubcommands } from '../util.js';
 
 /**
