@@ -23,3 +23,7 @@ arboj({
 }, 'command-name');
 // use the command that calls your app here, like `command-name`, `my-cli`, `deno run main.ts`, whatever
 ```
+
+## Why?
+
+Because I didn't like how other CLI libraries work, I'm not a fan of that functions-calling declaration pattern, so I made something different
