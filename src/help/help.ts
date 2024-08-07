@@ -1,15 +1,20 @@
-import type { Option, Arg, ParsedCommand, CommandDefinition } from "../../types.d.ts";
-import { renderCommandOptions } from "./options.ts";
-import { renderCommandSubcommands } from "./subcommands.ts";
+import type {
+    Arg,
+    CommandDefinition,
+    Option,
+    ParsedCommand,
+} from '../../types.d.ts';
+import { renderCommandOptions } from './options.ts';
+import { renderCommandSubcommands } from './subcommands.ts';
 
 /** Separator for the help */
 const separator = '\n\n';
 
 function argName(arg: Arg | string): string {
     if (typeof arg === 'string') {
-	return arg;
+        return arg;
     } else {
-	return arg.name;
+        return arg.name;
     }
 }
 
@@ -20,7 +25,10 @@ function argName(arg: Arg | string): string {
  * @param command The command to get usage from
  * @returns The result string like `my-cli my-command <arg> <additional...>`
  */
-export function renderCommandUsage(treePath: string[], command: CommandDefinition): string {
+export function renderCommandUsage(
+    treePath: string[],
+    command: CommandDefinition,
+): string {
     if (command.handler === null) {
         return '(not callable)';
     }
@@ -60,7 +68,10 @@ export function renderOptionUsage(treePath: string[], option: Option): string {
  * @param command The command
  * @returns The full string
  */
-export async function renderCommandHelp(treePath: string[], command: CommandDefinition): Promise<string> {
+export async function renderCommandHelp(
+    treePath: string[],
+    command: CommandDefinition,
+): Promise<string> {
     const result: string[] = [];
     // usage
     const usage = renderCommandUsage(treePath, command);
@@ -102,7 +113,9 @@ export function renderOptionHelp(treePath: string[], option: Option): string {
  * @param parsedCommand The result of the parser
  * @returns The result string
  */
-export async function renderHelp(parsedCommand: ParsedCommand): Promise<string> {
+export async function renderHelp(
+    parsedCommand: ParsedCommand,
+): Promise<string> {
     const { treePath, command, options } = parsedCommand;
     const optionsCount = Object.keys(options).length;
     if (optionsCount === 0) {
@@ -118,7 +131,7 @@ export async function renderHelp(parsedCommand: ParsedCommand): Promise<string> 
         result.push(await renderCommandHelp(treePath, command));
         for (const option of Object.values(options)) {
             // options help
-            result.push(renderOptionHelp(treePath, option.option))
+            result.push(renderOptionHelp(treePath, option.option));
         }
         return result.join(separator);
     }
@@ -129,6 +142,6 @@ export async function renderHelp(parsedCommand: ParsedCommand): Promise<string> 
  * @returns Something like `my-cli my-command --help`
  */
 export function getHelpCommand(treePath: string[]): string {
-    const result: string[] = [ ...treePath, '--help' ];
+    const result: string[] = [...treePath, '--help'];
     return result.join(' ');
 }

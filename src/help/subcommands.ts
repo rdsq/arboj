@@ -1,12 +1,14 @@
-import type { CommandDefinition } from "../../types.d.ts";
-import { navigateSubcommands } from "../util.ts";
+import type { CommandDefinition } from '../../types.d.ts';
+import { navigateSubcommands } from '../util.ts';
 
 /**
  * Check if some command has subcommands
  * @param command The command to check
  * @returns Does it have subcommands or not
  */
-export function hasSubcommands(command: CommandDefinition): boolean | undefined {
+export function hasSubcommands(
+    command: CommandDefinition,
+): boolean | undefined {
     return command.subcommands && Object.keys(command.subcommands).length > 0;
 }
 
@@ -16,11 +18,14 @@ export function hasSubcommands(command: CommandDefinition): boolean | undefined 
  * @param includeArgs Include the args string like `<3>`
  * @returns The rendered string
  */
-export function renderCommandName(command: CommandDefinition, commandName: string): string {
+export function renderCommandName(
+    command: CommandDefinition,
+    commandName: string,
+): string {
     let name = commandName;
     if (command.args && command.args.length > 0) {
         // add args string
-        name += ` <${command.args.length}>`
+        name += ` <${command.args.length}>`;
     }
     return name;
 }
@@ -30,7 +35,9 @@ export function renderCommandName(command: CommandDefinition, commandName: strin
  * @param command The command to view
  * @returns The max length of this command's subcommands
  */
-export async function getMaxSubcommandsLength(command: CommandDefinition): Promise<number> {
+export async function getMaxSubcommandsLength(
+    command: CommandDefinition,
+): Promise<number> {
     if (!hasSubcommands(command)) {
         // if this command has no subcommands
         return 0;
@@ -52,7 +59,11 @@ export async function getMaxSubcommandsLength(command: CommandDefinition): Promi
  * @param maxLength Max length of all commands
  * @returns The result string with command's name, args and description
  */
-export function renderCommandString(command: CommandDefinition, commandName: string, maxLength: number): string {
+export function renderCommandString(
+    command: CommandDefinition,
+    commandName: string,
+    maxLength: number,
+): string {
     let result = renderCommandName(command, commandName);
     if (command.description) {
         const freeSpaceCount = maxLength - result.length + 3;
@@ -67,7 +78,9 @@ export function renderCommandString(command: CommandDefinition, commandName: str
  * @param command The command to get subcommands from
  * @returns The rendered table
  */
-export async function renderCommandSubcommands(command: CommandDefinition): Promise<string> {
+export async function renderCommandSubcommands(
+    command: CommandDefinition,
+): Promise<string> {
     const result: string[] = [];
     if (!hasSubcommands(command)) return '(no subcommands)';
     const maxLength: number = await getMaxSubcommandsLength(command);

@@ -1,6 +1,17 @@
-import { exitWithErrorInternal } from "./util/exit-with-error-internal.ts";
-import type { Option, Command, Arg, ArbojOptions, ParsedCommand, ParsedOption, ParsedOptions, ParsedArgs, ParsedStandaloneOption, CommandDefinition } from "../types.d.ts";
-import { navigateSubcommands, resolveDynamic } from "./util.ts";
+import { exitWithErrorInternal } from './util/exit-with-error-internal.ts';
+import type {
+    ArbojOptions,
+    Arg,
+    Command,
+    CommandDefinition,
+    Option,
+    ParsedArgs,
+    ParsedCommand,
+    ParsedOption,
+    ParsedOptions,
+    ParsedStandaloneOption,
+} from '../types.d.ts';
+import { navigateSubcommands, resolveDynamic } from './util.ts';
 
 /**
  * I copied it from the internet
@@ -52,15 +63,15 @@ export default class Parser {
     waitForConstruct: Promise<void>;
 
     constructor(options: {
-        rootCommand: Command,
-        rootCommandName: string,
-        initOptions: ArbojOptions,
-        argv: string[],
-        globalOptions: Option[],
+        rootCommand: Command;
+        rootCommandName: string;
+        initOptions: ArbojOptions;
+        argv: string[];
+        globalOptions: Option[];
     }) {
         this.initOptions = options.initOptions;
         this.argv = options.argv;
-        this.treePath = [ options.rootCommandName ];
+        this.treePath = [options.rootCommandName];
         this.globalOptions = options.globalOptions ?? [];
 
         this.currentOption = null;
@@ -75,22 +86,22 @@ export default class Parser {
         this.optionsProcessingEnabled = true;
         this.standaloneOptionName = null;
 
-        this.waitForConstruct = (async() => {
+        this.waitForConstruct = (async () => {
             this.rootCommand = await resolveDynamic(options.rootCommand);
             this.currentCommand = this.rootCommand;
         })();
     }
 
     get unexpectedOptionsAllowed() {
-        return this.currentCommand.allowUnexpectedOptions
-        ?? this.initOptions.allowUnexpectedOptions
-        ?? false;
+        return this.currentCommand.allowUnexpectedOptions ??
+            this.initOptions.allowUnexpectedOptions ??
+            false;
     }
 
     get unexpectedArgsAllowed() {
-        return this.currentCommand.allowUnexpectedArgs
-        ?? this.initOptions.allowUnexpectedArgs
-        ?? false;
+        return this.currentCommand.allowUnexpectedArgs ??
+            this.initOptions.allowUnexpectedArgs ??
+            false;
     }
 
     setExpectedCommandArgsCount(command: CommandDefinition) {
@@ -113,14 +124,17 @@ export default class Parser {
             option = splitted[0];
         }
         // name
-        const isFullName = option.startsWith("--");
-        const processedOption = isFullName ? option.substring(2) : option.substring(1);
+        const isFullName = option.startsWith('--');
+        const processedOption = isFullName
+            ? option.substring(2)
+            : option.substring(1);
         // search
         const searchBy: keyof Option = isFullName ? 'name' : 'shortName';
-        const searchFunc = (value: Option) => value[searchBy] === processedOption;
+        const searchFunc = (value: Option) =>
+            value[searchBy] === processedOption;
         const currentCommandOptions = this.currentCommand.options ?? [];
         const thisOption = currentCommandOptions.find(
-            searchFunc
+            searchFunc,
         ) ?? this.globalOptions.find(searchFunc);
         // find it in command's options or in global options
         if (thisOption === undefined) {
@@ -176,8 +190,13 @@ export default class Parser {
     }
 
     async processCommand(arg: string) {
-        if (!this.currentCommand.subcommands) throw new Error(`Subcommand "${arg}" does not exist`);
-        this.currentCommand = await navigateSubcommands(this.currentCommand, arg);
+        if (!this.currentCommand.subcommands) {
+            throw new Error(`Subcommand "${arg}" does not exist`);
+        }
+        this.currentCommand = await navigateSubcommands(
+            this.currentCommand,
+            arg,
+        );
         this.treePath.push(arg);
         this.setExpectedCommandArgsCount(this.currentCommand);
     }
@@ -194,13 +213,13 @@ export default class Parser {
         if (this.unexpectedArgsAllowed) {
             // if unexpected args are allowed
             this.unexpectedArgs.push(arg);
-	        return;
+            return;
         }
         // else print error
         exitWithErrorInternal(
             `Error: unexpected argument "${arg}"`,
             this.treePath,
-        )
+        );
     }
 
     setArgsForCommand() {
@@ -241,7 +260,10 @@ export default class Parser {
                 this.processOption(arg);
                 continue;
             }
-            if (!this.commandSearchStopped && arg in (this.currentCommand.subcommands ?? {})) {
+            if (
+                !this.commandSearchStopped &&
+                arg in (this.currentCommand.subcommands ?? {})
+            ) {
                 await this.processCommand(arg);
                 continue;
             }
@@ -273,7 +295,9 @@ export default class Parser {
 
     get parsedStandaloneOption(): ParsedStandaloneOption {
         if (this.standaloneOptionName === null) {
-            throw new Error('Attempted to get parsed standalone option when it was not called')
+            throw new Error(
+                'Attempted to get parsed standalone option when it was not called',
+            );
         }
         return {
             parsedCommand: this.parsedObject,

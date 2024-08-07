@@ -1,5 +1,5 @@
-import { exitWithErrorInternal } from "./util/exit-with-error-internal.ts";
-import type { CommandDefinition, ParsedCommand } from "../types.d.ts";
+import { exitWithErrorInternal } from './util/exit-with-error-internal.ts';
+import type { CommandDefinition, ParsedCommand } from '../types.d.ts';
 
 /**
  * Get required args of a command or option that were expected, but not provided
@@ -9,7 +9,7 @@ import type { CommandDefinition, ParsedCommand } from "../types.d.ts";
  */
 function getNotProvidedArguments(
     parsedVersion: ParsedCommand,
-    declaredVersion: CommandDefinition
+    declaredVersion: CommandDefinition,
 ): string[] {
     const hasArgs = Object.keys(parsedVersion.args).length;
     const expectedArgs = declaredVersion.args?.length ?? 0;
@@ -34,8 +34,13 @@ function getNotProvidedArguments(
  * Throw an error that some command is missing its required args (if it is)
  * @param parsedCommand Parsed command by parser that may be missing some arguments
  */
-export function errorIfNotEnoughCommandArgs(parsedCommand: ParsedCommand): void | never {
-    const missing = getNotProvidedArguments(parsedCommand, parsedCommand.command);
+export function errorIfNotEnoughCommandArgs(
+    parsedCommand: ParsedCommand,
+): void | never {
+    const missing = getNotProvidedArguments(
+        parsedCommand,
+        parsedCommand.command,
+    );
     // if there are no required args
     if (missing.length === 0) {
         return;

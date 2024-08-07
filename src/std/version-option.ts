@@ -1,8 +1,8 @@
-import type { Option } from "../../types.d.ts";
+import type { Option } from '../../types.d.ts';
 
 /**
  * Add an option to show the version of your app
- * @example 
+ * @example
  * {
  *     options: [
  *         new VersionOption('1.0.0'),

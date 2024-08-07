@@ -1,11 +1,11 @@
-import type { ParsedArg } from "../../types.d.ts";
-import exitWithError from "./exit-with-error.ts";
+import type { ParsedArg } from '../../types.d.ts';
+import exitWithError from './exit-with-error.ts';
 
 export type PossibleArgTypes = {
-    'string': string,
-    'int': number,
-    'float': number,
-    'boolean': boolean,
+    'string': string;
+    'int': number;
+    'float': number;
+    'boolean': boolean;
 };
 
 /**
@@ -14,12 +14,19 @@ export type PossibleArgTypes = {
  * @param argType Parse this argument as
  * @returns Parsed value of this argument
  */
-export function argAsType(arg: ParsedArg | undefined, argType: keyof PossibleArgTypes): any {
+export function argAsType(
+    arg: ParsedArg | undefined,
+    argType: keyof PossibleArgTypes,
+): any {
     if (arg === undefined) {
         return undefined;
     }
     function error(typeName: string): never {
-        return exitWithError(`Error: invalid value "${arg!.value}" for argument "${arg!.arg.name}" of type "${typeName}"`);
+        return exitWithError(
+            `Error: invalid value "${arg!.value}" for argument "${
+                arg!.arg.name
+            }" of type "${typeName}"`,
+        );
     }
     let result: PossibleArgTypes[keyof PossibleArgTypes];
     if (argType === 'int') {

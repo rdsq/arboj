@@ -1,11 +1,11 @@
-import type { Command, CommandDefinition } from "../../types.d.ts";
-import { resolveDynamic } from "./resolve-dynamic.ts";
+import type { Command, CommandDefinition } from '../../types.d.ts';
+import { resolveDynamic } from './resolve-dynamic.ts';
 
 export type CountSubcommandsOptions = {
     /** Should it count hidden commands? `true` by default */
-    includeHidden?: boolean,
+    includeHidden?: boolean;
     /** Should it include hidden subcommands? `true` by default */
-    includeHiddenSubcommands?: boolean,
+    includeHiddenSubcommands?: boolean;
 };
 
 /**
@@ -13,20 +13,27 @@ export type CountSubcommandsOptions = {
  * @param command The command to start from
  * @returns The count including the command
  */
-export async function countSubcommands(command: Command, options: CountSubcommandsOptions): Promise<number> {
+export async function countSubcommands(
+    command: Command,
+    options: CountSubcommandsOptions,
+): Promise<number> {
     let count = 1; // including this command
     const resolvedCommand: CommandDefinition = await resolveDynamic(command);
-    for (const subcommandRaw of Object.values(resolvedCommand.subcommands ?? {})) {
-        const subcommand: CommandDefinition = await resolveDynamic(subcommandRaw);
+    for (
+        const subcommandRaw of Object.values(resolvedCommand.subcommands ?? {})
+    ) {
+        const subcommand: CommandDefinition = await resolveDynamic(
+            subcommandRaw,
+        );
         if (
-            (subcommand.hidden ?? false)
-            && !(options.includeHidden ?? true)
+            (subcommand.hidden ?? false) &&
+            !(options.includeHidden ?? true)
         ) {
             // ignore such commands
             continue;
         } else if (
-            (subcommand.hideSubcommands ?? false)
-            && !(options.includeHiddenSubcommands ?? true)
+            (subcommand.hideSubcommands ?? false) &&
+            !(options.includeHiddenSubcommands ?? true)
         ) {
             // add only this command
             count += 1;

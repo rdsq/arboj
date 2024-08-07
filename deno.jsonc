@@ -1,13 +1,17 @@
 {
-  "name": "@rdsq/arboj",
-  "exports": {
-    ".": "./src/mod.ts",
-    "./util": "./src/util.ts",
-    "./std": "./src/std.ts",
-    "./types": "./types.d.ts"
-  },
-  "imports": {
-    "@rdsq/cross-utils": "jsr:@rdsq/cross-utils@^1.1.0"
-  },
-  "version": "2.1.0"
+    "name": "@rdsq/arboj",
+    "exports": {
+        ".": "./src/mod.ts",
+        "./util": "./src/util.ts",
+        "./std": "./src/std.ts",
+        "./types": "./types.d.ts"
+    },
+    "imports": {
+        "@rdsq/cross-utils": "jsr:@rdsq/cross-utils@^1.1.0"
+    },
+    "version": "2.1.0",
+    "fmt": {
+        "indentWidth": 4,
+        "singleQuote": true
+    }
 }

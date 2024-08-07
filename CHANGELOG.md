@@ -2,7 +2,8 @@
 
 ## [Unreleased]
 
-- Updated tree graph command error message to include the command of the subcommand
+- Updated tree graph command error message to include the command of the
+  subcommand
 - Updated usage in [README](README.md)
 - Added a function to count subcommands: `countSubcommands` in `arboj/util`
 - Added tree path rendering to `treeGraph` function
@@ -15,7 +16,8 @@
 - Removed deprecated objects
 - Added `treeGraphOption` to `std`
 - Added `VersionOption` to `std` to easily create `--version -v` flags
-- Renamed `customArgv` to `argv`, which requires removing first two arguments on node
+- Renamed `customArgv` to `argv`, which requires removing first two arguments on
+  node
 - Replaced `args` in options with `arg`, which passes by `--example=arg`
 - Now if no `cliName` passed, it sets `unnamed-cli`
 - Updated return value of args from string to object
@@ -35,7 +37,8 @@
 - `-` is not an option anymore (again)
 - Changed types file extensions from `.ts` to `.d.ts`
 - Added `pre` export with `treeGraphCommand`
-- When the target command doesn't have subcommands, `treeGraph` shows the `(empty)` message
+- When the target command doesn't have subcommands, `treeGraph` shows the
+  `(empty)` message
 
 ## v2.0.3 2024-07-14
 
@@ -43,7 +46,8 @@
 
 ## v2.0.2 2024-07-13
 
-- Updated error message from `Error: unexpected arg` to `Error: unexpected argument`
+- Updated error message from `Error: unexpected arg` to
+  `Error: unexpected argument`
 - Added v to versions in Changelog
 - Fixed option argument rendering in usage error
 
@@ -85,7 +89,7 @@ Now hidden commands can be overridden in the tree graph generator
 
 ## v1.4.2 2024-06-03
 
-Added new feature to hide some command's subcommands under ` +` sign
+Added new feature to hide some command's subcommands under `+` sign
 
 ## v1.4.1 2024-06-03
 
@@ -140,6 +144,7 @@ Added `never` type to `returnError` function
 ## v1.1.1 2024-05-24
 
 Updated the documentation:
+
 - Added the [Arguments](./docs/guide.md#Arguments) section to the guide
 - Added the [args](./docs/examples/args.mjs) example
 - Added links to the examples to guide headers

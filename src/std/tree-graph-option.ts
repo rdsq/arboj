@@ -1,5 +1,5 @@
-import type { Option, ParsedStandaloneOption } from "../../types.d.ts";
-import { treeGraph } from "../util/tree-graph.ts";
+import type { Option, ParsedStandaloneOption } from '../../types.d.ts';
+import { treeGraph } from '../util/tree-graph.ts';
 
 /**
  * Same as `treeGraphCommand`, but as an option

@@ -1,14 +1,18 @@
-import { exitWithErrorInternal } from "./util/exit-with-error-internal.ts";
-import type { ArbojOptions, Command } from "../types.d.ts";
-import { helpOption } from "./std.ts";
-import Parser from "./parser-class.ts";
+import { exitWithErrorInternal } from './util/exit-with-error-internal.ts';
+import type { ArbojOptions, Command } from '../types.d.ts';
+import { helpOption } from './std.ts';
+import Parser from './parser-class.ts';
 import getArgv from '@rdsq/cross-utils/argv';
 
 /**
  * The ARBOJ API
  * @param options Options for the app
  */
-export async function arboj(rootCommand: Command, cliName: string, options: ArbojOptions = {}): Promise<void | never> {
+export async function arboj(
+    rootCommand: Command,
+    cliName: string,
+    options: ArbojOptions = {},
+): Promise<void | never> {
     cliName ??= 'unnamed-cli';
     const globalOptions = options.globalOptions ?? [
         helpOption,
@@ -29,8 +33,11 @@ export async function arboj(rootCommand: Command, cliName: string, options: Arbo
     if (parser.standaloneOptionCalled) {
         // if standalone option called
         const parsedForStandalone = parser.parsedStandaloneOption;
-        const handler = parsedForStandalone.parsedOption.option.standaloneHandler;
-        if (!handler) throw new Error('Impossible error with standalone options');
+        const handler =
+            parsedForStandalone.parsedOption.option.standaloneHandler;
+        if (!handler) {
+            throw new Error('Impossible error with standalone options');
+        }
         // execute standalone option
         return handler(parsedForStandalone);
     } else {
@@ -38,7 +45,7 @@ export async function arboj(rootCommand: Command, cliName: string, options: Arbo
         if (!parsed.command.handler) {
             exitWithErrorInternal(
                 'Error: this command is not callable',
-                parsed.treePath
+                parsed.treePath,
             );
         }
         // if everything is ok

@@ -6,10 +6,10 @@ import { resolveDynamic } from './util/resolve-dynamic.ts';
 import { argAsType } from './util/arg-as-type.ts';
 
 export {
-    exitWithError,
-    treeGraph,
+    argAsType,
     countSubcommands,
+    exitWithError,
     navigateSubcommands,
     resolveDynamic,
-    argAsType,
+    treeGraph,
 };

@@ -1,5 +1,5 @@
-import type { Option, ParsedStandaloneOption } from "../../types.d.ts";
-import { renderHelp } from "../help/help.ts";
+import type { Option, ParsedStandaloneOption } from '../../types.d.ts';
+import { renderHelp } from '../help/help.ts';
 
 /**
  * The help option, that is being used in the global options
@@ -19,7 +19,7 @@ const helpOption: Option = {
         // exclude help option
         delete parsedCommand.options.help;
         console.log(
-            await renderHelp(parsedCommand)
+            await renderHelp(parsedCommand),
         );
     },
 };

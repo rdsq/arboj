@@ -1,5 +1,5 @@
-import type { Command, CommandDefinition } from "../../types.d.ts";
-import { navigateSubcommands } from "../util.ts";
+import type { Command, CommandDefinition } from '../../types.d.ts';
+import { navigateSubcommands } from '../util.ts';
 
 const branchChar = '┗ ';
 const straightChar = '┃ ';
@@ -22,7 +22,7 @@ function dimmed(text: string, colored: boolean = true): string {
 function renderTreePath(treePath: string[], colored: boolean): string {
     treePath.pop(); // remove the last element  because it will be added by the command
     if (treePath.length === 0) {
-	    return '';
+        return '';
     }
     return dimmed(treePath.join('/') + '/', colored);
 }
@@ -34,15 +34,24 @@ function renderTreePath(treePath: string[], colored: boolean): string {
  * @param endedMargin Count of margin levels on start that are ended
  * @returns The graph of this command's subcommands
  */
-async function recursiveTree(command: CommandDefinition, margin: number, options: TreeGraphOptions, endedMargin: number): Promise<string> {
-    const marginString = '  '.repeat(endedMargin) + straightChar.repeat(margin - endedMargin);
+async function recursiveTree(
+    command: CommandDefinition,
+    margin: number,
+    options: TreeGraphOptions,
+    endedMargin: number,
+): Promise<string> {
+    const marginString = '  '.repeat(endedMargin) +
+        straightChar.repeat(margin - endedMargin);
     const result: string[] = [];
     const subcommandsKeys = Object.keys(command.subcommands ?? {});
     const subcommandsLength: number = subcommandsKeys.length;
     if (command.subcommands) {
         for (let i = 0; i < subcommandsLength; i++) {
             const subcommandName = subcommandsKeys[i];
-            const subcommand: Command = await navigateSubcommands(command, subcommandName);
+            const subcommand: Command = await navigateSubcommands(
+                command,
+                subcommandName,
+            );
             // if it is hidden and showing them is not configured, move to the next one
             if ((subcommand.hidden ?? false) && !options.showHidden) continue;
             // choose right char
@@ -60,33 +69,46 @@ async function recursiveTree(command: CommandDefinition, margin: number, options
             }
             // add it
             result.push(
-                marginString + char + commandName
+                marginString + char + commandName,
             );
             // if it has subcommands
-            if (subcommand.subcommands && Object.keys(subcommand.subcommands).length > 0) {
+            if (
+                subcommand.subcommands &&
+                Object.keys(subcommand.subcommands).length > 0
+            ) {
                 // if subcommands are hidden and showing them is not configured
-                if ((subcommand.hideSubcommands ?? false) && !options.showHiddenSubcommands) {
+                if (
+                    (subcommand.hideSubcommands ?? false) &&
+                    !options.showHiddenSubcommands
+                ) {
                     // sign that it has hidden subcommands
-		            const sign = options.colored ? ' \x1b[34m+\x1b[0m' : ' +';
+                    const sign = options.colored ? ' \x1b[34m+\x1b[0m' : ' +';
                     result[result.length - 1] += sign;
                 } else {
-                    result.push(await recursiveTree(subcommand, margin + 1, options, endedMargin));
+                    result.push(
+                        await recursiveTree(
+                            subcommand,
+                            margin + 1,
+                            options,
+                            endedMargin,
+                        ),
+                    );
                 }
             }
         }
     }
-    return result.join("\n");
+    return result.join('\n');
 }
 
 export type TreeGraphOptions = {
     /** Should it dim commands without handlers for terminal */
-    colored?: boolean,
+    colored?: boolean;
     /** Show hidden commands */
-    showHidden?: boolean,
+    showHidden?: boolean;
     /** Show hidden subcommands of commands instead of hiding them under ` +` */
-    showHiddenSubcommands?: boolean,
+    showHiddenSubcommands?: boolean;
     /** Add something like `cli-name/command/another/` */
-    addTreePath?: boolean,
+    addTreePath?: boolean;
 };
 
 /**
@@ -95,7 +117,11 @@ export type TreeGraphOptions = {
  * @options Options for the tree graph generator. Boolean values are legacy, they represent the color
  * @returns The graph
  */
-export async function treeGraph(command: CommandDefinition, commandNameOrTreePath: string | string[], options: TreeGraphOptions = {}): Promise<string> {
+export async function treeGraph(
+    command: CommandDefinition,
+    commandNameOrTreePath: string | string[],
+    options: TreeGraphOptions = {},
+): Promise<string> {
     // default values
     options.colored ??= false;
     options.showHidden ??= false;
@@ -104,9 +130,9 @@ export async function treeGraph(command: CommandDefinition, commandNameOrTreePat
     // tree path variables
     let commandName: string;
     let treePath: string[];
-    if (typeof commandNameOrTreePath === "string") {
+    if (typeof commandNameOrTreePath === 'string') {
         commandName = commandNameOrTreePath;
-        treePath = [ commandNameOrTreePath ];
+        treePath = [commandNameOrTreePath];
     } else {
         commandName = commandNameOrTreePath[commandNameOrTreePath.length - 1];
         treePath = commandNameOrTreePath;

@@ -1,5 +1,5 @@
-import { treeGraph } from "../util/tree-graph.ts";
-import type { Command, ParsedCommand } from "../../types.d.ts";
+import { treeGraph } from '../util/tree-graph.ts';
+import type { Command, ParsedCommand } from '../../types.d.ts';
 import { navigateSubcommands } from '../util.ts';
 
 /**
@@ -15,33 +15,38 @@ const treeGraphCommand: Command = {
     description: 'Show a tree graph of the CLI',
     handler: async (event: ParsedCommand) => {
         const treePath = event.unexpectedArgs;
-        const command: Command = await navigateSubcommands(event.rootCommand, ...treePath);
-	    const colored = !event.options['no-color'];
+        const command: Command = await navigateSubcommands(
+            event.rootCommand,
+            ...treePath,
+        );
+        const colored = !event.options['no-color'];
         console.log(
             treeGraph(command, [event.appName, ...treePath], {
                 colored: colored,
                 showHidden: Boolean(event.options['show-commands']),
-                showHiddenSubcommands: Boolean(event.options["show-subcommands"]),
+                showHiddenSubcommands: Boolean(
+                    event.options['show-subcommands'],
+                ),
                 addTreePath: true,
-            }
-        ));
+            }),
+        );
     },
     options: [
         {
             name: 'no-color',
             shortName: 'nc',
-            description: 'Disable colored output'
+            description: 'Disable colored output',
         },
         {
             name: 'show-commands',
             shortName: 'c',
-            description: 'Show hidden commands'
+            description: 'Show hidden commands',
         },
         {
             name: 'show-subcommands',
             shortName: 's',
-            description: 'Show hidden subcommands'
-        }
+            description: 'Show hidden subcommands',
+        },
     ],
     allowUnexpectedArgs: true,
     additionalUsage: '<tree-path...>',

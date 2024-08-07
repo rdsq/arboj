@@ -3,10 +3,10 @@
  */
 export type Arg = {
     /** Name of the argument */
-    name: string,
+    name: string;
     /**
      * Is this argument required (would it cause an error if not provided)
      * @default false
      */
-    required?: boolean,
+    required?: boolean;
 };
