@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Fixed `treeGraphCommand` and `treeGraphOption`
+
 ## v3.0.0 2024-08-07
 
 - Updated tree graph command error message to include the command of the

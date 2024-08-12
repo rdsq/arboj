@@ -14,8 +14,8 @@ const treeGraphOption: Option = {
     name: 'tree',
     shortName: 't',
     description: 'Create a tree graph of a command',
-    standaloneHandler(event: ParsedStandaloneOption) {
-        const graph = treeGraph(
+    async standaloneHandler(event: ParsedStandaloneOption) {
+        const graph = await treeGraph(
             event.parsedCommand.command,
             event.parsedCommand.treePath,
         );

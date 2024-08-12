@@ -21,7 +21,7 @@ const treeGraphCommand: Command = {
         );
         const colored = !event.options['no-color'];
         console.log(
-            treeGraph(command, [event.appName, ...treePath], {
+            await treeGraph(command, [event.appName, ...treePath], {
                 colored: colored,
                 showHidden: Boolean(event.options['show-commands']),
                 showHiddenSubcommands: Boolean(
