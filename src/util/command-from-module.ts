@@ -2,6 +2,14 @@ import type { DynamicCommand } from '../../types.d.ts';
 
 /**
  * Add file exports as dynamic commands
+ * @example
+ * const cmdFrom = new CommandFromModule(import.meta);
+ * arboj({
+ *      handler: null,
+ *      subcommands: {
+ *          sub: cmdFrom.module('./sub.ts')
+ *      }
+ * }, '...');
  */
 export default class CommandFromModule {
     /**
