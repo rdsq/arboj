@@ -8,10 +8,10 @@ import CommandFromModule from './util/command-from-module.ts';
 
 export {
     argAsType,
+    CommandFromModule,
     countSubcommands,
     exitWithError,
     navigateSubcommands,
     resolveDynamic,
     treeGraph,
-    CommandFromModule,
 };

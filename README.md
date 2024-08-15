@@ -26,4 +26,5 @@ arboj({
 
 ## Why?
 
-Because I didn't like how other CLI libraries work, I'm not a fan of that functions-calling declaration pattern, so I made something different
+Because I didn't like how other CLI libraries work, I'm not a fan of that
+functions-calling declaration pattern, so I made something different

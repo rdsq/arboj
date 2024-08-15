@@ -21,7 +21,7 @@ export default class CommandFromModule {
                 const modulePath = this.importMeta.resolve(path);
                 const module = await import(modulePath);
                 return module[exportName];
-            }
+            },
         };
     }
 }
