@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Added `CommandFromModule` util
+
 ## v3.0.1 2024-08-15
 
 - Updated [README](./README.md)
