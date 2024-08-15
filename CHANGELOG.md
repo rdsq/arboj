@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## v3.0.2 2024-08-15
 
 - Added `CommandFromModule` util
 
