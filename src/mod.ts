@@ -10,5 +10,5 @@ export {
     /** Arboj types */
     type types,
     /** Arboj utilities, can be used with or without Arboj, depending on the util */
-    util
+    util,
 };
