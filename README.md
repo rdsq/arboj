@@ -1,4 +1,6 @@
-Arboj is a library for building command line apps, using object declarations,
+# Arboj
+
+It is a library for building command line apps, using object declarations,
 making its components reusable and readable
 
 ## Usage

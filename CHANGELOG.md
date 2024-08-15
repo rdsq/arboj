@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+- Updated [README](./README.md)
 - Fixed `treeGraphCommand` and `treeGraphOption`
 
 ## v3.0.0 2024-08-07
