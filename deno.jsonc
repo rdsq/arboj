@@ -9,7 +9,7 @@
     "imports": {
         "@rdsq/cross-utils": "jsr:@rdsq/cross-utils@^1.1.0"
     },
-    "version": "3.0.0",
+    "version": "3.0.1",
     "fmt": {
         "indentWidth": 4,
         "singleQuote": true
