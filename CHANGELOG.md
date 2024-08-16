@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Removed subcommand args count from help
+
 ## v3.0.2 2024-08-15
 
 - Added `CommandFromModule` util

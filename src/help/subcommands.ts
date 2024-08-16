@@ -23,10 +23,6 @@ export function renderCommandName(
     commandName: string,
 ): string {
     let name = commandName;
-    if (command.args && command.args.length > 0) {
-        // add args string
-        name += ` <${command.args.length}>`;
-    }
     return name;
 }
 
