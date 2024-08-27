@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - Removed subcommand args count from help
+- Fixed `argAsType` so it returns `undefined` when arg was not provided
 
 ## v3.0.2 2024-08-15
 
