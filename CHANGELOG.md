@@ -4,6 +4,7 @@
 
 - Removed subcommand args count from help
 - Fixed `argAsType` so it returns `undefined` when arg was not provided
+- Added `countSubcommandsCommand` to `std`
 
 ## v3.0.2 2024-08-15
 
