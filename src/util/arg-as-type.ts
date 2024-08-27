@@ -15,10 +15,10 @@ export type PossibleArgTypes = {
  * @returns Parsed value of this argument
  */
 export function argAsType(
-    arg: ParsedArg | undefined,
+    arg: ParsedArg,
     argType: keyof PossibleArgTypes,
 ): any {
-    if (arg === undefined) {
+    if (!arg?.value) {
         return undefined;
     }
     function error(typeName: string): never {
