@@ -12,11 +12,14 @@ import type { DynamicCommand } from '../../types.d.ts';
  * }, '...');
  */
 export default class CommandFromModule {
+    private expectFail: boolean;
     /**
      * Create the class
      * @param importMeta Literal `import.meta` of the file
      */
-    constructor(private importMeta: ImportMeta) {}
+    constructor(private importMeta: ImportMeta, options: { expectFail?: boolean } = {}) {
+        this.expectFail = options.expectFail ?? false;
+    }
 
     /**
      * Add a command from a file
@@ -26,9 +29,18 @@ export default class CommandFromModule {
     module(path: string, exportName: string = 'default'): DynamicCommand {
         return {
             dynamicLoader: async () => {
-                const modulePath = this.importMeta.resolve(path);
-                const module = await import(modulePath);
-                return module[exportName];
+                try {
+                    const modulePath = this.importMeta.resolve(path);
+                    const module = await import(modulePath);
+                    return module[exportName];
+                } catch (error) {
+                    if (this.expectFail) {
+                        return {
+                            handler: null,
+                            description: '(failed to load)',
+                        };
+                    } else throw error;
+                }
             },
         };
     }
